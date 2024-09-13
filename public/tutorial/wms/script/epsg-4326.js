@@ -1,10 +1,6 @@
-import {
-  epsg4326,
-} from '../../../leaflet-adapter/coordinate-reference-system/epsg-4326.js';
-import { map } from '../../../leaflet-adapter/map/map.js';
-import {
-  tileLayerWms,
-} from '../../../leaflet-adapter/tile-layer/web-map-service.js';
+import { epsg4326 } from '../../../leaflet-adapter/coordinate-reference-system/epsg-4326.js'
+import { map } from '../../../leaflet-adapter/map/map.js'
+import { tileLayerWms } from '../../../leaflet-adapter/tile-layer/web-map-service.js'
 
 tileLayerWms({
   baseUrl: 'https://ows.mundialis.de/services/service?',
@@ -15,4 +11,4 @@ tileLayerWms({
     id: 'map',
     zoom: 1,
   }),
-});
+})

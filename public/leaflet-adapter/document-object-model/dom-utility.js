@@ -1,1 +1,1 @@
-export { DomUtil as DomUtility } from '../../leaflet/leaflet-src.esm.js';
+export { DomUtil as DomUtility } from '../../leaflet/leaflet-src.esm.js'

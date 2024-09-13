@@ -1,9 +1,9 @@
-import { map } from '../../../leaflet-adapter/map/map.js';
-import { tileLayer } from '../../../leaflet-adapter/tile-layer/tile-layer.js';
+import { map } from '../../../leaflet-adapter/map/map.js'
+import { tileLayer } from '../../../leaflet-adapter/tile-layer/tile-layer.js'
 import {
   attributionCarto,
   urlTemplateCarto,
-} from '../../../script/base-layers.js';
+} from '../../../script/base-layers.js'
 
 tileLayer({
   attribution: attributionCarto,
@@ -15,4 +15,4 @@ tileLayer({
     zoomMin: 0,
   }),
   urlTemplate: urlTemplateCarto,
-});
+})
