@@ -1,5 +1,6 @@
 import {
   map as leafletMap,
+  type CRS,
   type Layer,
   type LeafletMouseEventHandlerFn,
   type Map,
@@ -12,9 +13,13 @@ export type MapOptions = LeafletMapOptions & {
   id: string | HTMLElement
 } & Partial<{
     activeLayers: Layer[]
+    crs: CRS
+    dragging: boolean
     onClick: LeafletMouseEventHandlerFn
+    zoomDelta: number
     zoomMax: number
     zoomMin: number
+    zoomSnap: number
   }>
 
 export function map({
