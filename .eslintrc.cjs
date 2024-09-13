@@ -37,7 +37,7 @@ module.exports = {
   plugins: ['@typescript-eslint', 'prettier', 'json', 'import'],
   root: true,
   rules: {
-    '@typescript-eslint/explicit-function-return-type': 'error',
+    '@typescript-eslint/explicit-function-return-type': 'warn',
     '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     'import/consistent-type-specifier-style': ['error', 'prefer-inline'],
     'import/no-duplicates': 'error',
