@@ -12,9 +12,13 @@ import {
 
 export type CircleOptions = CircleMarkerOptions & {
   latitudeLongitude: LatLngExpression
-  map?: Map | LayerGroup
-  popupContent?: ((layer: Layer) => Content) | Content | Popup
-}
+} & Partial<{
+    color: string
+    fillColor: string
+    fillOpacity: number
+    map: Map | LayerGroup
+    popupContent: ((layer: Layer) => Content) | Content | Popup
+  }>
 
 const defaultColor = '#3388ff'
 
