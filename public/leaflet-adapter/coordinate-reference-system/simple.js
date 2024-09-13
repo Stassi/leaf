@@ -1,5 +1,5 @@
-import { CRS } from '../../leaflet/leaflet-src.esm.js';
+import { CRS } from '../../leaflet/leaflet-src.esm.js'
 
-const { Simple: simple } = CRS;
+const { Simple: simple } = CRS
 
-export { simple };
+export { simple }

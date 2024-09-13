@@ -1,6 +1,7 @@
-import { map as leafletMap } from '../../../leaflet-adapter/map/map.js';
-import { setZoom } from '../../../leaflet-adapter/map/zoom.js';
-import { addCartoTileLayerWithZoomLevelControl } from './zoom.js';
+import { map as leafletMap } from '../../../leaflet-adapter/map/map.js'
+import { setZoom } from '../../../leaflet-adapter/map/zoom.js'
+
+import { addCartoTileLayerWithZoomLevelControl } from './zoom.js'
 
 const map = leafletMap({
   center: [0, 0],
@@ -10,32 +11,20 @@ const map = leafletMap({
   zoomMax: 1,
   zoomMin: 0,
   zoomSnap: 0.25,
-});
+})
 
-addCartoTileLayerWithZoomLevelControl(map);
+addCartoTileLayerWithZoomLevelControl(map)
 
 function zoomCycle() {
-  [
-    0,
-    0.25,
-    0.50,
-    0.75,
-    1.00,
-    0.75,
-    0.50,
-    0.25,
-  ].forEach((zoom, index) => {
-    setTimeout(
-      () => {
-        setZoom({
-          map,
-          zoom,
-        });
-      },
-      index * 1000,
-    );
-  });
+  ;[0, 0.25, 0.5, 0.75, 1.0, 0.75, 0.5, 0.25].forEach((zoom, index) => {
+    setTimeout(() => {
+      setZoom({
+        map,
+        zoom,
+      })
+    }, index * 1000)
+  })
 }
 
-zoomCycle();
-setInterval(zoomCycle, 8000);
+zoomCycle()
+setInterval(zoomCycle, 8000)

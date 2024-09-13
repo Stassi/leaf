@@ -1,7 +1,4 @@
-import {
-  icon,
-  marker as leafletMarker,
-} from '../leaflet/leaflet-src.esm.js';
+import { icon, marker as leafletMarker } from '../leaflet/leaflet-src.esm.js'
 
 export function marker({
   altText: alt = 'Marker',
@@ -10,19 +7,11 @@ export function marker({
   map,
   popupContent,
 }) {
-  const created = leafletMarker(
-    latitudeLongitude,
-    {
+  const created = leafletMarker(latitudeLongitude, {
       alt,
-      ...iconOptions
-        ? { icon: icon(iconOptions) }
-        : {}
-    },
-  ), prerendered = popupContent
-    ? created.bindPopup(popupContent)
-    : created;
+      ...(iconOptions ? { icon: icon(iconOptions) } : {}),
+    }),
+    prerendered = popupContent ? created.bindPopup(popupContent) : created
 
-  return map
-    ? prerendered.addTo(map)
-    : prerendered;
+  return map ? prerendered.addTo(map) : prerendered
 }

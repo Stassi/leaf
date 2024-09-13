@@ -1,4 +1,4 @@
-import { geoJSON as leafletGeoJson } from '../leaflet/leaflet-src.esm.js';
+import { geoJSON as leafletGeoJson } from '../leaflet/leaflet-src.esm.js'
 
 export function geoJson({
   data,
@@ -8,17 +8,12 @@ export function geoJson({
   pointToLayer,
   style,
 }) {
-  const created = leafletGeoJson(
-    data,
-    {
-      filter,
-      onEachFeature,
-      pointToLayer,
-      style,
-    },
-  );
+  const created = leafletGeoJson(data, {
+    filter,
+    onEachFeature,
+    pointToLayer,
+    style,
+  })
 
-  return map
-    ? created.addTo(map)
-    : created;
+  return map ? created.addTo(map) : created
 }

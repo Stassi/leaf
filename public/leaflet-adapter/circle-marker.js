@@ -1,6 +1,4 @@
-import {
-  circleMarker as leafletCircleMarker,
-} from '../leaflet/leaflet-src.esm.js';
+import { circleMarker as leafletCircleMarker } from '../leaflet/leaflet-src.esm.js'
 
 export function circleMarker({
   color,
@@ -11,15 +9,12 @@ export function circleMarker({
   radius,
   weight,
 }) {
-  return leafletCircleMarker(
-    latitudeLongitude,
-    {
-      color,
-      fillColor,
-      fillOpacity,
-      opacity,
-      radius,
-      weight,
-    },
-  );
+  return leafletCircleMarker(latitudeLongitude, {
+    color,
+    fillColor,
+    fillOpacity,
+    opacity,
+    radius,
+    weight,
+  })
 }

@@ -1,6 +1,3 @@
-export function fitBounds({
-  bounds,
-  map,
-}) {
-  return map.fitBounds(bounds);
+export function fitBounds({ bounds, map }) {
+  return map.fitBounds(bounds)
 }

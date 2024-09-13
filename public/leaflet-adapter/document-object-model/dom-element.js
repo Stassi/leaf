@@ -1,25 +1,19 @@
-import { DomUtility } from './dom-utility.js';
+import { DomUtility } from './dom-utility.js'
 
-export function domElement({
-  name,
-  style,
-}) {
-  const element = DomUtility.create(name);
+export function domElement({ name, style }) {
+  const element = DomUtility.create(name)
 
-  Object.assign(
-    element.style,
-    style,
-  );
+  Object.assign(element.style, style)
 
   return {
     appendChild(node) {
-      element.appendChild(node);
-      return node;
+      element.appendChild(node)
+      return node
     },
     element,
     setInnerHtml(innerHtml) {
-      element.innerHTML = innerHtml;
-      return innerHtml;
+      element.innerHTML = innerHtml
+      return innerHtml
     },
-  };
+  }
 }

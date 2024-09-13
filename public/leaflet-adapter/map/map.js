@@ -1,5 +1,5 @@
-import { map as leafletMap } from '../../leaflet/leaflet-src.esm.js';
-import { epsg3857 } from '../coordinate-reference-system/epsg-3857.js';
+import { map as leafletMap } from '../../leaflet/leaflet-src.esm.js'
+import { epsg3857 } from '../coordinate-reference-system/epsg-3857.js'
 
 export function map({
   activeLayers: layers,
@@ -7,8 +7,8 @@ export function map({
   crs = epsg3857,
   dragging = true,
   id,
-  onClick = () => {
-  },
+  // eslint-disable-next-line @typescript-eslint/no-empty-function -- default necessary
+  onClick = () => {},
   zoom,
   zoomDelta = 1,
   zoomMax: maxZoom,
@@ -25,8 +25,5 @@ export function map({
     zoom,
     zoomDelta,
     zoomSnap,
-  }).on(
-    'click',
-    onClick,
-  );
+  }).on('click', onClick)
 }

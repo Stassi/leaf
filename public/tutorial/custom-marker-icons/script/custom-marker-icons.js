@@ -1,24 +1,20 @@
-import { map as leafletMap } from '../../../leaflet-adapter/map/map.js';
-import { marker } from '../../../leaflet-adapter/marker.js';
-import { tileLayer } from '../../../leaflet-adapter/tile-layer/tile-layer.js';
-import {
-  attributionOsm,
-  urlTemplateOsm,
-} from '../../../script/base-layers.js';
+import { map as leafletMap } from '../../../leaflet-adapter/map/map.js'
+import { marker } from '../../../leaflet-adapter/marker.js'
+import { tileLayer } from '../../../leaflet-adapter/tile-layer/tile-layer.js'
+import { attributionOsm, urlTemplateOsm } from '../../../script/base-layers.js'
 
 const map = leafletMap({
   center: [51.5, -0.09],
   id: 'map',
   zoom: 13,
-});
+})
 
 tileLayer({
   attribution: attributionOsm,
   map,
   urlTemplate: urlTemplateOsm,
-});
-
-[
+})
+;[
   {
     iconUrl: 'image/green.png',
     latitudeLongitude: [51.5, -0.09],
@@ -33,12 +29,8 @@ tileLayer({
     iconUrl: 'image/red.png',
     latitudeLongitude: [51.495, -0.083],
     popupContent: 'I am a red leaf.',
-  }
-].forEach(({
-  iconUrl,
-  latitudeLongitude,
-  popupContent,
-}) => {
+  },
+].forEach(({ iconUrl, latitudeLongitude, popupContent }) => {
   marker({
     iconOptions: {
       iconAnchor: [22, 94],
@@ -52,5 +44,5 @@ tileLayer({
     latitudeLongitude,
     map,
     popupContent,
-  });
-});
+  })
+})

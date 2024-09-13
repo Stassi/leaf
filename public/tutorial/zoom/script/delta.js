@@ -1,5 +1,6 @@
-import { map } from '../../../leaflet-adapter/map/map.js';
-import { addCartoTileLayerWithZoomLevelControl } from './zoom.js';
+import { map } from '../../../leaflet-adapter/map/map.js'
+
+import { addCartoTileLayerWithZoomLevelControl } from './zoom.js'
 
 addCartoTileLayerWithZoomLevelControl(
   map({
@@ -10,5 +11,5 @@ addCartoTileLayerWithZoomLevelControl(
     zoomMax: 18,
     zoomMin: 0,
     zoomSnap: 0,
-  })
-);
+  }),
+)

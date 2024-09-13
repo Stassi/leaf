@@ -1,4 +1,4 @@
-import { circle as leafletCircle } from '../leaflet/leaflet-src.esm.js';
+import { circle as leafletCircle } from '../leaflet/leaflet-src.esm.js'
 
 export function circle({
   color = '#3388ff',
@@ -9,19 +9,15 @@ export function circle({
   popupContent,
   radius,
 }) {
-  const created = leafletCircle(
-    latitudeLongitude,
-    {
+  const created = leafletCircle(latitudeLongitude, {
       color,
       fillColor,
       fillOpacity,
       radius,
-    },
-  ), conditionallyRendered = map
-    ? created.addTo(map)
-    : created;
+    }),
+    conditionallyRendered = map ? created.addTo(map) : created
 
   return popupContent
     ? conditionallyRendered.bindPopup(popupContent)
-    : conditionallyRendered;
+    : conditionallyRendered
 }

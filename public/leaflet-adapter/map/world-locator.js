@@ -1,4 +1,4 @@
-import { map } from '../../leaflet/leaflet-src.esm.js';
+import { map } from '../../leaflet/leaflet-src.esm.js'
 
 export function worldLocator({
   id,
@@ -12,11 +12,7 @@ export function worldLocator({
     .locate({
       maxZoom,
       setView,
-    }).on(
-      'locationerror',
-      onLocateError,
-    ).on(
-      'locationfound',
-      onLocate,
-    )
+    })
+    .on('locationerror', onLocateError)
+    .on('locationfound', onLocate)
 }
