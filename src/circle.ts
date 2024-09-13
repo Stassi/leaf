@@ -10,7 +10,7 @@ import {
   type Popup,
 } from 'leaflet'
 
-type CircleOptions = CircleMarkerOptions & {
+export type CircleOptions = CircleMarkerOptions & {
   latitudeLongitude: LatLngExpression
   map?: Map | LayerGroup
   popupContent?: ((layer: Layer) => Content) | Content | Popup
