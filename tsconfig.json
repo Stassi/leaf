@@ -13,6 +13,7 @@
     "strict": true
   },
   "include": [
+    ".eslintrc.cjs",
     "src/**/*.ts"
   ],
   "exclude": [
