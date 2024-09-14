@@ -5,18 +5,10 @@
     "module": "ESNext",
     "moduleResolution": "node",
     "target": "ESNext",
-    "lib": [
-      "ESNext",
-      "DOM"
-    ],
+    "lib": ["ESNext", "DOM"],
     "esModuleInterop": true,
     "strict": true
   },
-  "include": [
-    ".eslintrc.cjs",
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": [".eslintrc.cjs", "src/**/*.ts"],
+  "exclude": ["node_modules"]
 }
