@@ -17,6 +17,15 @@ module.exports = {
   overrides: [
     {
       extends: [
+        'plugin:jsonc/base',
+        'plugin:jsonc/prettier',
+        'plugin:jsonc/recommended-with-json',
+      ],
+      files: ['*.json'],
+      parser: 'jsonc-eslint-parser',
+    },
+    {
+      extends: [
         resolveFileName('@vercel/style-guide/eslint/typescript'),
         'plugin:@typescript-eslint/recommended-requiring-type-checking',
         'plugin:@typescript-eslint/recommended-type-checked',
