@@ -1,6 +1,6 @@
 {
   "name": "@stassi/leaf",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "private": true,
   "description": "Leaflet adapter.",
   "keywords": [
