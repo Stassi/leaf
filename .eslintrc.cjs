@@ -11,11 +11,19 @@ module.exports = {
     resolveFileName('@vercel/style-guide/eslint/node'),
     'eslint:recommended',
     'plugin:import/recommended',
-    'plugin:json/recommended-legacy',
     'plugin:prettier/recommended',
   ],
   ignorePatterns: ['dist/'],
   overrides: [
+    {
+      extends: [
+        'plugin:jsonc/base',
+        'plugin:jsonc/prettier',
+        'plugin:jsonc/recommended-with-json',
+      ],
+      files: ['*.json'],
+      parser: 'jsonc-eslint-parser',
+    },
     {
       extends: [
         resolveFileName('@vercel/style-guide/eslint/typescript'),
@@ -49,7 +57,7 @@ module.exports = {
     },
     requireConfigFile: false,
   },
-  plugins: ['@typescript-eslint', 'prettier', 'json', 'import'],
+  plugins: ['@typescript-eslint', 'prettier', 'import'],
   root: true,
   rules: {
     'import/consistent-type-specifier-style': ['error', 'prefer-inline'],

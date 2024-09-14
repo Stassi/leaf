@@ -1,6 +1,6 @@
 {
   "name": "@stassi/leaf",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "private": true,
   "description": "Leaflet adapter.",
   "keywords": [
@@ -9,24 +9,25 @@
     "map"
   ],
   "homepage": "https://github.com/Stassi/leaf#readme",
-  "license": "MPL-2.0",
-  "author": "Andreas Stassivik <andreas@stassi.net>",
-  "type": "module",
-  "files": [
-    "dist"
-  ],
-  "exports": "./dist/index.js",
-  "types": "./dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Stassi/leaf.git"
   },
+  "license": "MPL-2.0",
+  "author": "Andreas Stassivik <andreas@stassi.net>",
+  "type": "module",
+  "exports": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "import:leaflet": "cpx \"node_modules/leaflet/dist/**/*\" public/leaflet",
     "import:leaflet:fullscreen": "cpx \"node_modules/leaflet-fullscreen/dist/**/*\" public/leaflet/fullscreen",
     "prestart": "npm run import:leaflet && npm run import:leaflet:fullscreen",
     "start": "serve public"
   },
+  "prettier": "@vercel/style-guide/prettier",
   "dependencies": {
     "cpx2": "^7.0.1",
     "leaflet": "^1.9.4",
@@ -43,7 +44,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-import-resolver-typescript": "^3.6.3",
     "eslint-plugin-import": "^2.30.0",
-    "eslint-plugin-json": "^4.0.1",
+    "eslint-plugin-jsonc": "^2.16.0",
     "eslint-plugin-prettier": "^5.2.1",
     "prettier": "3.3.3",
     "typescript": "^5.6.2"
@@ -58,6 +59,5 @@
   ],
   "cpu": [
     "x64"
-  ],
-  "prettier": "@vercel/style-guide/prettier"
+  ]
 }
