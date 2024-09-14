@@ -7,7 +7,7 @@ export function map({
   crs = epsg3857,
   dragging = true,
   id,
-  // eslint-disable-next-line @typescript-eslint/no-empty-function -- default necessary
+
   onClick = () => {},
   zoom,
   zoomDelta = 1,
