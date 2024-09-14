@@ -174,7 +174,6 @@ function map(id, options) {
   return new Map(id, options)
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-function -- empty handler required
 function createFullscreenMap({ center, id, onClick = () => {}, zoom }) {
   return leafletMap(id, {
     center,
