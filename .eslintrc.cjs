@@ -42,6 +42,13 @@ module.exports = {
       },
     },
   ],
+  parser: '@babel/eslint-parser',
+  parserOptions: {
+    babelOptions: {
+      plugins: ['@babel/plugin-syntax-import-attributes'],
+    },
+    requireConfigFile: false,
+  },
   plugins: ['@typescript-eslint', 'prettier', 'json', 'import'],
   root: true,
   rules: {
