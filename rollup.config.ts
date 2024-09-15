@@ -1,4 +1,5 @@
 import commonjs from '@rollup/plugin-commonjs'
+import terser from '@rollup/plugin-terser'
 import typescript from '@rollup/plugin-typescript'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import { type RollupOptions } from 'rollup'
@@ -18,6 +19,7 @@ const rollupConfig: RollupOptions = {
     typescript({
       exclude: ['rollup.config.ts'],
     }),
+    terser(),
   ],
 }
 
