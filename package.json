@@ -1,6 +1,6 @@
 {
   "name": "@stassi/leaf",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "private": true,
   "description": "Leaflet adapter.",
   "keywords": [
@@ -28,7 +28,7 @@
     "import:leaflet": "cpx \"node_modules/leaflet/dist/**/*\" public/leaflet",
     "import:leaflet:fullscreen": "cpx \"node_modules/leaflet-fullscreen/dist/**/*\" public/leaflet/fullscreen",
     "prestart": "npm run import:all",
-    "start": "serve public"
+    "start": "serve"
   },
   "prettier": "@vercel/style-guide/prettier",
   "dependencies": {
