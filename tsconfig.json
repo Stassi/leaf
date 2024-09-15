@@ -9,6 +9,6 @@
     "esModuleInterop": true,
     "strict": true
   },
-  "include": [".eslintrc.cjs", "src/**/*.ts"],
+  "include": ["rollup.config.ts", "src/**/*.ts"],
   "exclude": ["node_modules"]
 }
