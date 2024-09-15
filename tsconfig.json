@@ -1,6 +1,7 @@
 {
   "extends": "@vercel/style-guide/typescript/node20",
   "compilerOptions": {
+    "declaration": true,
     "outDir": "./dist",
     "module": "ESNext",
     "moduleResolution": "node",
