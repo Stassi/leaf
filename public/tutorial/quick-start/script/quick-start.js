@@ -1,11 +1,13 @@
-import { circle } from '../../../leaflet-adapter/circle.js'
-import { map as leafletMap } from '../../../leaflet-adapter/map/map.js'
-import { marker } from '../../../leaflet-adapter/marker.js'
-import { polygon } from '../../../leaflet-adapter/polygon.js'
-import { popup } from '../../../leaflet-adapter/popup.js'
-import { tileLayer } from '../../../leaflet-adapter/tile-layer/tile-layer.js'
-import { attributionOsm, urlTemplateOsm } from '../../../script/base-layers.js'
+import {
+  circle,
+  map as leafletMap,
+  marker,
+  polygon,
+  popup,
+  tileLayerOsm,
+} from '../../../leaf/index.js'
 
+// noinspection JSUnusedGlobalSymbols
 const map = leafletMap({
   center: [51.505, -0.09],
   id: 'map',
@@ -19,10 +21,8 @@ const map = leafletMap({
   zoom: 13,
 })
 
-tileLayer({
-  attribution: attributionOsm,
+tileLayerOsm({
   map,
-  urlTemplate: urlTemplateOsm,
   zoomMax: 19,
 })
 
