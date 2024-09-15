@@ -8,8 +8,14 @@
     "target": "ESNext",
     "lib": ["ESNext", "DOM"],
     "esModuleInterop": true,
-    "strict": true
+    "strict": true,
+    "allowJs": true,
+    "checkJs": true
   },
-  "include": ["rollup.config.ts", "src/**/*.ts"],
+  "include": [
+    "public/tutorial/quick-start/**/*.js",
+    "rollup.config.ts",
+    "src/**/*.ts"
+  ],
   "exclude": ["node_modules"]
 }
