@@ -1,6 +1,6 @@
 {
   "name": "@stassi/leaf",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "private": true,
   "description": "Leaflet adapter.",
   "keywords": [
@@ -29,6 +29,7 @@
   },
   "prettier": "@vercel/style-guide/prettier",
   "dependencies": {
+    "@types/leaflet": "^1.9.12",
     "cpx2": "^7.0.1",
     "leaflet": "^1.9.4",
     "leaflet-fullscreen": "^1.0.2",
