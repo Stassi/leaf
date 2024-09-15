@@ -159,4 +159,5 @@ $RECYCLE.BIN/
 .idea
 
 # Project
+public/leaf
 public/leaflet
