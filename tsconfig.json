@@ -16,7 +16,6 @@
   "include": [
     "public/tutorial/quick-start/**/*.js",
     "rollup.config.ts",
-    "src/**/*.js",
     "src/**/*.ts"
   ]
 }
