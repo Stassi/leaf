@@ -34,11 +34,14 @@
   },
   "prettier": "@vercel/style-guide/prettier",
   "jest": {
+    "globalSetup": "jest-environment-puppeteer/setup",
+    "globalTeardown": "jest-environment-puppeteer/teardown",
     "maxWorkers": 1,
     "preset": "jest-puppeteer",
     "setupFilesAfterEnv": [
       "expect-puppeteer"
-    ]
+    ],
+    "testEnvironment": "jest-environment-puppeteer"
   },
   "dependencies": {
     "@types/leaflet": "^1.9.12",
