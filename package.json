@@ -27,8 +27,10 @@
     "import:leaf": "npm run build && cpx \"dist/**/*\" public/leaf",
     "import:leaflet": "cpx \"node_modules/leaflet/dist/**/*\" public/leaflet",
     "import:leaflet:fullscreen": "cpx \"node_modules/leaflet-fullscreen/dist/**/*\" public/leaflet/fullscreen",
+    "serve": "serve",
     "prestart": "npm run import:all",
-    "start": "serve"
+    "start": "npm run serve",
+    "test": "jest --runInBand"
   },
   "prettier": "@vercel/style-guide/prettier",
   "dependencies": {
