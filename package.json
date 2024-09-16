@@ -28,7 +28,7 @@
     "import:leaf": "cpx \"dist/**/*\" public/leaf",
     "import:leaflet": "cpx \"node_modules/leaflet/dist/**/*\" public/leaflet",
     "import:leaflet:fullscreen": "cpx \"node_modules/leaflet-fullscreen/dist/**/*\" public/leaflet/fullscreen",
-    "lint": "eslint . --ext .cjs --ext .js --ext .json --ext .ts",
+    "lint": "eslint .",
     "serve": "serve",
     "prestart": "npm run build && npm run import:all",
     "start": "npm run serve",
