@@ -30,6 +30,7 @@
     "serve": "serve",
     "prestart": "npm run build && npm run import:all",
     "start": "npm run serve",
+    "pretest": "npm run build",
     "test": "jest"
   },
   "prettier": "@vercel/style-guide/prettier",
