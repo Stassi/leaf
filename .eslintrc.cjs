@@ -31,8 +31,10 @@ module.exports = {
       },
       plugins: ['jest'],
       rules: {
+        '@typescript-eslint/unbound-method': 'off',
         'jest/no-duplicate-hooks': 'error',
         'jest/prefer-lowercase-title': 'error',
+        'jest/unbound-method': 'error',
       },
     },
     {
