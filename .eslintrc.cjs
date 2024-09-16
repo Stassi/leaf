@@ -13,7 +13,7 @@ module.exports = {
     'plugin:import/recommended',
     'plugin:prettier/recommended',
   ],
-  ignorePatterns: ['dist/'],
+  ignorePatterns: ['*.d.ts', 'dist/'],
   overrides: [
     {
       env: {
