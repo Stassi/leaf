@@ -37,7 +37,7 @@
     "globalSetup": "jest-environment-puppeteer/setup",
     "globalTeardown": "jest-environment-puppeteer/teardown",
     "maxWorkers": 1,
-    "preset": "jest-puppeteer",
+    "preset": "ts-jest/presets/default-esm",
     "setupFilesAfterEnv": [
       "expect-puppeteer"
     ],
