@@ -81,5 +81,17 @@
   ],
   "cpu": [
     "x64"
-  ]
+  ],
+  "jest-puppeteer": {
+    "launch": {
+      "dumpio": true,
+      "headless": true
+    },
+    "server": {
+      "command": "npm run serve",
+      "debug": true,
+      "launchTimeout": 10000,
+      "port": 3000
+    }
+  }
 }
