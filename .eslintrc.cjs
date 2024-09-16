@@ -21,7 +21,7 @@ module.exports = {
         'jest/globals': true,
       },
       extends: ['plugin:jest/recommended'],
-      files: ['*.test.js'],
+      files: ['*.test.ts'],
       globals: {
         browser: true,
         context: true,
