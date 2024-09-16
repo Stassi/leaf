@@ -16,6 +16,28 @@ module.exports = {
   ignorePatterns: ['dist/'],
   overrides: [
     {
+      env: {
+        jest: true,
+        'jest/globals': true,
+      },
+      extends: ['plugin:jest/recommended'],
+      files: ['*.test.ts'],
+      globals: {
+        browser: true,
+        context: true,
+        jestPuppeteer: true,
+        page: true,
+        puppeteerConfig: true,
+      },
+      plugins: ['jest'],
+      rules: {
+        '@typescript-eslint/unbound-method': 'off',
+        'jest/no-duplicate-hooks': 'error',
+        'jest/prefer-lowercase-title': 'error',
+        'jest/unbound-method': 'error',
+      },
+    },
+    {
       extends: [
         'plugin:jsonc/base',
         'plugin:jsonc/prettier',
