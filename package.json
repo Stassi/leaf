@@ -30,10 +30,11 @@
     "serve": "serve",
     "prestart": "npm run import:all",
     "start": "npm run serve",
-    "test": "jest --runInBand"
+    "test": "jest"
   },
   "prettier": "@vercel/style-guide/prettier",
   "jest": {
+    "maxWorkers": 1,
     "preset": "jest-puppeteer",
     "setupFilesAfterEnv": [
       "expect-puppeteer"
