@@ -2,7 +2,7 @@
 
 describe('quick-start tutorial', () => {
   beforeAll(async () => {
-    await page.goto('http://localhost:3000/tutorial/quick-start/quick-start')
+    await page.goto('http://localhost:3001/tutorial/quick-start/quick-start')
   })
 
   it('should display the map correctly', async () => {
