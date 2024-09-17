@@ -8,7 +8,7 @@ const rollupConfig: RollupOptions = {
   input: 'src/index.ts',
   output: [
     {
-      file: 'dist/index.js',
+      file: 'dist/leaf.js',
       format: 'esm',
       sourcemap: true,
     },
