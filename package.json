@@ -25,7 +25,7 @@
     "build": "rollup -c rollup.config.ts --configPlugin typescript",
     "postbuild": "npm run import:all && npm run lint",
     "import:all": "npm run import:leaf && npm run import:leaflet && npm run import:leaflet:fullscreen",
-    "preimport:leaf": "shx mkdir -p public/leaf",
+    "preimport:leaf": "shx mv dist/index.d.ts dist/leaf.d.ts && shx mkdir -p public/leaf",
     "import:leaf": "shx cp -r dist/* public/leaf",
     "preimport:leaflet": "shx mkdir -p public/leaflet",
     "import:leaflet": "shx cp -r node_modules/leaflet/dist/* public/leaflet",
