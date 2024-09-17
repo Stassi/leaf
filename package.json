@@ -1,6 +1,6 @@
 {
   "name": "@stassi/leaf",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "private": true,
   "description": "Leaflet adapter.",
   "keywords": [
@@ -30,6 +30,7 @@
     "import:leaflet:fullscreen": "cpx \"node_modules/leaflet-fullscreen/dist/**/*\" public/leaflet/fullscreen",
     "lint": "eslint .",
     "serve": "serve",
+    "serve:test": "serve -p 3001",
     "prestart": "npm run build && npm run import:all",
     "start": "npm run serve",
     "pretest": "npm run build",
@@ -99,10 +100,10 @@
       "headless": true
     },
     "server": {
-      "command": "npm run serve",
+      "command": "npm run serve:test",
       "debug": true,
       "launchTimeout": 10000,
-      "port": 3000
+      "port": 3001
     }
   }
 }
