@@ -30,6 +30,7 @@
     "import:leaflet:fullscreen": "cpx \"node_modules/leaflet-fullscreen/dist/**/*\" public/leaflet/fullscreen",
     "lint": "eslint .",
     "serve": "serve",
+    "serve:test": "serve -p 3001",
     "prestart": "npm run build && npm run import:all",
     "start": "npm run serve",
     "pretest": "npm run build",
