@@ -5,7 +5,7 @@ import {
   polygon,
   popup,
   tileLayerOsm,
-} from '../../../leaf/index.js'
+} from '../../../leaf/leaf.js'
 
 // noinspection JSUnusedGlobalSymbols
 const map = leafletMap({
