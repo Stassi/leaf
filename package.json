@@ -32,6 +32,7 @@
     "preimport:leaflet:fullscreen": "shx mkdir -p public/leaflet/fullscreen",
     "import:leaflet:fullscreen": "shx cp -r node_modules/leaflet-fullscreen/dist/* public/leaflet/fullscreen",
     "lint": "eslint .",
+    "prepublishOnly": "npm test",
     "serve": "serve",
     "serve:test": "serve -p 3001",
     "prestart": "npm run build",
