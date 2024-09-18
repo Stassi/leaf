@@ -1,0 +1,29 @@
+name: npm publish
+
+on:
+  pull_request:
+    types: [ closed ]
+
+jobs:
+  publish-npm:
+    if: github.event.pull_request.merged
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repository checkout
+        uses: actions/checkout@v4
+
+      - name: Node.js setup
+        uses: actions/setup-node@v4
+        with:
+          cache: npm
+          cache-dependency-path: package-lock.json
+          node-version: 20.17.x
+
+      - name: Dependencies installation
+        run: npm ci
+
+      - env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        name: Publish to npm
+        run: npm publish
