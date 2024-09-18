@@ -95,6 +95,7 @@
     "win32"
   ],
   "cpu": [
+    "arm64",
     "x64"
   ],
   "jest-puppeteer": {
