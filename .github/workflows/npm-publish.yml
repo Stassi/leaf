@@ -19,6 +19,7 @@ jobs:
           cache: npm
           cache-dependency-path: package-lock.json
           node-version: 20.17.x
+          registry-url: https://registry.npmjs.org
 
       - name: Dependencies installation
         run: npm ci
