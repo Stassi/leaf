@@ -1,0 +1,33 @@
+name: Continuous integration
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main, feature/** ]
+
+jobs:
+  test:
+    name: Test
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        node-version: [ 18.20.x, 20.17.x ]
+        os: [ macos-latest, ubuntu-latest, windows-latest ]
+
+    steps:
+      - name: Repository checkout
+        uses: actions/checkout@v4
+
+      - name: Node.js setup ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          cache: 'npm'
+          node-version: ${{ matrix.node-version }}
+
+      - name: Dependencies installation
+        run: npm ci
+
+      - name: Test
+        run: npm test
