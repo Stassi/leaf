@@ -1,7 +1,6 @@
 {
   "name": "@stassi/leaf",
-  "version": "0.0.20",
-  "private": true,
+  "version": "0.0.21",
   "description": "Leaflet adapter.",
   "keywords": [
     "cartography",
@@ -100,6 +99,9 @@
     "arm64",
     "x64"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "jest-puppeteer": {
     "launch": {
       "dumpio": true,
