@@ -6,8 +6,7 @@ describe('quick-start tutorial', () => {
   })
 
   it('should display the map correctly', async () => {
-    const mapContainer = await page.$('#map')
-    expect(mapContainer).not.toBeNull()
+    expect(await page.$('#map')).not.toBeNull()
   })
 
   it('should display the popup "I am a standalone popup." when first loaded', async () => {
@@ -15,11 +14,8 @@ describe('quick-start tutorial', () => {
 
     await page.waitForSelector(leafletPopupContent)
 
-    const popupContent: string | null = await page.$eval(
-      leafletPopupContent,
-      ({ textContent }) => textContent,
-    )
-
-    expect(popupContent).toBe('I am a standalone popup.')
+    expect(
+      await page.$eval(leafletPopupContent, ({ textContent }) => textContent),
+    ).toBe('I am a standalone popup.')
   })
 })
