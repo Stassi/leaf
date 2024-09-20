@@ -10,7 +10,7 @@ describe('quick-start tutorial', () => {
     expect(await page.$('#map')).not.toBeNull()
   })
 
-  it('should display the popup "I am a standalone popup." when first loaded', async () => {
+  it('should display popup with text "I am a standalone popup." when first loaded', async () => {
     const leafletPopupContent = '.leaflet-popup-content'
 
     await page.waitForSelector(leafletPopupContent)
