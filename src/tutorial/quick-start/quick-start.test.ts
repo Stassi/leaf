@@ -1,4 +1,5 @@
 // noinspection JSUnresolvedReference
+import { type ElementHandle } from 'puppeteer'
 
 describe('quick-start tutorial', () => {
   beforeAll(async () => {
@@ -17,5 +18,23 @@ describe('quick-start tutorial', () => {
     expect(
       await page.$eval(leafletPopupContent, ({ textContent }) => textContent),
     ).toBe('I am a standalone popup.')
+  })
+
+  it('should display popup with text "I am a circle." when red circle is clicked', async () => {
+    const circle: ElementHandle<SVGPathElement> | null = await page.$(
+      'path.leaflet-interactive[stroke="red"]',
+    )
+    if (!circle) throw new Error('Circle element not found')
+    await circle.click()
+
+    await page.waitForFunction(
+      () =>
+        document.querySelector('.leaflet-popup-content')?.textContent ===
+        'I am a circle.',
+    )
+
+    expect(
+      await page.$eval('.leaflet-popup-content', (el) => el.textContent),
+    ).toBe('I am a circle.')
   })
 })
