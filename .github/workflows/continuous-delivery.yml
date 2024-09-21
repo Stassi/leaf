@@ -1,4 +1,4 @@
-name: npm publish
+name: Continuous delivery (CD)
 
 on:
   pull_request:
