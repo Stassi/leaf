@@ -28,6 +28,25 @@ describe('quick-start tutorial', () => {
       })
     })
 
+    describe('ui layer displays popup text on click', () => {
+      describe('marker in the Borough of Southwark, London', () => {
+        it('should display popup text "I am a popup."', async () => {
+          const element: ElementHandle | null = await page.$(
+            '.leaflet-marker-icon',
+          )
+          if (!element) throw new Error('Element not found.')
+
+          await element.click()
+
+          await page.waitForSelector('.leaflet-popup-content')
+
+          expect(
+            await page.$eval('.leaflet-popup-content', (el) => el.textContent),
+          ).toBe('I am a standalone popup.')
+        })
+      })
+    })
+
     describe('vector layers display popup text on click', () => {
       describe('red circle over South Bank district, Lambeth, London', () => {
         it('should display popup text "I am a circle."', async () => {
