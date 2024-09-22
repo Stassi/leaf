@@ -20,22 +20,24 @@ describe('quick-start tutorial', () => {
     ).toBe('I am a standalone popup.')
   })
 
-  it('should display popup with text "I am a circle." when red circle is clicked', async () => {
-    const circle: ElementHandle<SVGPathElement> | null = await page.$(
-      'path.leaflet-interactive[stroke="red"]',
-    )
-    if (!circle) throw new Error('Circle element not found')
-    await circle.click()
+  describe('red circle over South Bank district, Lambeth, London', () => {
+    it('should display popup with text "I am a circle." when clicked', async () => {
+      const element: ElementHandle<SVGPathElement> | null = await page.$(
+        'path.leaflet-interactive[stroke="red"]',
+      )
+      if (!element) throw new Error('Element not found.')
+      await element.click()
 
-    await page.waitForFunction(
-      () =>
-        document.querySelector('.leaflet-popup-content')?.textContent ===
-        'I am a circle.',
-    )
+      await page.waitForFunction(
+        () =>
+          document.querySelector('.leaflet-popup-content')?.textContent ===
+          'I am a circle.',
+      )
 
-    expect(
-      await page.$eval('.leaflet-popup-content', (el) => el.textContent),
-    ).toBe('I am a circle.')
+      expect(
+        await page.$eval('.leaflet-popup-content', (el) => el.textContent),
+      ).toBe('I am a circle.')
+    })
   })
 
   describe('blue polygon over London neighborhood Wapping', () => {
