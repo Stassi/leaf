@@ -37,4 +37,24 @@ describe('quick-start tutorial', () => {
       await page.$eval('.leaflet-popup-content', (el) => el.textContent),
     ).toBe('I am a circle.')
   })
+
+  describe('blue polygon over London neighborhood Wapping', () => {
+    it('should display popup with text "I am a polygon." when clicked', async () => {
+      const element: ElementHandle<SVGPathElement> | null = await page.$(
+        'path.leaflet-interactive[stroke="#3388ff"]',
+      )
+      if (!element) throw new Error('Element not found.')
+      await element.click()
+
+      await page.waitForFunction(
+        () =>
+          document.querySelector('.leaflet-popup-content')?.textContent ===
+          'I am a polygon.',
+      )
+
+      expect(
+        await page.$eval('.leaflet-popup-content', (el) => el.textContent),
+      ).toBe('I am a polygon.')
+    })
+  })
 })
