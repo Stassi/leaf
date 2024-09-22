@@ -10,14 +10,16 @@ describe('quick-start tutorial', () => {
     expect(await page.$('#map')).not.toBeNull()
   })
 
-  it('should display popup with text "I am a standalone popup." when first loaded', async () => {
-    const leafletPopupContent = '.leaflet-popup-content'
+  describe('standalone popup activated on initial page load', () => {
+    it('should display text "I am a standalone popup."', async () => {
+      const leafletPopupContent = '.leaflet-popup-content'
 
-    await page.waitForSelector(leafletPopupContent)
+      await page.waitForSelector(leafletPopupContent)
 
-    expect(
-      await page.$eval(leafletPopupContent, ({ textContent }) => textContent),
-    ).toBe('I am a standalone popup.')
+      expect(
+        await page.$eval(leafletPopupContent, ({ textContent }) => textContent),
+      ).toBe('I am a standalone popup.')
+    })
   })
 
   describe('red circle over South Bank district, Lambeth, London', () => {
