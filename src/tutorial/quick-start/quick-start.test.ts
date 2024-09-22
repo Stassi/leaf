@@ -7,22 +7,24 @@ describe('quick-start tutorial', () => {
   })
 
   describe('map', () => {
-    it('should display a Leaflet container on initial page load', async () => {
-      expect(await page.$('#map.leaflet-container')).not.toBeNull()
-    })
+    describe('on initial page load', () => {
+      it('should display a Leaflet container', async () => {
+        expect(await page.$('#map.leaflet-container')).not.toBeNull()
+      })
 
-    describe('standalone popup activated on initial page load', () => {
-      it('should display text "I am a standalone popup."', async () => {
-        const leafletPopupContent = '.leaflet-popup-content'
+      describe('standalone popup', () => {
+        it('should display text "I am a standalone popup."', async () => {
+          const leafletPopupContent = '.leaflet-popup-content'
 
-        await page.waitForSelector(leafletPopupContent)
+          await page.waitForSelector(leafletPopupContent)
 
-        expect(
-          await page.$eval(
-            leafletPopupContent,
-            ({ textContent }) => textContent,
-          ),
-        ).toBe('I am a standalone popup.')
+          expect(
+            await page.$eval(
+              leafletPopupContent,
+              ({ textContent }) => textContent,
+            ),
+          ).toBe('I am a standalone popup.')
+        })
       })
     })
 
