@@ -6,8 +6,10 @@ describe('quick-start tutorial', () => {
     await page.goto('http://localhost:3001/tutorial/quick-start/quick-start')
   })
 
-  it('should display the map correctly', async () => {
-    expect(await page.$('#map')).not.toBeNull()
+  describe('map', () => {
+    it('should display correctly', async () => {
+      expect(await page.$('#map')).not.toBeNull()
+    })
   })
 
   describe('standalone popup activated on initial page load', () => {
