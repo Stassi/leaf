@@ -7,8 +7,8 @@ describe('quick-start tutorial', () => {
   })
 
   describe('map', () => {
-    it('should display correctly', async () => {
-      expect(await page.$('#map')).not.toBeNull()
+    it('should display a Leaflet container on initial page load', async () => {
+      expect(await page.$('#map.leaflet-container')).not.toBeNull()
     })
 
     describe('standalone popup activated on initial page load', () => {
