@@ -31,7 +31,7 @@ describe('quick-start tutorial', () => {
     describe('element displays popup text on click', () => {
       describe('ui layer', () => {
         describe('marker in the Borough of Southwark, London', () => {
-          it('should display popup text "I am a popup."', async () => {
+          it('should display popup text "Hello world!I am a popup."', async () => {
             const element: ElementHandle | null = await page.$(
               '.leaflet-marker-icon',
             )
@@ -39,14 +39,18 @@ describe('quick-start tutorial', () => {
             if (!element) throw new Error('Element not found.')
             await element.click()
 
-            await page.waitForSelector('.leaflet-popup-content')
+            await page.waitForFunction(
+              () =>
+                document.querySelector('.leaflet-popup-content')
+                  ?.textContent === 'Hello world!I am a popup.',
+            )
 
             expect(
               await page.$eval(
                 '.leaflet-popup-content',
                 (el) => el.textContent,
               ),
-            ).toBe('I am a standalone popup.')
+            ).toBe('Hello world!I am a popup.')
           })
         })
       })
