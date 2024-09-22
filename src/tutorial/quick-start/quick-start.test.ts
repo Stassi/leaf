@@ -28,63 +28,74 @@ describe('quick-start tutorial', () => {
       })
     })
 
-    describe('ui layer displays popup text on click', () => {
-      describe('marker in the Borough of Southwark, London', () => {
-        it('should display popup text "I am a popup."', async () => {
-          const element: ElementHandle | null = await page.$(
-            '.leaflet-marker-icon',
-          )
-          if (!element) throw new Error('Element not found.')
+    describe('element displays popup text on click', () => {
+      describe('ui layer', () => {
+        describe('marker in the Borough of Southwark, London', () => {
+          it('should display popup text "I am a popup."', async () => {
+            const element: ElementHandle | null = await page.$(
+              '.leaflet-marker-icon',
+            )
+            if (!element) throw new Error('Element not found.')
 
-          await element.click()
+            await element.click()
 
-          await page.waitForSelector('.leaflet-popup-content')
+            await page.waitForSelector('.leaflet-popup-content')
 
-          expect(
-            await page.$eval('.leaflet-popup-content', (el) => el.textContent),
-          ).toBe('I am a standalone popup.')
-        })
-      })
-    })
-
-    describe('vector layers display popup text on click', () => {
-      describe('red circle over South Bank district, Lambeth, London', () => {
-        it('should display popup text "I am a circle."', async () => {
-          const element: ElementHandle<SVGPathElement> | null = await page.$(
-            'path.leaflet-interactive[stroke="red"]',
-          )
-          if (!element) throw new Error('Element not found.')
-          await element.click()
-
-          await page.waitForFunction(
-            () =>
-              document.querySelector('.leaflet-popup-content')?.textContent ===
-              'I am a circle.',
-          )
-
-          expect(
-            await page.$eval('.leaflet-popup-content', (el) => el.textContent),
-          ).toBe('I am a circle.')
+            expect(
+              await page.$eval(
+                '.leaflet-popup-content',
+                (el) => el.textContent,
+              ),
+            ).toBe('I am a standalone popup.')
+          })
         })
       })
 
-      describe('blue polygon over London neighborhood Wapping', () => {
-        it('should display popup text "I am a polygon."', async () => {
-          const element: ElementHandle<SVGPathElement> | null = await page.$(
-            'path.leaflet-interactive[stroke="#3388ff"]',
-          )
-          if (!element) throw new Error('Element not found.')
-          await element.click()
+      describe('vector layer', () => {
+        describe('red circle over South Bank district, Lambeth, London', () => {
+          it('should display popup text "I am a circle."', async () => {
+            const element: ElementHandle<SVGPathElement> | null = await page.$(
+              'path.leaflet-interactive[stroke="red"]',
+            )
+            if (!element) throw new Error('Element not found.')
+            await element.click()
 
-          await page.waitForFunction(
-            () =>
-              document.querySelector('.leaflet-popup-content')?.textContent ===
-              'I am a polygon.',
-          )
+            await page.waitForFunction(
+              () =>
+                document.querySelector('.leaflet-popup-content')
+                  ?.textContent === 'I am a circle.',
+            )
 
-          expect(
-            await page.$eval('.leaflet-popup-content', (el) => el.textContent),
-          ).toBe('I am a polygon.')
+            expect(
+              await page.$eval(
+                '.leaflet-popup-content',
+                (el) => el.textContent,
+              ),
+            ).toBe('I am a circle.')
+          })
+        })
+
+        describe('blue polygon over London neighborhood Wapping', () => {
+          it('should display popup text "I am a polygon."', async () => {
+            const element: ElementHandle<SVGPathElement> | null = await page.$(
+              'path.leaflet-interactive[stroke="#3388ff"]',
+            )
+            if (!element) throw new Error('Element not found.')
+            await element.click()
+
+            await page.waitForFunction(
+              () =>
+                document.querySelector('.leaflet-popup-content')
+                  ?.textContent === 'I am a polygon.',
+            )
+
+            expect(
+              await page.$eval(
+                '.leaflet-popup-content',
+                (el) => el.textContent,
+              ),
+            ).toBe('I am a polygon.')
+          })
         })
       })
     })
