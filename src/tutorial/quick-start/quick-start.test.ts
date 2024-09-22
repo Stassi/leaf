@@ -35,8 +35,8 @@ describe('quick-start tutorial', () => {
             const element: ElementHandle | null = await page.$(
               '.leaflet-marker-icon',
             )
-            if (!element) throw new Error('Element not found.')
 
+            if (!element) throw new Error('Element not found.')
             await element.click()
 
             await page.waitForSelector('.leaflet-popup-content')
@@ -57,6 +57,7 @@ describe('quick-start tutorial', () => {
             const element: ElementHandle<SVGPathElement> | null = await page.$(
               'path.leaflet-interactive[stroke="red"]',
             )
+
             if (!element) throw new Error('Element not found.')
             await element.click()
 
@@ -80,6 +81,7 @@ describe('quick-start tutorial', () => {
             const element: ElementHandle<SVGPathElement> | null = await page.$(
               'path.leaflet-interactive[stroke="#3388ff"]',
             )
+
             if (!element) throw new Error('Element not found.')
             await element.click()
 
