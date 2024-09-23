@@ -1,6 +1,6 @@
 {
   "name": "@stassi/leaf",
-  "version": "0.0.23",
+  "version": "0.0.24",
   "description": "Leaflet adapter.",
   "keywords": [
     "cartography",
@@ -81,6 +81,7 @@
     "jest-environment-puppeteer": "^10.1.1",
     "jest-puppeteer": "^10.1.1",
     "prettier": "3.3.3",
+    "puppeteer": "^23.4.0",
     "rollup": "^4.21.3",
     "shx": "^0.3.4",
     "ts-jest": "^29.2.5",
