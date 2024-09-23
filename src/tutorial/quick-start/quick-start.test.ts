@@ -8,8 +8,21 @@ describe('quick-start tutorial', () => {
 
   describe('map', () => {
     describe('on initial page load', () => {
-      it('should display a Leaflet container', async () => {
-        expect(await page.$('#map.leaflet-container')).not.toBeNull()
+      // eslint-disable-next-line jest/prefer-lowercase-title -- official case
+      describe('OpenStreetMap tiles', () => {
+        it('should render', async () => {
+          const selector = '.leaflet-tile-loaded'
+          await page.waitForSelector(selector)
+
+          const sources: (string | null)[] = await page.$$eval(
+            selector,
+            (tiles) => tiles.map((tile) => tile.getAttribute('src')),
+          )
+
+          sources.forEach((source: string | null) => {
+            expect(source).toMatch(/^https:\/\/tile\.openstreetmap\.org\//)
+          })
+        })
       })
 
       describe('standalone popup', () => {
@@ -23,22 +36,6 @@ describe('quick-start tutorial', () => {
               ({ textContent }) => textContent,
             ),
           ).toBe('I am a standalone popup.')
-        })
-      })
-    })
-
-    describe('tiles', () => {
-      it('should render from OpenStreetMap', async () => {
-        const selector = '.leaflet-tile-loaded'
-        await page.waitForSelector(selector)
-
-        const sources: (string | null)[] = await page.$$eval(
-          selector,
-          (tiles) => tiles.map((tile) => tile.getAttribute('src')),
-        )
-
-        sources.forEach((source: string | null) => {
-          expect(source).toMatch(/^https:\/\/tile\.openstreetmap\.org\//)
         })
       })
     })
