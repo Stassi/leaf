@@ -1,5 +1,5 @@
 // noinspection JSUnresolvedReference
-import { type ElementHandle } from 'puppeteer'
+import { type BoundingBox, type ElementHandle } from 'puppeteer'
 
 describe('quick-start tutorial', () => {
   beforeAll(async () => {
@@ -29,6 +29,29 @@ describe('quick-start tutorial', () => {
     })
 
     describe('element displays popup text on click', () => {
+      describe('map (element)', () => {
+        it('should display clicked coordinates', async () => {
+          const element: ElementHandle | null = await page.$('#map')
+          if (!element) throw new Error('Element not found.')
+
+          const boundingBox: BoundingBox | null = await element.boundingBox()
+          if (!boundingBox) throw new Error('Element bounding box not found.')
+
+          const { height, width, x, y }: BoundingBox = boundingBox
+          await page.mouse.click(x + width / 2, y + height / 2)
+
+          await page.waitForFunction(() =>
+            document
+              .querySelector('.leaflet-popup-content')
+              ?.textContent?.match(/^You clicked the map at LatLng\(.+\)$/),
+          )
+
+          expect(
+            await page.$eval('.leaflet-popup-content', (el) => el.textContent),
+          ).toMatch(/^You clicked the map at LatLng\(.+\)$/)
+        })
+      })
+
       describe('ui layer', () => {
         describe('marker in the Borough of Southwark, London', () => {
           it('should display popup text "Hello world!I am a popup."', async () => {
