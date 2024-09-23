@@ -27,6 +27,22 @@ describe('quick-start tutorial', () => {
       })
     })
 
+    describe('tiles', () => {
+      it('should render from OpenStreetMap', async () => {
+        const selector = '.leaflet-tile-loaded'
+        await page.waitForSelector(selector)
+
+        const sources: (string | null)[] = await page.$$eval(
+          selector,
+          (tiles) => tiles.map((tile) => tile.getAttribute('src')),
+        )
+
+        sources.forEach((source: string | null) => {
+          expect(source).toMatch(/^https:\/\/tile\.openstreetmap\.org\//)
+        })
+      })
+    })
+
     describe('element displays popup text on click', () => {
       describe('map (element)', () => {
         it('should display clicked coordinates', async () => {
