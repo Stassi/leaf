@@ -15,7 +15,6 @@ describe('quick-start tutorial', () => {
       describe('standalone popup', () => {
         it('should display text "I am a standalone popup."', async () => {
           const leafletPopupContent = '.leaflet-popup-content'
-
           await page.waitForSelector(leafletPopupContent)
 
           expect(
