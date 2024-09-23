@@ -27,14 +27,11 @@ describe('quick-start tutorial', () => {
 
       describe('standalone popup', () => {
         it('should display text "I am a standalone popup."', async () => {
-          const leafletPopupContent = '.leaflet-popup-content'
-          await page.waitForSelector(leafletPopupContent)
+          const selector = '.leaflet-popup-content'
+          await page.waitForSelector(selector)
 
           expect(
-            await page.$eval(
-              leafletPopupContent,
-              ({ textContent }) => textContent,
-            ),
+            await page.$eval(selector, ({ textContent }) => textContent),
           ).toBe('I am a standalone popup.')
         })
       })
