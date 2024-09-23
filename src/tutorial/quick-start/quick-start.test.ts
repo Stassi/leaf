@@ -11,11 +11,8 @@ describe('quick-start tutorial', () => {
       // eslint-disable-next-line jest/prefer-lowercase-title -- official case
       describe('OpenStreetMap tiles', () => {
         it('should render', async () => {
-          const selector = '.leaflet-tile-loaded'
-          await page.waitForSelector(selector)
-
           const sources: (string | null)[] = await page.$$eval(
-            selector,
+            '.leaflet-tile-loaded',
             (tiles) => tiles.map((tile) => tile.getAttribute('src')),
           )
 
@@ -27,11 +24,11 @@ describe('quick-start tutorial', () => {
 
       describe('standalone popup', () => {
         it('should display text "I am a standalone popup."', async () => {
-          const selector = '.leaflet-popup-content'
-          await page.waitForSelector(selector)
-
           expect(
-            await page.$eval(selector, ({ textContent }) => textContent),
+            await page.$eval(
+              '.leaflet-popup-content',
+              ({ textContent }) => textContent,
+            ),
           ).toBe('I am a standalone popup.')
         })
       })
