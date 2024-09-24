@@ -9,26 +9,73 @@ on:
     - cron: '25 16 * * 4'
 
 jobs:
-  snyk:
-    name: Snyk
-    runs-on: ubuntu-latest
-
-    permissions:
-      security-events: write
+  setup:
+    name: Setup
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node-version: [ 18.20.4, 20.17.0 ]
+        os: [ macos-latest, ubuntu-latest, windows-latest ]
 
     steps:
       - name: Repository checkout
         uses: actions/checkout@v4.1.7
 
-      - continue-on-error: true
+      - name: Node.js setup ${{ matrix.node-version }}
+        uses: actions/setup-node@v4.0.4
+        with:
+          cache: npm
+          cache-dependency-path: package-lock.json
+          node-version: ${{ matrix.node-version }}
+
+      - name: Dependencies installation
+        run: npm ci
+
+  codeql:
+    name: CodeQL
+    needs: setup
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node-version: [ 18.20.4, 20.17.0 ]
+        os: [ macos-latest, ubuntu-latest, windows-latest ]
+
+    steps:
+      - name: Test
+        run: npm test
+
+      - name: Initialization
+        uses: github/codeql-action/init@v3.26.9
+        with:
+          languages: 'javascript-typescript'
+
+      - name: Analysis
+        uses: github/codeql-action/analyze@v3.26.9
+        with:
+          category: "/language:javascript-typescript"
+
+      - name: Results upload
+        uses: github/codeql-action/upload-sarif@v3.26.9
+
+  snyk:
+    name: Snyk
+    needs: setup
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node-version: [ 18.20.4, 20.17.0 ]
+        os: [ macos-latest, ubuntu-latest, windows-latest ]
+
+    steps:
+      - name: Analysis
+        continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        name: Snyk vulnerabilities scan
         uses: snyk/actions/node@0.4.0
         with:
           args: --sarif-file-output=snyk.sarif
 
-      - name: SARIF upload to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@v3.26.8
+      - name: Results upload
+        uses: github/codeql-action/upload-sarif@v3.26.9
         with:
           sarif_file: snyk.sarif
