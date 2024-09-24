@@ -1,11 +1,15 @@
-name: Snyk security
+name: Security
 
 on: push
 
 jobs:
   security:
-    name: Security
+    name: Snyk
     runs-on: ubuntu-latest
+
+    permissions:
+      actions: read
+      security-events: write
 
     steps:
       - name: Repository checkout
