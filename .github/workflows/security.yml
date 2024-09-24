@@ -11,22 +11,18 @@ on:
 jobs:
   codeql:
     name: CodeQL
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        node-version: [ 18.20.4, 20.17.0 ]
-        os: [ macos-latest, ubuntu-latest, windows-latest ]
+    runs-on: ubuntu-latest
 
     steps:
       - name: Repository checkout
         uses: actions/checkout@v4.1.7
 
-      - name: Node.js setup ${{ matrix.node-version }}
+      - name: Node.js setup
         uses: actions/setup-node@v4.0.4
         with:
           cache: npm
           cache-dependency-path: package-lock.json
-          node-version: ${{ matrix.node-version }}
+          node-version: 18.20.4
 
       - name: Dependencies installation
         run: npm ci
@@ -49,22 +45,18 @@ jobs:
 
   snyk:
     name: Snyk
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        node-version: [ 18.20.4, 20.17.0 ]
-        os: [ macos-latest, ubuntu-latest, windows-latest ]
+    runs-on: ubuntu-latest
 
     steps:
       - name: Repository checkout
         uses: actions/checkout@v4.1.7
 
-      - name: Node.js setup ${{ matrix.node-version }}
+      - name: Node.js setup
         uses: actions/setup-node@v4.0.4
         with:
           cache: npm
           cache-dependency-path: package-lock.json
-          node-version: ${{ matrix.node-version }}
+          node-version: 18.20.4
 
       - name: Dependencies installation
         run: npm ci
