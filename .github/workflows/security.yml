@@ -1,0 +1,81 @@
+name: Security
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: '25 16 * * 4'
+
+jobs:
+  codeql:
+    name: CodeQL
+    permissions:
+      packages: read
+      security-events: write
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repository checkout
+        uses: actions/checkout@v4.1.7
+
+      - name: Node.js setup
+        uses: actions/setup-node@v4.0.4
+        with:
+          cache: npm
+          cache-dependency-path: package-lock.json
+          node-version: 18.20.4
+
+      - name: Dependencies installation
+        run: npm ci
+
+      - name: Test
+        run: npm test
+
+      - name: Initialization
+        uses: github/codeql-action/init@v3.26.9
+        with:
+          languages: 'javascript-typescript'
+
+      - name: Analysis
+        uses: github/codeql-action/analyze@v3.26.9
+
+      - name: Results upload
+        uses: github/codeql-action/upload-sarif@v3.26.9
+        with:
+          category: codeql-analysis
+
+  snyk:
+    name: Snyk
+    permissions:
+      security-events: write
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repository checkout
+        uses: actions/checkout@v4.1.7
+
+      - name: Node.js setup
+        uses: actions/setup-node@v4.0.4
+        with:
+          cache: npm
+          cache-dependency-path: package-lock.json
+          node-version: 18.20.4
+
+      - name: Dependencies installation
+        run: npm ci
+
+      - name: Analysis
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        uses: snyk/actions/node@0.4.0
+        with:
+          args: --sarif-file-output=snyk.sarif
+
+      - name: Results upload
+        uses: github/codeql-action/upload-sarif@v3.26.9
+        with:
+          category: snyk-analysis
+          sarif_file: snyk.sarif

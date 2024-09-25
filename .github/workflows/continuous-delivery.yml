@@ -14,14 +14,14 @@ jobs:
 
     steps:
       - name: Repository checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.1.7
 
       - name: Node.js setup
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v4.0.4
         with:
           cache: npm
           cache-dependency-path: package-lock.json
-          node-version: 20.17.x
+          node-version: 20.17.0
           registry-url: https://registry.npmjs.org
 
       - name: Dependencies installation
