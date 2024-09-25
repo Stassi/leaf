@@ -115,5 +115,8 @@
       "launchTimeout": 10000,
       "port": 3001
     }
+  },
+  "overrides": {
+    "path-to-regexp": "^3.3.0"
   }
 }
