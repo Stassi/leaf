@@ -11,6 +11,9 @@ on:
 jobs:
   codeql:
     name: CodeQL
+    permissions:
+      packages: read
+      security-events: write
     runs-on: ubuntu-latest
 
     steps:
