@@ -48,6 +48,8 @@ jobs:
 
   snyk:
     name: Snyk
+    permissions:
+      security-events: write
     runs-on: ubuntu-latest
 
     steps:
