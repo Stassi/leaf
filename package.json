@@ -1,6 +1,6 @@
 {
   "name": "@stassi/leaf",
-  "version": "0.0.30",
+  "version": "0.0.31",
   "description": "Leaflet adapter.",
   "keywords": [
     "cartography",
@@ -115,5 +115,8 @@
       "launchTimeout": 10000,
       "port": 3001
     }
+  },
+  "overrides": {
+    "path-to-regexp": "^3.3.0"
   }
 }
