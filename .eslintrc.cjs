@@ -71,6 +71,14 @@ module.exports = {
         ],
       },
     },
+    {
+      files: ['*.js', '*.ts'],
+      plugins: ['no-unsanitized'],
+      rules: {
+        'no-unsanitized/method': 'error',
+        'no-unsanitized/property': 'error',
+      },
+    },
   ],
   parser: '@babel/eslint-parser',
   parserOptions: {
