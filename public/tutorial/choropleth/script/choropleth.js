@@ -1,4 +1,5 @@
 /* eslint-disable no-nested-ternary -- copied from tutorial */
+/* eslint-disable no-unsanitized/property -- copied from tutorial */
 
 import { DomUtility } from '../../../leaflet-adapter/document-object-model/dom-utility.js'
 import { control } from '../../../leaflet-adapter/control/control.js'

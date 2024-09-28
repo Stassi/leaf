@@ -12,6 +12,7 @@ export function domElement({ name, style }) {
     },
     element,
     setInnerHtml(innerHtml) {
+      // eslint-disable-next-line no-unsanitized/property -- TODO: Sanitize input
       element.innerHTML = innerHtml
       return innerHtml
     },
