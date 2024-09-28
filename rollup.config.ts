@@ -14,8 +14,8 @@ const rollupConfig: RollupOptions = {
     },
   ],
   plugins: [
-    commonjs(),
     nodeResolve(),
+    commonjs(),
     typescript({
       exclude: ['rollup.config.ts'],
     }),
