@@ -1,0 +1,7 @@
+overrides:
+  sanitizers:
+    - name: PurifySanitizer
+      description: Sanitize using DOMPurify.sanitize or its Rollup-injected alias
+      methods:
+        - 'dompurify#sanitize'
+        - 'purify#sanitize'
