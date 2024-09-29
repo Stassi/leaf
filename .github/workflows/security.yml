@@ -36,6 +36,7 @@ jobs:
       - name: Initialization
         uses: github/codeql-action/init@v3.26.9
         with:
+          config-file: './codeql-config.yml'
           languages: 'javascript-typescript'
 
       - name: Analysis
