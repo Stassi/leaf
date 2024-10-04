@@ -1,4 +1,4 @@
-import DOMPurify from 'dompurify'
+import DOMPurify from '../../dompurify/purify.es.mjs'
 
 import { DomUtility } from './dom-utility.js'
 
