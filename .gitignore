@@ -159,5 +159,6 @@ $RECYCLE.BIN/
 .idea
 
 # Project
+public/dompurify
 public/leaf
 public/leaflet

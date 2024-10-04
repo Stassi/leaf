@@ -1,6 +1,6 @@
 /* eslint-disable no-nested-ternary -- copied from tutorial */
-/* eslint-disable no-unsanitized/property -- copied from tutorial */
 
+import DOMPurify from '../../../dompurify/purify.es.mjs'
 import { DomUtility } from '../../../leaflet-adapter/document-object-model/dom-utility.js'
 import { control } from '../../../leaflet-adapter/control/control.js'
 import { geoJson as leafletGeoJson } from '../../../leaflet-adapter/geo-json.js'
@@ -46,14 +46,18 @@ control({
   onAdd(_map) {
     const div = DomUtility.create('div', 'info legend')
 
-    div.innerHTML = grades
-      .map((grade, i) => {
-        const nextGrade = grades[i + 1],
-          color = getColor(grade + 1),
-          range = nextGrade ? `${grade}&ndash;${nextGrade}<br>` : `${grade}+`
-        return `<i style="background:${color}"></i> ${range}`
-      })
-      .join('')
+    /* eslint-disable-next-line no-unsanitized/property --
+       false positive if value wrapped in DOMPurify.sanitize(...) */
+    div.innerHTML = DOMPurify.sanitize(
+      grades
+        .map((grade, i) => {
+          const nextGrade = grades[i + 1],
+            color = getColor(grade + 1),
+            range = nextGrade ? `${grade}&ndash;${nextGrade}<br>` : `${grade}+`
+          return `<i style="background:${color}"></i> ${range}`
+        })
+        .join(''),
+    )
 
     return div
   },
@@ -70,11 +74,15 @@ const info = control({
       return this._div
     },
     update({ density, name } = {}) {
-      this._div.innerHTML = `<h4>US population density</h4>${
-        density && name
-          ? `<b>${name}</b><br />${density} people / mi<sup>2</sup>`
-          : 'Hover over a state'
-      }`
+      /* eslint-disable-next-line no-unsanitized/property --
+         false positive if value wrapped in DOMPurify.sanitize(...) */
+      this._div.innerHTML = DOMPurify.sanitize(
+        `<h4>US population density</h4>${
+          density && name
+            ? `<b>${name}</b><br />${density} people / mi<sup>2</sup>`
+            : 'Hover over a state'
+        }`,
+      )
     },
   }),
   geoJson = leafletGeoJson({
