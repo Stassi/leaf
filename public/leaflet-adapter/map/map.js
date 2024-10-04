@@ -7,7 +7,6 @@ export function map({
   crs = epsg3857,
   dragging = true,
   id,
-
   onClick = () => {},
   zoom,
   zoomDelta = 1,
