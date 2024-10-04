@@ -1,5 +1,3 @@
-/* eslint-disable no-nested-ternary -- copied from tutorial */
-
 import DOMPurify from '../../../dompurify/purify.es.mjs'
 import { DomUtility } from '../../../leaflet-adapter/document-object-model/dom-utility.js'
 import { control } from '../../../leaflet-adapter/control/control.js'
@@ -24,21 +22,14 @@ tileLayer({
 })
 
 function getColor(density) {
-  return density > grades[7]
-    ? '#800026'
-    : density > grades[6]
-      ? '#BD0026'
-      : density > grades[5]
-        ? '#E31A1C'
-        : density > grades[4]
-          ? '#FC4E2A'
-          : density > grades[3]
-            ? '#FD8D3C'
-            : density > grades[2]
-              ? '#FEB24C'
-              : density > grades[1]
-                ? '#FED976'
-                : '#FFEDA0'
+  if (density > grades[7]) return '#800026'
+  else if (density > grades[6]) return '#BD0026'
+  else if (density > grades[5]) return '#E31A1C'
+  else if (density > grades[4]) return '#FC4E2A'
+  else if (density > grades[3]) return '#FD8D3C'
+  else if (density > grades[2]) return '#FEB24C'
+  else if (density > grades[1]) return '#FED976'
+  return '#FFEDA0'
 }
 
 control({
