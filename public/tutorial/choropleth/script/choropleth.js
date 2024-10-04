@@ -1,7 +1,6 @@
 /* eslint-disable no-nested-ternary -- copied from tutorial */
 
-import DOMPurify from 'dompurify'
-
+import DOMPurify from '../../../dompurify/purify.es.mjs'
 import { DomUtility } from '../../../leaflet-adapter/document-object-model/dom-utility.js'
 import { control } from '../../../leaflet-adapter/control/control.js'
 import { geoJson as leafletGeoJson } from '../../../leaflet-adapter/geo-json.js'
