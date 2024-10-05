@@ -46,7 +46,7 @@ The following potential vulnerabilities were **resolved** after detection.
 - **Vulnerable package:** [rollup](https://www.npmjs.com/package/rollup)
 - **Detection time:** 2024-09-24 19:48
 - **Resolution time:** 2024-09-25 4:41
-- **Resolution pull request (PR):** [#30](https://github.com/Stassi/leaf/pull/30) (feature/rollup-4-22-4)
+- **Resolution version (`@stassi/leaf`):** [v0.0.30](https://github.com/Stassi/leaf/releases/tag/v0.0.30)
 - **CVSS (severity):** 8.3 (high)
 - **Advisory:** [GHSA-gcx4-mw62-g8wm](https://github.com/advisories/GHSA-gcx4-mw62-g8wm)
 - **CVE:** [CVE-2024-47068](https://nvd.nist.gov/vuln/detail/CVE-2024-47068)
@@ -62,7 +62,7 @@ The following potential vulnerabilities were **resolved** after detection.
   - **Dependabot**: 2024-09-24 19:48
   - **Snyk**: 2024-09-23 19:08
 - **Resolution time:** 2024-09-25 5:05
-- **Resolution pull request (PR):** [#31](https://github.com/Stassi/leaf/pull/31) (feature/path-to-regexp-3-3-0)
+- **Resolution version (`@stassi/leaf`):** [v0.0.31](https://github.com/Stassi/leaf/releases/tag/v0.0.31)
 - **CVSS (severity):**
   - **Dependabot**: 7.7 (high)
   - **Snyk**: 6.9 (medium)
@@ -78,9 +78,9 @@ The following potential vulnerabilities were **resolved** after detection.
 - **Vulnerable package:** [leaflet](https://www.npmjs.com/package/leaflet)
 - **Detection time:** 2024-09-24 16:03
 - **Resolution time:** 2024-10-04 03:17
-- **Resolution pull requests (PRs):**
-  - **#34**: [feature/sanitize-leaflet](https://github.com/Stassi/leaf/pull/34)
-  - **#37**: [feature/sanitize-tutorials-dom-xss](https://github.com/Stassi/leaf/pull/37)
+- **Resolution versions (`@stassi/leaf`):**
+  - [v0.0.34](https://github.com/Stassi/leaf/releases/tag/v0.0.34)
+  - [v0.0.37](https://github.com/Stassi/leaf/releases/tag/v0.0.37)
 - **CVSS (severity):** 6.1 (medium)
 - **Advisory:** [CodeQL js/html-constructed-from-input](https://codeql.github.com/codeql-query-help/javascript/js-html-constructed-from-input/)
 - **CWEs:**
