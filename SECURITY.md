@@ -56,7 +56,7 @@ The following potential vulnerabilities were **resolved** after detection.
 
 - **Detected by:** Dependabot & Snyk
 - **Vulnerable package:** [path-to-regexp](https://www.npmjs.com/package/path-to-regexp) (via [serve](https://www.npmjs.com/package/serve))
-- **Detection times:** September 24, 2024, at 19:48
+- **Detection times:**
   - **Dependabot**: 2024-09-24 19:48
   - **Snyk**: 2024-09-23 19:08
 - **Resolution time:** 2024-09-25 5:05
