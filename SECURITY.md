@@ -16,7 +16,7 @@ If you discover a **potential vulnerability in the `@stassi/leaf` codebase**, pl
 
 ## Maintenance
 
-[![Security](https://github.com/Stassi/leaf/actions/workflows/security.yml/badge.svg)](https://github.com/Stassi/leaf/actions/workflows/security.yml)
+[![Displays the pass-fail status of the project's automated security scans via GitHub Actions.](https://github.com/Stassi/leaf/actions/workflows/security.yml/badge.svg "automated security analysis status badge")](https://github.com/Stassi/leaf/actions/workflows/security.yml)
 
 Automated security scans are integrated into the [continuous delivery (CD)](https://en.wikipedia.org/wiki/Continuous_delivery) pipeline.
 
