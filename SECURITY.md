@@ -2,7 +2,7 @@
 
 ## Updates
 
-[![npm version](https://img.shields.io/npm/v/%40stassi%2Fleaf)](https://www.npmjs.com/package/@stassi/leaf)
+[![The project's latest version published to the npm registry.](https://img.shields.io/npm/v/%40stassi%2Fleaf "npm latest version badge")](https://www.npmjs.com/package/@stassi/leaf)
 
 **Always use the latest version of `@stassi/leaf`** via the `npm update` command ([documentation](https://docs.npmjs.com/cli/v10/commands/npm-update)) to ensure the latest security updates are received.
 
