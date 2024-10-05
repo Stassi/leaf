@@ -1,3 +1,5 @@
+import { type LeafletMouseEvent, type Map } from 'leaflet'
+
 import {
   circle,
   map as leafletMap,
@@ -5,15 +7,14 @@ import {
   polygon,
   popup,
   tileLayerOsm,
-} from '../../../leaf/leaf.js'
+} from '@stassi/leaf'
 
-// noinspection JSUnusedGlobalSymbols
-const map = leafletMap({
+const map: Map = leafletMap({
   center: [51.505, -0.09],
   id: 'map',
-  onClick: ({ latlng: latitudeLongitude }) => {
+  onClick: ({ latlng: latitudeLongitude }: LeafletMouseEvent): void => {
     popup({
-      htmlContent: `You clicked the map at ${latitudeLongitude}`,
+      htmlContent: `You clicked the map at ${latitudeLongitude.toString()}`,
       latitudeLongitude,
       map,
     })
