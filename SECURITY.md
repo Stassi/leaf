@@ -51,8 +51,8 @@ The following potential vulnerabilities were **resolved** after detection.
 - **Advisory:** [GHSA-gcx4-mw62-g8wm](https://github.com/advisories/GHSA-gcx4-mw62-g8wm)
 - **CVE:** [CVE-2024-47068](https://nvd.nist.gov/vuln/detail/CVE-2024-47068)
 - **CWEs:**
-  - [CWE-79](https://cwe.mitre.org/data/definitions/79.html) (Cross-site scripting (XSS))
-  - [CWE-116](https://cwe.mitre.org/data/definitions/116.html) (Improper encoding or escaping of output)
+  - **CWE-79**: [Cross-site scripting (XSS)](https://cwe.mitre.org/data/definitions/79.html)
+  - **CWE-116**: [Improper encoding or escaping of output](https://cwe.mitre.org/data/definitions/116.html)
 
 ### Regular expression denial of service (ReDoS) in `path-to-regexp`
 
@@ -79,10 +79,10 @@ The following potential vulnerabilities were **resolved** after detection.
 - **Detection time:** 2024-09-24 16:03
 - **Resolution time:** 2024-10-04 03:17
 - **Resolution pull requests (PRs):**
-  - [#34](https://github.com/Stassi/leaf/pull/34) (feature/sanitize-leaflet)
-  - [#37](https://github.com/Stassi/leaf/pull/37) (feature/sanitize-tutorials-dom-xss)
+  - **#34**: [feature/sanitize-leaflet](https://github.com/Stassi/leaf/pull/34)
+  - **#37**: [feature/sanitize-tutorials-dom-xss](https://github.com/Stassi/leaf/pull/37)
 - **CVSS (severity):** 6.1 (medium)
 - **Advisory:** [CodeQL js/html-constructed-from-input](https://codeql.github.com/codeql-query-help/javascript/js-html-constructed-from-input/)
 - **CWEs:**
-  - [CWE-79](https://cwe.mitre.org/data/definitions/79.html) (Cross-site scripting (XSS))
-  - [CWE-116](https://cwe.mitre.org/data/definitions/116.html) (Improper encoding or escaping of output)
+  - **CWE-79**: [Cross-site scripting (XSS)](https://cwe.mitre.org/data/definitions/79.html)
+  - **CWE-116**: [Improper encoding or escaping of output](https://cwe.mitre.org/data/definitions/116.html)
