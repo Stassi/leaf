@@ -50,7 +50,9 @@ The following potential vulnerabilities were **resolved** after detection.
 - **CVSS (severity):** 8.3 (high)
 - **Advisory:** [GHSA-gcx4-mw62-g8wm](https://github.com/advisories/GHSA-gcx4-mw62-g8wm)
 - **CVE:** [CVE-2024-47068](https://nvd.nist.gov/vuln/detail/CVE-2024-47068)
-- **CWEs:** [CWE-79](https://cwe.mitre.org/data/definitions/79.html) (Cross-site scripting (XSS)), [CWE-116](https://cwe.mitre.org/data/definitions/116.html) (Improper encoding or escaping of output)
+- **CWEs:**
+  - [CWE-79](https://cwe.mitre.org/data/definitions/79.html) (Cross-site scripting (XSS))
+  - [CWE-116](https://cwe.mitre.org/data/definitions/116.html) (Improper encoding or escaping of output)
 
 ### Regular expression denial of service (ReDoS) in `path-to-regexp`
 
@@ -81,4 +83,6 @@ The following potential vulnerabilities were **resolved** after detection.
   - [#37](https://github.com/Stassi/leaf/pull/37) (feature/sanitize-tutorials-dom-xss)
 - **CVSS (severity):** 6.1 (medium)
 - **Advisory:** [CodeQL js/html-constructed-from-input](https://codeql.github.com/codeql-query-help/javascript/js-html-constructed-from-input/)
-- **CWEs:** [CWE-79](https://cwe.mitre.org/data/definitions/79.html) (Cross-site scripting (XSS)), [CWE-116](https://cwe.mitre.org/data/definitions/116.html) (Improper encoding or escaping of output)
+- **CWEs:**
+  - [CWE-79](https://cwe.mitre.org/data/definitions/79.html) (Cross-site scripting (XSS))
+  - [CWE-116](https://cwe.mitre.org/data/definitions/116.html) (Improper encoding or escaping of output)
