@@ -37,6 +37,7 @@ const rollupConfig: RollupOptions[] = [
       typescript({
         declaration: true,
         exclude: ['rollup.config.ts', 'src/tutorial/**/*.ts'],
+        outDir: './dist',
       }),
       terser(),
     ],
