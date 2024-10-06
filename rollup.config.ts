@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import commonjs from '@rollup/plugin-commonjs'
 import inject from '@rollup/plugin-inject'
 import terser from '@rollup/plugin-terser'

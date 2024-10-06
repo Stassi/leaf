@@ -1,4 +1,3 @@
-// noinspection JSUnresolvedReference
 import { type BoundingBox, type ElementHandle } from 'puppeteer'
 
 describe('quick-start tutorial', () => {

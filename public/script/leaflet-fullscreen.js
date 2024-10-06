@@ -1,3 +1,5 @@
+// noinspection JSIgnoredPromiseFromCall, JSUnresolvedReference, JSUnusedGlobalSymbols
+
 import {
   Control,
   DomEvent,
