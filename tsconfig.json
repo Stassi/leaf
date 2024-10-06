@@ -13,7 +13,7 @@
     "strict": true,
     "target": "ESNext"
   },
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules", "public/tutorial/quick-start/dist/**/*.js"],
   "extends": "@vercel/style-guide/typescript/node20",
   "include": [
     "public/tutorial/quick-start/**/*.js",
