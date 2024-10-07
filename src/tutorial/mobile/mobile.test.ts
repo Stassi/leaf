@@ -30,29 +30,29 @@ describe('mobile tutorial', (): void => {
         })
       })
     })
-  })
 
-  describe('user location', (): void => {
-    describe('circle', (): void => {
-      it('should render', async (): Promise<void> => {
-        expect(await page.$('path.leaflet-interactive')).toBeDefined()
+    describe('layer', (): void => {
+      describe('circle', (): void => {
+        it('should render', async (): Promise<void> => {
+          expect(await page.$('path.leaflet-interactive')).toBeDefined()
+        })
       })
-    })
 
-    describe('marker', (): void => {
-      it('should render', async (): Promise<void> => {
-        expect(await page.$('.leaflet-marker-icon')).toBeDefined()
+      describe('marker', (): void => {
+        it('should render', async (): Promise<void> => {
+          expect(await page.$('.leaflet-marker-icon')).toBeDefined()
+        })
       })
-    })
 
-    describe('popup text', (): void => {
-      it('should display user location accuracy', async (): Promise<void> => {
-        expect(
-          await page.$eval(
-            '.leaflet-popup-content',
-            ({ textContent }: Element): Source => textContent,
-          ),
-        ).toBe('You are within 10 meters from this point.')
+      describe('popup text', (): void => {
+        it('should display user location accuracy', async (): Promise<void> => {
+          expect(
+            await page.$eval(
+              '.leaflet-popup-content',
+              ({ textContent }: Element): Source => textContent,
+            ),
+          ).toBe('You are within 10 meters from this point.')
+        })
       })
     })
   })
