@@ -1,13 +1,18 @@
 import { type ErrorEvent, type LocationEvent, type Map } from 'leaflet'
 
-import { circle, marker, tileLayerOsm, worldLocator } from '@stassi/leaf'
+import { circle, map as leafletMap, marker, tileLayerOsm } from '@stassi/leaf'
 
-const map: Map = worldLocator({
+const map: Map = leafletMap({
+  fitWorld: true,
   id: 'map',
+  locateOptions: {
+    maxZoom: 16,
+    setView: true,
+  },
   onLocate: ({
     accuracy: radius,
     latlng: latitudeLongitude,
-  }: LocationEvent) => {
+  }: LocationEvent): void => {
     circle({
       latitudeLongitude,
       map,
@@ -20,12 +25,10 @@ const map: Map = worldLocator({
       popupContent: `You are within ${radius.toString()} meters from this point.`,
     }).openPopup()
   },
-  onLocateError: ({ message }: ErrorEvent) => {
+  onLocateError: ({ message }: ErrorEvent): void => {
     // eslint-disable-next-line no-alert -- required by tutorial
     alert(message)
   },
-  setViewOnLocate: true,
-  zoomMaxOnLocate: 16,
 })
 
 tileLayerOsm({
