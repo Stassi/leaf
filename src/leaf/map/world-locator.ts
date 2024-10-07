@@ -24,12 +24,11 @@ export function worldLocator({
   zoomMaxOnLocate: maxZoom,
   ...props
 }: WorldLocatorMapOptions): Map {
-  return map({ fitWorld: true, id })
+  return map({ fitWorld: true, id, onLocateError })
     .locate({
       maxZoom,
       setView,
       ...props,
     })
-    .on('locationerror', onLocateError)
     .on('locationfound', onLocate)
 }
