@@ -7,7 +7,7 @@ const map: Map = worldLocator({
   onLocate: ({
     accuracy: radius,
     latlng: latitudeLongitude,
-  }: LocationEvent) => {
+  }: LocationEvent): void => {
     circle({
       latitudeLongitude,
       map,
@@ -20,7 +20,7 @@ const map: Map = worldLocator({
       popupContent: `You are within ${radius.toString()} meters from this point.`,
     }).openPopup()
   },
-  onLocateError: ({ message }: ErrorEvent) => {
+  onLocateError: ({ message }: ErrorEvent): void => {
     // eslint-disable-next-line no-alert -- required by tutorial
     alert(message)
   },
