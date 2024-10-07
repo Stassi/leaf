@@ -57,6 +57,19 @@ const rollupConfig: RollupOptions[] = [
     },
     plugins: [typescript(), terser()],
   },
+  {
+    external: ['@stassi/leaf'],
+    input: 'src/tutorial/mobile/mobile.ts',
+    output: {
+      file: 'public/tutorial/mobile/dist/mobile.js',
+      format: 'esm',
+      paths: {
+        '@stassi/leaf': '../../../leaf/leaf.js',
+      },
+      sourcemap: true,
+    },
+    plugins: [typescript(), terser()],
+  },
 ]
 
 // eslint-disable-next-line import/no-default-export -- default export required by Rollup.js
