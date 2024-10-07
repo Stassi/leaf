@@ -5,6 +5,7 @@ import {
   type FitBoundsOptions,
   type Layer,
   type LeafletMouseEventHandlerFn,
+  type LocateOptions,
   type LocationEventHandlerFn,
   type Map,
   type MapOptions as LeafletMapOptions,
@@ -20,6 +21,7 @@ export type MapOptions = LeafletMapOptions & {
     dragging: boolean
     fitWorld: boolean
     fitWorldOptions: FitBoundsOptions
+    locateOptions: LocateOptions
     onClick: LeafletMouseEventHandlerFn
     onLocate: LocationEventHandlerFn
     onLocateError: ErrorEventHandlerFn
@@ -36,6 +38,7 @@ export function map({
   fitWorld,
   fitWorldOptions = fitWorld ? {} : undefined,
   id: element,
+  locateOptions,
   onClick,
   onLocate,
   onLocateError,
@@ -61,9 +64,10 @@ export function map({
       : clickHandled,
     locationFoundHandled: Map = onLocate
       ? locationErrorHandled.on('locationfound', onLocate)
-      : locationErrorHandled
+      : locationErrorHandled,
+    located: Map = locateOptions
+      ? locationFoundHandled.locate(locateOptions)
+      : locationFoundHandled
 
-  return fitWorldOptions
-    ? locationFoundHandled.fitWorld(fitWorldOptions)
-    : locationFoundHandled
+  return fitWorldOptions ? located.fitWorld(fitWorldOptions) : located
 }
