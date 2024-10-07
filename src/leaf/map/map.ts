@@ -1,6 +1,7 @@
 import {
   map as leafletMap,
   type CRS,
+  type FitBoundsOptions,
   type Layer,
   type LeafletMouseEventHandlerFn,
   type Map,
@@ -15,6 +16,8 @@ export type MapOptions = LeafletMapOptions & {
     activeLayers: Layer[]
     crs: CRS
     dragging: boolean
+    fitWorld: boolean
+    fitWorldOptions: FitBoundsOptions
     onClick: LeafletMouseEventHandlerFn
     zoomDelta: number
     zoomMax: number
@@ -26,6 +29,8 @@ export function map({
   activeLayers: layers,
   crs = epsg3857,
   dragging = true,
+  fitWorld,
+  fitWorldOptions = fitWorld ? {} : undefined,
   id: element,
   onClick,
   zoomDelta = 1,
@@ -34,16 +39,17 @@ export function map({
   zoomSnap = 1,
   ...props
 }: MapOptions): Map {
-  const created = leafletMap(element, {
-    crs,
-    dragging,
-    layers,
-    maxZoom,
-    minZoom,
-    zoomDelta,
-    zoomSnap,
-    ...props,
-  })
+  const created: Map = leafletMap(element, {
+      crs,
+      dragging,
+      layers,
+      maxZoom,
+      minZoom,
+      zoomDelta,
+      zoomSnap,
+      ...props,
+    }),
+    clickHandled: Map = onClick ? created.on('click', onClick) : created
 
-  return onClick ? created.on('click', onClick) : created
+  return fitWorldOptions ? clickHandled.fitWorld(fitWorldOptions) : clickHandled
 }
