@@ -1,6 +1,7 @@
 import {
   map as leafletMap,
   type CRS,
+  type ErrorEventHandlerFn,
   type FitBoundsOptions,
   type Layer,
   type LeafletMouseEventHandlerFn,
@@ -19,6 +20,7 @@ export type MapOptions = LeafletMapOptions & {
     fitWorld: boolean
     fitWorldOptions: FitBoundsOptions
     onClick: LeafletMouseEventHandlerFn
+    onLocateError: ErrorEventHandlerFn
     zoomDelta: number
     zoomMax: number
     zoomMin: number
@@ -33,6 +35,7 @@ export function map({
   fitWorldOptions = fitWorld ? {} : undefined,
   id: element,
   onClick,
+  onLocateError,
   zoomDelta = 1,
   zoomMax: maxZoom,
   zoomMin: minZoom,
@@ -49,7 +52,12 @@ export function map({
       zoomSnap,
       ...props,
     }),
-    clickHandled: Map = onClick ? created.on('click', onClick) : created
+    clickHandled: Map = onClick ? created.on('click', onClick) : created,
+    locationErrorHandled: Map = onLocateError
+      ? clickHandled.on('locationerror', onLocateError)
+      : clickHandled
 
-  return fitWorldOptions ? clickHandled.fitWorld(fitWorldOptions) : clickHandled
+  return fitWorldOptions
+    ? locationErrorHandled.fitWorld(fitWorldOptions)
+    : locationErrorHandled
 }
