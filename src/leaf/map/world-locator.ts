@@ -7,12 +7,11 @@ import {
 
 import { map } from './map.js'
 
-export type WorldLocatorMapOptions = {
+export type WorldLocatorMapOptions = LocateOptions & {
   id: string | HTMLElement
   onLocate: LocationEventHandlerFn
   onLocateError: ErrorEventHandlerFn
-} & Omit<LocateOptions, 'maxZoom' | 'setView'> &
-  Partial<{
+} & Partial<{
     setViewOnLocate: boolean
     zoomMaxOnLocate: number
   }>
