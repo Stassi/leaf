@@ -24,8 +24,7 @@ export function worldLocator({
   zoomMaxOnLocate: maxZoom,
   ...props
 }: WorldLocatorMapOptions): Map {
-  return map({ id })
-    .fitWorld()
+  return map({ fitWorld: true, id })
     .locate({
       maxZoom,
       setView,
