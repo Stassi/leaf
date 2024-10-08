@@ -59,7 +59,7 @@ describe('quick-start tutorial', (): void => {
           expect(
             await page.$eval(
               '.leaflet-popup-content',
-              (el: Element): SourceQuickstart => el.textContent,
+              ({ textContent }: Element): SourceQuickstart => textContent,
             ),
           ).toMatch(/^You clicked the map at LatLng\(.+\)$/)
         })
@@ -85,7 +85,7 @@ describe('quick-start tutorial', (): void => {
               expect(
                 await page.$eval(
                   '.leaflet-popup-content',
-                  (el: Element): SourceQuickstart => el.textContent,
+                  ({ textContent }: Element): SourceQuickstart => textContent,
                 ),
               ).toBe('Hello world!I am a popup.')
             })
@@ -110,7 +110,7 @@ describe('quick-start tutorial', (): void => {
               expect(
                 await page.$eval(
                   '.leaflet-popup-content',
-                  (el: Element): SourceQuickstart => el.textContent,
+                  ({ textContent }: Element): SourceQuickstart => textContent,
                 ),
               ).toBe('I am a circle.')
             })
@@ -133,7 +133,7 @@ describe('quick-start tutorial', (): void => {
               expect(
                 await page.$eval(
                   '.leaflet-popup-content',
-                  (el: Element): SourceQuickstart => el.textContent,
+                  ({ textContent }: Element): SourceQuickstart => textContent,
                 ),
               ).toBe('I am a polygon.')
             })
