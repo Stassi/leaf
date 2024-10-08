@@ -1,6 +1,6 @@
 import { type BoundingBox, type ElementHandle } from 'puppeteer'
 
-type Source = string | null
+type SourceQuickstart = string | null
 
 describe('quick-start tutorial', (): void => {
   beforeAll(async (): Promise<void> => {
@@ -12,13 +12,15 @@ describe('quick-start tutorial', (): void => {
       // eslint-disable-next-line jest/prefer-lowercase-title -- official case
       describe('OpenStreetMap tiles', (): void => {
         it('should render', async (): Promise<void> => {
-          const sources: Source[] = await page.$$eval(
+          const sources: SourceQuickstart[] = await page.$$eval(
             '.leaflet-tile-loaded',
-            (tiles: Element[]): Source[] =>
-              tiles.map((tile: Element): Source => tile.getAttribute('src')),
+            (tiles: Element[]): SourceQuickstart[] =>
+              tiles.map(
+                (tile: Element): SourceQuickstart => tile.getAttribute('src'),
+              ),
           )
 
-          sources.forEach((source: Source): void => {
+          sources.forEach((source: SourceQuickstart): void => {
             expect(source).toMatch(/^https:\/\/tile\.openstreetmap\.org\//)
           })
         })
@@ -29,7 +31,7 @@ describe('quick-start tutorial', (): void => {
           expect(
             await page.$eval(
               '.leaflet-popup-content',
-              ({ textContent }: Element): Source => textContent,
+              ({ textContent }: Element): SourceQuickstart => textContent,
             ),
           ).toBe('I am a standalone popup.')
         })
@@ -57,7 +59,7 @@ describe('quick-start tutorial', (): void => {
           expect(
             await page.$eval(
               '.leaflet-popup-content',
-              (el: Element): Source => el.textContent,
+              (el: Element): SourceQuickstart => el.textContent,
             ),
           ).toMatch(/^You clicked the map at LatLng\(.+\)$/)
         })
@@ -83,7 +85,7 @@ describe('quick-start tutorial', (): void => {
               expect(
                 await page.$eval(
                   '.leaflet-popup-content',
-                  (el: Element): Source => el.textContent,
+                  (el: Element): SourceQuickstart => el.textContent,
                 ),
               ).toBe('Hello world!I am a popup.')
             })
@@ -108,7 +110,7 @@ describe('quick-start tutorial', (): void => {
               expect(
                 await page.$eval(
                   '.leaflet-popup-content',
-                  (el: Element): Source => el.textContent,
+                  (el: Element): SourceQuickstart => el.textContent,
                 ),
               ).toBe('I am a circle.')
             })
@@ -131,7 +133,7 @@ describe('quick-start tutorial', (): void => {
               expect(
                 await page.$eval(
                   '.leaflet-popup-content',
-                  (el: Element): Source => el.textContent,
+                  (el: Element): SourceQuickstart => el.textContent,
                 ),
               ).toBe('I am a polygon.')
             })

@@ -1,4 +1,4 @@
-type Source = string | null
+type SourceMobile = string | null
 
 describe('mobile tutorial', (): void => {
   beforeAll(async (): Promise<void> => {
@@ -22,10 +22,12 @@ describe('mobile tutorial', (): void => {
         ;(
           await page.$$eval(
             '.leaflet-tile-loaded',
-            (tiles: Element[]): Source[] =>
-              tiles.map((tile: Element): Source => tile.getAttribute('src')),
+            (tiles: Element[]): SourceMobile[] =>
+              tiles.map(
+                (tile: Element): SourceMobile => tile.getAttribute('src'),
+              ),
           )
-        ).forEach((source: Source): void => {
+        ).forEach((source: SourceMobile): void => {
           expect(source).toMatch(/^https:\/\/tile\.openstreetmap\.org\//)
         })
       })
@@ -49,7 +51,7 @@ describe('mobile tutorial', (): void => {
           expect(
             await page.$eval(
               '.leaflet-popup-content',
-              ({ textContent }: Element): Source => textContent,
+              ({ textContent }: Element): SourceMobile => textContent,
             ),
           ).toBe('You are within 10 meters from this point.')
         })
