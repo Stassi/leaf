@@ -12,15 +12,15 @@ describe('quick-start tutorial', (): void => {
       // eslint-disable-next-line jest/prefer-lowercase-title -- official case
       describe('OpenStreetMap tiles', (): void => {
         it('should render', async (): Promise<void> => {
-          const sources: SourceQuickstart[] = await page.$$eval(
-            '.leaflet-tile-loaded',
-            (tiles: Element[]): SourceQuickstart[] =>
-              tiles.map(
-                (tile: Element): SourceQuickstart => tile.getAttribute('src'),
-              ),
-          )
-
-          sources.forEach((source: SourceQuickstart): void => {
+          ;(
+            await page.$$eval(
+              '.leaflet-tile-loaded',
+              (tiles: Element[]): SourceQuickstart[] =>
+                tiles.map(
+                  (tile: Element): SourceQuickstart => tile.getAttribute('src'),
+                ),
+            )
+          ).forEach((source: SourceQuickstart): void => {
             expect(source).toMatch(/^https:\/\/tile\.openstreetmap\.org\//)
           })
         })
