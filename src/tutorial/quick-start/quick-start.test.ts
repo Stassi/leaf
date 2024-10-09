@@ -80,7 +80,7 @@ describe('quick-start tutorial', (): void => {
           },
           {
             category: 'vector',
-            description: 'blue polygon over London neighborhood Wapping',
+            description: 'blue polygon over Wapping neighborhood, London',
             popupText: 'I am a polygon.',
             selector: 'path.leaflet-interactive[stroke="#3388ff"]',
           },
