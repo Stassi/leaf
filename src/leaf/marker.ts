@@ -29,12 +29,14 @@ export function marker({
   popupContent,
   ...props
 }: MarkerOptions): Marker {
-  const created = leafletMarker(latitudeLongitude, {
+  const created: Marker = leafletMarker(latitudeLongitude, {
       alt,
       ...(iconOptions ? { icon: icon(iconOptions) } : {}),
       ...props,
     }),
-    prerendered = popupContent ? created.bindPopup(popupContent) : created
+    prerendered: Marker = popupContent
+      ? created.bindPopup(popupContent)
+      : created
 
   return map ? prerendered.addTo(map) : prerendered
 }

@@ -70,6 +70,19 @@ const rollupConfig: RollupOptions[] = [
     },
     plugins: [typescript(), terser()],
   },
+  {
+    external: ['@stassi/leaf'],
+    input: 'src/tutorial/custom-marker-icons/custom-marker-icons.ts',
+    output: {
+      file: 'public/tutorial/custom-marker-icons/dist/custom-marker-icons.js',
+      format: 'esm',
+      paths: {
+        '@stassi/leaf': '../../../leaf/leaf.js',
+      },
+      sourcemap: true,
+    },
+    plugins: [typescript(), terser()],
+  },
 ]
 
 // eslint-disable-next-line import/no-default-export -- default export required by Rollup.js
