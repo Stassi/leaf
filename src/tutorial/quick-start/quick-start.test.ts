@@ -1,4 +1,4 @@
-import { type BoundingBox, type ElementHandle } from 'puppeteer'
+import { type BoundingBox } from 'puppeteer'
 
 type SourceQuickstart = string | null
 
@@ -41,10 +41,9 @@ describe('quick-start tutorial', (): void => {
     describe('element displays popup text on click', (): void => {
       describe('map (element)', (): void => {
         it('should display clicked coordinates', async (): Promise<void> => {
-          const element: ElementHandle | null = await page.$('#map')
-          if (!element) throw new Error('Element not found.')
-
-          const boundingBox: BoundingBox | null = await element.boundingBox()
+          const boundingBox: BoundingBox | null | undefined = await (
+            await page.$('#map')
+          )?.boundingBox()
           if (!boundingBox) throw new Error('Element bounding box not found.')
 
           const { height, width, x, y }: BoundingBox = boundingBox
@@ -69,12 +68,7 @@ describe('quick-start tutorial', (): void => {
         describe('ui', (): void => {
           describe('marker in the Borough of Southwark, London', (): void => {
             it('should display popup text "Hello world!I am a popup."', async (): Promise<void> => {
-              const element: ElementHandle | null = await page.$(
-                '.leaflet-marker-icon',
-              )
-
-              if (!element) throw new Error('Element not found.')
-              await element.click()
+              await (await page.$('.leaflet-marker-icon'))?.click()
 
               await page.waitForFunction(
                 (): boolean =>
@@ -95,11 +89,9 @@ describe('quick-start tutorial', (): void => {
         describe('vector', (): void => {
           describe('red circle over South Bank district, Lambeth, London', (): void => {
             it('should display popup text "I am a circle."', async (): Promise<void> => {
-              const element: ElementHandle<SVGPathElement> | null =
+              await (
                 await page.$('path.leaflet-interactive[stroke="red"]')
-
-              if (!element) throw new Error('Element not found.')
-              await element.click()
+              )?.click()
 
               await page.waitForFunction(
                 (): boolean =>
@@ -118,11 +110,9 @@ describe('quick-start tutorial', (): void => {
 
           describe('blue polygon over London neighborhood Wapping', (): void => {
             it('should display popup text "I am a polygon."', async (): Promise<void> => {
-              const element: ElementHandle<SVGPathElement> | null =
+              await (
                 await page.$('path.leaflet-interactive[stroke="#3388ff"]')
-
-              if (!element) throw new Error('Element not found.')
-              await element.click()
+              )?.click()
 
               await page.waitForFunction(
                 (): boolean =>

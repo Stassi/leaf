@@ -1,5 +1,3 @@
-import { type ElementHandle } from 'puppeteer'
-
 type SourceCustomMarkerIcons = string | null
 
 describe('custom-marker-icons tutorial', (): void => {
@@ -49,12 +47,7 @@ describe('custom-marker-icons tutorial', (): void => {
           'src="$src"',
           ({ popupText, src }: { popupText: string; src: string }): void => {
             it(`should display popup text "${popupText}"`, async (): Promise<void> => {
-              const marker: ElementHandle<HTMLImageElement> | null =
-                await page.$(`img[src="${src}"]`)
-              if (!marker)
-                throw new Error(`Element with src="${src}" not found.`)
-
-              await marker.click()
+              await (await page.$(`img[src="${src}"]`))?.click()
 
               await page.waitForFunction(
                 (expectedText: string): boolean =>
