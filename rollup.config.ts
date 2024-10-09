@@ -48,10 +48,10 @@ const rollupConfig: RollupOptions[] = [
     external: ['@stassi/leaf'],
     input: 'src/tutorial/quick-start/quick-start.ts',
     output: {
-      file: 'public/tutorial/quick-start/dist/quick-start.js',
+      file: 'public/tutorial/quick-start/dist/script/quick-start.js',
       format: 'esm',
       paths: {
-        '@stassi/leaf': '../../../leaf/leaf.js',
+        '@stassi/leaf': '../../../../leaf/leaf.js',
       },
       sourcemap: true,
     },
@@ -61,10 +61,10 @@ const rollupConfig: RollupOptions[] = [
     external: ['@stassi/leaf'],
     input: 'src/tutorial/mobile/mobile.ts',
     output: {
-      file: 'public/tutorial/mobile/dist/mobile.js',
+      file: 'public/tutorial/mobile/dist/script/mobile.js',
       format: 'esm',
       paths: {
-        '@stassi/leaf': '../../../leaf/leaf.js',
+        '@stassi/leaf': '../../../../leaf/leaf.js',
       },
       sourcemap: true,
     },
@@ -74,10 +74,10 @@ const rollupConfig: RollupOptions[] = [
     external: ['@stassi/leaf'],
     input: 'src/tutorial/custom-marker-icons/custom-marker-icons.ts',
     output: {
-      file: 'public/tutorial/custom-marker-icons/dist/custom-marker-icons.js',
+      file: 'public/tutorial/custom-marker-icons/dist/script/custom-marker-icons.js',
       format: 'esm',
       paths: {
-        '@stassi/leaf': '../../../leaf/leaf.js',
+        '@stassi/leaf': '../../../../leaf/leaf.js',
       },
       sourcemap: true,
     },
