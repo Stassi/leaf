@@ -1,3 +1,5 @@
+import { type ElementHandle } from 'puppeteer'
+
 type SourceCustomMarkerIcons = string | null
 
 describe('custom-marker-icons tutorial', (): void => {
@@ -26,22 +28,49 @@ describe('custom-marker-icons tutorial', (): void => {
           })
         })
       })
+    })
 
+    describe('element displays popup text on click', (): void => {
       describe('markers with custom icons', (): void => {
-        describe.each(['green', 'orange', 'red'])(
-          'src="image/%s.png"',
-          (iconColor: string): void => {
-            it('should render', async (): Promise<void> => {
+        describe.each([
+          {
+            popupText: 'I am a green leaf.',
+            src: 'image/green.png',
+          },
+          {
+            popupText: 'I am an orange leaf.',
+            src: 'image/orange.png',
+          },
+          {
+            popupText: 'I am a red leaf.',
+            src: 'image/red.png',
+          },
+        ])(
+          'src="$src"',
+          ({ popupText, src }: { popupText: string; src: string }): void => {
+            it(`should display popup text "${popupText}"`, async (): Promise<void> => {
+              const marker: ElementHandle<HTMLImageElement> | null =
+                await page.$(`img[src="${src}"]`)
+              if (!marker)
+                throw new Error(`Element with src="${src}" not found.`)
+
+              await marker.click()
+
+              await page.waitForFunction(
+                (expectedText: string): boolean =>
+                  document.querySelector('.leaflet-popup-content')
+                    ?.textContent === expectedText,
+                {},
+                popupText,
+              )
+
               expect(
-                await page.$$eval(
-                  '.leaflet-marker-icon',
-                  (icons: Element[]): SourceCustomMarkerIcons[] =>
-                    icons.map(
-                      (icon: Element): SourceCustomMarkerIcons =>
-                        icon.getAttribute('src'),
-                    ),
+                await page.$eval(
+                  '.leaflet-popup-content',
+                  ({ textContent }: Element): SourceCustomMarkerIcons =>
+                    textContent,
                 ),
-              ).toContain(`image/${iconColor}.png`)
+              ).toBe(popupText)
             })
           },
         )
