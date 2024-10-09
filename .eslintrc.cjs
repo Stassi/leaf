@@ -70,6 +70,7 @@ module.exports = {
         tsconfigRootDir: __dirname,
       },
       rules: {
+        '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
         '@typescript-eslint/explicit-function-return-type': 'error',
         '@typescript-eslint/no-unused-vars': [
           'error',
