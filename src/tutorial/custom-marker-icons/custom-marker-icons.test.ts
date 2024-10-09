@@ -50,10 +50,10 @@ describe('custom-marker-icons tutorial', (): void => {
               await (await page.$(`img[src="${src}"]`))?.click()
 
               await page.waitForFunction(
-                (expectedText: string): boolean =>
+                (textContent: string): boolean =>
                   document.querySelector('.leaflet-popup-content')
-                    ?.textContent === expectedText,
-                {},
+                    ?.textContent === textContent,
+                undefined,
                 popupText,
               )
 
