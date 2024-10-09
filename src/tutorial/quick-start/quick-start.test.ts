@@ -65,15 +65,43 @@ describe('quick-start tutorial', (): void => {
       })
 
       describe('layer', (): void => {
-        describe('ui', (): void => {
-          describe('marker in the Borough of Southwark, London', (): void => {
-            it('should display popup text "Hello world!I am a popup."', async (): Promise<void> => {
-              await (await page.$('.leaflet-marker-icon'))?.click()
+        describe.each([
+          {
+            category: 'ui',
+            description: 'marker in the Borough of Southwark, London',
+            popupText: 'Hello world!I am a popup.',
+            selector: '.leaflet-marker-icon',
+          },
+          {
+            category: 'vector',
+            description: 'red circle over South Bank district, Lambeth, London',
+            popupText: 'I am a circle.',
+            selector: 'path.leaflet-interactive[stroke="red"]',
+          },
+          {
+            category: 'vector',
+            description: 'blue polygon over London neighborhood Wapping',
+            popupText: 'I am a polygon.',
+            selector: 'path.leaflet-interactive[stroke="#3388ff"]',
+          },
+        ])(
+          '[$category] $description',
+          ({
+            popupText,
+            selector,
+          }: Record<
+            'category' | 'description' | 'popupText' | 'selector',
+            string
+          >): void => {
+            it(`should display popup text "${popupText}"`, async (): Promise<void> => {
+              await (await page.$(selector))?.click()
 
               await page.waitForFunction(
-                (): boolean =>
+                (textContent: string): boolean =>
                   document.querySelector('.leaflet-popup-content')
-                    ?.textContent === 'Hello world!I am a popup.',
+                    ?.textContent === textContent,
+                undefined,
+                popupText,
               )
 
               expect(
@@ -81,54 +109,10 @@ describe('quick-start tutorial', (): void => {
                   '.leaflet-popup-content',
                   ({ textContent }: Element): SourceQuickstart => textContent,
                 ),
-              ).toBe('Hello world!I am a popup.')
+              ).toBe(popupText)
             })
-          })
-        })
-
-        describe('vector', (): void => {
-          describe('red circle over South Bank district, Lambeth, London', (): void => {
-            it('should display popup text "I am a circle."', async (): Promise<void> => {
-              await (
-                await page.$('path.leaflet-interactive[stroke="red"]')
-              )?.click()
-
-              await page.waitForFunction(
-                (): boolean =>
-                  document.querySelector('.leaflet-popup-content')
-                    ?.textContent === 'I am a circle.',
-              )
-
-              expect(
-                await page.$eval(
-                  '.leaflet-popup-content',
-                  ({ textContent }: Element): SourceQuickstart => textContent,
-                ),
-              ).toBe('I am a circle.')
-            })
-          })
-
-          describe('blue polygon over London neighborhood Wapping', (): void => {
-            it('should display popup text "I am a polygon."', async (): Promise<void> => {
-              await (
-                await page.$('path.leaflet-interactive[stroke="#3388ff"]')
-              )?.click()
-
-              await page.waitForFunction(
-                (): boolean =>
-                  document.querySelector('.leaflet-popup-content')
-                    ?.textContent === 'I am a polygon.',
-              )
-
-              expect(
-                await page.$eval(
-                  '.leaflet-popup-content',
-                  ({ textContent }: Element): SourceQuickstart => textContent,
-                ),
-              ).toBe('I am a polygon.')
-            })
-          })
-        })
+          },
+        )
       })
     })
   })
