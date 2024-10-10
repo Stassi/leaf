@@ -45,7 +45,7 @@ describe('custom-marker-icons tutorial', (): void => {
           },
         ])(
           'src="$src"',
-          ({ popupText, src }: { popupText: string; src: string }): void => {
+          ({ popupText, src }: Record<'popupText' | 'src', string>): void => {
             it(`should display popup text "${popupText}"`, async (): Promise<void> => {
               await (await page.$(`img[src="${src}"]`))?.click()
 
