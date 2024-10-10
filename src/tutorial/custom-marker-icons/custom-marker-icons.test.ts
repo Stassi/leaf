@@ -1,5 +1,3 @@
-type SourceCustomMarkerIcons = string | null
-
 describe('custom-marker-icons tutorial', (): void => {
   beforeAll(async (): Promise<void> => {
     await page.goto(
@@ -15,13 +13,12 @@ describe('custom-marker-icons tutorial', (): void => {
           ;(
             await page.$$eval(
               '.leaflet-tile-loaded',
-              (tiles: Element[]): SourceCustomMarkerIcons[] =>
-                tiles.map(
-                  (tile: Element): SourceCustomMarkerIcons =>
-                    tile.getAttribute('src'),
+              (tiles: Element[]): (string | null)[] =>
+                tiles.map((tile: Element): string | null =>
+                  tile.getAttribute('src'),
                 ),
             )
-          ).forEach((source: SourceCustomMarkerIcons): void => {
+          ).forEach((source: string | null): void => {
             expect(source).toMatch(/^https:\/\/tile\.openstreetmap\.org\//)
           })
         })
@@ -60,8 +57,7 @@ describe('custom-marker-icons tutorial', (): void => {
               expect(
                 await page.$eval(
                   '.leaflet-popup-content',
-                  ({ textContent }: Element): SourceCustomMarkerIcons =>
-                    textContent,
+                  ({ textContent }: Element): string | null => textContent,
                 ),
               ).toBe(popupText)
             })
