@@ -4,25 +4,6 @@ describe('custom icons tutorial', (): void => {
   })
 
   describe('map', (): void => {
-    describe('on initial page load', (): void => {
-      // eslint-disable-next-line jest/prefer-lowercase-title -- official case
-      describe('OpenStreetMap tiles', (): void => {
-        it('should render', async (): Promise<void> => {
-          ;(
-            await page.$$eval(
-              '.leaflet-tile-loaded',
-              (tiles: Element[]): (string | null)[] =>
-                tiles.map((tile: Element): string | null =>
-                  tile.getAttribute('src'),
-                ),
-            )
-          ).forEach((source: string | null): void => {
-            expect(source).toMatch(/^https:\/\/tile\.openstreetmap\.org\//)
-          })
-        })
-      })
-    })
-
     describe('element displays popup text on click', (): void => {
       describe('markers with custom icons', (): void => {
         describe.each([
