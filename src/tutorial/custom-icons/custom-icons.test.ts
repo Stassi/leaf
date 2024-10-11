@@ -1,8 +1,6 @@
-describe('custom-marker-icons tutorial', (): void => {
+describe('custom icons tutorial', (): void => {
   beforeAll(async (): Promise<void> => {
-    await page.goto(
-      'http://localhost:3001/tutorial/custom-marker-icons/custom-marker-icons',
-    )
+    await page.goto('http://localhost:3001/tutorial/custom-icons/custom-icons')
   })
 
   describe('map', (): void => {

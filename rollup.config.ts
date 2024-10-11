@@ -72,9 +72,9 @@ const rollupConfig: RollupOptions[] = [
   },
   {
     external: ['@stassi/leaf'],
-    input: 'src/tutorial/custom-marker-icons/custom-marker-icons.ts',
+    input: 'src/tutorial/custom-icons/custom-icons.ts',
     output: {
-      file: 'public/tutorial/custom-marker-icons/dist/script/custom-marker-icons.js',
+      file: 'public/tutorial/custom-icons/dist/script/custom-icons.js',
       format: 'esm',
       paths: {
         '@stassi/leaf': '../../../../leaf/leaf.js',

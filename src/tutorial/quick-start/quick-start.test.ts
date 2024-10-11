@@ -1,6 +1,6 @@
 import { type BoundingBox } from 'puppeteer'
 
-describe('quick-start tutorial', (): void => {
+describe('quick start tutorial', (): void => {
   beforeAll(async (): Promise<void> => {
     await page.goto('http://localhost:3001/tutorial/quick-start/quick-start')
   })
