@@ -1,6 +1,6 @@
-describe('accessible interactive tutorial', (): void => {
+describe('interactive accessibility tutorial', (): void => {
   beforeAll(async (): Promise<void> => {
-    await page.goto('http://localhost:3001/tutorial/accessible/interactive')
+    await page.goto('http://localhost:3001/tutorial/accessibility/interactive')
   })
 
   describe('map', (): void => {
