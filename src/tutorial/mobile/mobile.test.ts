@@ -15,15 +15,18 @@ describe('mobile tutorial', (): void => {
 
   describe('map', (): void => {
     describe('layer', (): void => {
-      describe('circle', (): void => {
+      describe.each([
+        {
+          name: 'circle',
+          selector: 'path.leaflet-interactive',
+        },
+        {
+          name: 'marker',
+          selector: '.leaflet-marker-icon',
+        },
+      ])('$name', ({ selector }: Record<'name' | 'selector', string>): void => {
         it('should render', async (): Promise<void> => {
-          expect(await page.$('path.leaflet-interactive')).toBeDefined()
-        })
-      })
-
-      describe('marker', (): void => {
-        it('should render', async (): Promise<void> => {
-          expect(await page.$('.leaflet-marker-icon')).toBeDefined()
+          expect(await page.$(selector)).toBeDefined()
         })
       })
 
