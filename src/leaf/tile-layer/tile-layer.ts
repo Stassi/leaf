@@ -1,5 +1,4 @@
 import {
-  tileLayer as leafletTileLayer,
   type LayerGroup,
   type Map,
   type TileLayer,
@@ -15,13 +14,13 @@ export type TileLayerOptions = {
   }
 >
 
-export function tileLayer({
+export async function tileLayer({
   map,
   urlTemplate,
   zoomMax: maxZoom = 18,
   ...props
-}: TileLayerOptions): TileLayer {
-  const created = leafletTileLayer(urlTemplate, {
+}: TileLayerOptions): Promise<TileLayer> {
+  const created: TileLayer = (await import('leaflet')).tileLayer(urlTemplate, {
     maxZoom,
     ...props,
   })

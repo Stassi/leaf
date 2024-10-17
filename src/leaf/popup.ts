@@ -1,5 +1,4 @@
 import {
-  popup as leafletPopup,
   type Content,
   type LatLngExpression,
   type Layer,
@@ -14,13 +13,14 @@ export type PopupOptions = Partial<LeafletPopupOptions> & {
   map: Map
 }
 
-export function popup({
+export async function popup({
   htmlContent,
   latitudeLongitude,
   map,
   ...props
-}: PopupOptions): Popup {
-  return leafletPopup(props)
+}: PopupOptions): Promise<Popup> {
+  return (await import('leaflet'))
+    .popup(props)
     .setLatLng(latitudeLongitude)
     .setContent(htmlContent)
     .openOn(map)

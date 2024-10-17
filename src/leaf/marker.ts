@@ -1,6 +1,4 @@
 import {
-  icon,
-  marker as leafletMarker,
   type Content,
   type IconOptions,
   type LatLngExpression,
@@ -21,17 +19,19 @@ export type MarkerOptions = LeafletMarkerOptions & {
     popupContent: ((layer: Layer) => Content) | Content | Popup
   }>
 
-export function marker({
+export async function marker({
   altText: alt = 'Marker',
   iconOptions,
   latitudeLongitude,
   map,
   popupContent,
   ...props
-}: MarkerOptions): Marker {
-  const created: Marker = leafletMarker(latitudeLongitude, {
+}: MarkerOptions): Promise<Marker> {
+  const created: Marker = (await import('leaflet')).marker(latitudeLongitude, {
       alt,
-      ...(iconOptions ? { icon: icon(iconOptions) } : {}),
+      ...(iconOptions
+        ? { icon: (await import('leaflet')).icon(iconOptions) }
+        : {}),
       ...props,
     }),
     prerendered: Marker = popupContent

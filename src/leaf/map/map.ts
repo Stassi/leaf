@@ -1,5 +1,4 @@
 import {
-  map as leafletMap,
   type CRS,
   type ErrorEventHandlerFn,
   type FitBoundsOptions,
@@ -10,8 +9,6 @@ import {
   type Map,
   type MapOptions as LeafletMapOptions,
 } from 'leaflet'
-
-import { epsg3857 } from '../coordinate-reference-system/epsg-3857.js'
 
 export type MapOptions = LeafletMapOptions & {
   id: string | HTMLElement
@@ -31,9 +28,9 @@ export type MapOptions = LeafletMapOptions & {
     zoomSnap: number
   }>
 
-export function map({
+export async function map({
   activeLayers: layers,
-  crs = epsg3857,
+  crs,
   dragging = true,
   fitWorld,
   fitWorldOptions = fitWorld ? {} : undefined,
@@ -47,9 +44,12 @@ export function map({
   zoomMin: minZoom,
   zoomSnap = 1,
   ...props
-}: MapOptions): Map {
-  const created: Map = leafletMap(element, {
-      crs,
+}: MapOptions): Promise<Map> {
+  const created: Map = (await import('leaflet')).map(element, {
+      crs: crs
+        ? crs
+        : (await import('../coordinate-reference-system/epsg-3857.js'))
+            .epsg3857,
       dragging,
       layers,
       maxZoom,

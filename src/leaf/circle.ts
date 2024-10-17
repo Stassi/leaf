@@ -1,5 +1,4 @@
 import {
-  circle as leafletCircle,
   type Circle,
   type CircleMarkerOptions,
   type Content,
@@ -22,7 +21,7 @@ export type CircleOptions = CircleMarkerOptions & {
 
 const defaultColor = '#3388ff'
 
-export function circle({
+export async function circle({
   color = defaultColor,
   fillColor = defaultColor,
   fillOpacity = 0.2,
@@ -30,14 +29,14 @@ export function circle({
   map,
   popupContent,
   ...props
-}: CircleOptions): Circle {
-  const created = leafletCircle(latitudeLongitude, {
+}: CircleOptions): Promise<Circle> {
+  const created: Circle = (await import('leaflet')).circle(latitudeLongitude, {
       color,
       fillColor,
       fillOpacity,
       ...props,
     }),
-    conditionallyRendered = map ? created.addTo(map) : created
+    conditionallyRendered: Circle = map ? created.addTo(map) : created
 
   return popupContent
     ? conditionallyRendered.bindPopup(popupContent)

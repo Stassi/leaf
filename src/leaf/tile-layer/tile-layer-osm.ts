@@ -7,7 +7,9 @@ export type TileLayerOsmOptions = Omit<
   'attribution' | 'urlTemplate'
 >
 
-export function tileLayerOsm({ ...props }: TileLayerOsmOptions): TileLayer {
+export async function tileLayerOsm({
+  ...props
+}: TileLayerOsmOptions): Promise<TileLayer> {
   return tileLayer({
     attribution:
       '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
