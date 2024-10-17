@@ -17,6 +17,7 @@ import typescript from '@rollup/plugin-typescript'
 // @ts-expect-error -- untyped plugin
 import untypedModify from 'rollup-plugin-modify'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
+import styles from 'rollup-plugin-styles'
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- untyped plugin
 const modify: (modifyOptions: {
@@ -29,7 +30,8 @@ const rollupConfig: RollupOptions[] = [
     input: 'src/index.ts',
     output: [
       {
-        file: 'dist/leaf.js',
+        dir: 'dist/',
+        entryFileNames: 'leaf.js',
         format: 'esm',
         sourcemap: true,
       },
@@ -57,19 +59,26 @@ const rollupConfig: RollupOptions[] = [
     external: ['@stassi/leaf'],
     input: 'src/tutorial/quick-start/quick-start.ts',
     output: {
-      dir: 'public/tutorial/quick-start/dist/',
-      entryFileNames: 'script/quick-start.js',
+      assetFileNames: 'style/[name][extname]',
+      chunkFileNames: 'script/[name]-[hash].js',
+      dir: 'public/tutorial/dist/',
+      entryFileNames: 'script/[name].js',
       format: 'esm',
-      paths: {
-        '@stassi/leaf': '../../../../leaf/leaf.js',
-      },
       sourcemap: true,
     },
     plugins: [
+      commonjs(),
+      nodeResolve(),
+      styles({
+        mode: 'extract',
+        sourceMap: true,
+        url: { hash: false, publicPath: '../assets/' },
+      }),
       typescript(),
       terser(),
       html({
         fileName: 'quick-start.html',
+        publicPath: './',
         template({
           attributes,
           files,
