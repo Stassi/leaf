@@ -3,12 +3,40 @@ import {
   type ErrorEventHandlerFn,
   type FitBoundsOptions,
   type Layer,
+  type LeafletMouseEvent,
   type LeafletMouseEventHandlerFn,
   type LocateOptions,
+  type LocationEvent,
   type LocationEventHandlerFn,
-  type Map,
+  type Map as LeafletMap,
   type MapOptions as LeafletMapOptions,
 } from 'leaflet'
+
+type OnClick =
+  | LeafletMouseEventHandlerFn
+  | ((event: LeafletMouseEvent) => Promise<void>)
+type OnLocate =
+  | LocationEventHandlerFn
+  | ((event: LocationEvent) => Promise<void>)
+
+export type Map = LeafletMap & {
+  on:
+    | ((
+        type:
+          | 'click'
+          | 'dblclick'
+          | 'mousedown'
+          | 'mouseup'
+          | 'mouseover'
+          | 'mouseout'
+          | 'mousemove'
+          | 'contextmenu'
+          | 'preclick',
+        fn: OnClick,
+        context?: unknown,
+      ) => void)
+    | ((type: 'locationfound', fn: OnLocate, context?: unknown) => void)
+}
 
 export type MapOptions = LeafletMapOptions & {
   id: string | HTMLElement
@@ -19,8 +47,8 @@ export type MapOptions = LeafletMapOptions & {
     fitWorld: boolean
     fitWorldOptions: FitBoundsOptions
     locateOptions: LocateOptions
-    onClick: LeafletMouseEventHandlerFn
-    onLocate: LocationEventHandlerFn
+    onClick: OnClick
+    onLocate: OnLocate
     onLocateError: ErrorEventHandlerFn
     zoomDelta: number
     zoomMax: number
