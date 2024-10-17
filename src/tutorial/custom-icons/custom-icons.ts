@@ -28,17 +28,17 @@ await (
 
 for (const { iconUrl, latitudeLongitude, popupContent } of <Icon[]>[
   {
-    iconUrl: 'tutorial/custom-icons/image/green.png',
+    iconUrl: '../custom-icons/image/green.png',
     latitudeLongitude: [51.5, -0.09],
     popupContent: 'I am a green leaf.',
   },
   {
-    iconUrl: 'tutorial/custom-icons/image/orange.png',
+    iconUrl: '../custom-icons/image/orange.png',
     latitudeLongitude: [51.49, -0.1],
     popupContent: 'I am an orange leaf.',
   },
   {
-    iconUrl: 'tutorial/custom-icons/image/red.png',
+    iconUrl: '../custom-icons/image/red.png',
     latitudeLongitude: [51.495, -0.083],
     popupContent: 'I am a red leaf.',
   },
@@ -53,7 +53,7 @@ for (const { iconUrl, latitudeLongitude, popupContent } of <Icon[]>[
       popupAnchor: [-3, -76],
       shadowAnchor: [4, 62],
       shadowSize: [50, 64],
-      shadowUrl: 'image/shadow.png',
+      shadowUrl: '../custom-icons/image/shadow.png',
     },
     latitudeLongitude,
     map,

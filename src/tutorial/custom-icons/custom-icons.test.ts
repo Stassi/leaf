@@ -9,15 +9,15 @@ describe('custom icons tutorial', (): void => {
         describe.each([
           {
             popupText: 'I am a green leaf.',
-            src: 'tutorial/custom-icons/image/green.png',
+            src: '../custom-icons/image/green.png',
           },
           {
             popupText: 'I am an orange leaf.',
-            src: 'tutorial/custom-icons/image/orange.png',
+            src: '../custom-icons/image/orange.png',
           },
           {
             popupText: 'I am a red leaf.',
-            src: 'tutorial/custom-icons/image/red.png',
+            src: '../custom-icons/image/red.png',
           },
         ])(
           'src="$src"',
