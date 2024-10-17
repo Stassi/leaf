@@ -1,37 +1,44 @@
-import { type ErrorEvent, type LocationEvent, type Map } from 'leaflet'
+import { type ErrorEvent, type LocationEvent } from 'leaflet'
 
-import { circle, map as leafletMap, marker, tileLayerOsm } from '@stassi/leaf'
+import {
+  circle,
+  map as leafletMap,
+  type Map,
+  marker,
+  tileLayerOsm,
+} from '@stassi/leaf'
 
-const map: Map = leafletMap({
+const map: Map = await leafletMap({
   fitWorld: true,
   id: 'map',
   locateOptions: {
     maxZoom: 16,
     setView: true,
   },
-  onLocate: ({
+  async onLocate({
     accuracy: radius,
     latlng: latitudeLongitude,
-  }: LocationEvent): void => {
-    circle({
+  }: LocationEvent): Promise<void> {
+    await circle({
       latitudeLongitude,
       map,
       radius,
     })
-
-    marker({
-      latitudeLongitude,
-      map,
-      popupContent: `You are within ${radius.toString()} meters from this point.`,
-    }).openPopup()
+    ;(
+      await marker({
+        latitudeLongitude,
+        map,
+        popupContent: `You are within ${radius.toString()} meters from this point.`,
+      })
+    ).openPopup()
   },
-  onLocateError: ({ message }: ErrorEvent): void => {
+  onLocateError({ message }: ErrorEvent): void {
     // eslint-disable-next-line no-alert -- required by tutorial
     alert(message)
   },
 })
 
-tileLayerOsm({
+await tileLayerOsm({
   map,
   zoomMax: 19,
 })

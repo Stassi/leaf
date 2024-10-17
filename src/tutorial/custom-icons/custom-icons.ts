@@ -1,6 +1,6 @@
-import { type LatLngExpression, type Map } from 'leaflet'
+import { type LatLngExpression } from 'leaflet'
 
-import { map as leafletMap, marker, tileLayerOsm } from '@stassi/leaf'
+import { map as leafletMap, type Map, marker, tileLayerOsm } from '@stassi/leaf'
 
 type Icon = {
   iconUrl: string
@@ -8,35 +8,34 @@ type Icon = {
   popupContent: string
 }
 
-const map: Map = leafletMap({
-    center: [51.5, -0.09],
-    id: 'map',
-    zoom: 13,
-  }),
-  icons = <Icon[]>[
-    {
-      iconUrl: 'image/green.png',
-      latitudeLongitude: [51.5, -0.09],
-      popupContent: 'I am a green leaf.',
-    },
-    {
-      iconUrl: 'image/orange.png',
-      latitudeLongitude: [51.49, -0.1],
-      popupContent: 'I am an orange leaf.',
-    },
-    {
-      iconUrl: 'image/red.png',
-      latitudeLongitude: [51.495, -0.083],
-      popupContent: 'I am a red leaf.',
-    },
-  ]
+const map: Map = await leafletMap({
+  center: [51.5, -0.09],
+  id: 'map',
+  zoom: 13,
+})
 
-tileLayerOsm({
+await tileLayerOsm({
   map,
 })
 
-icons.forEach(({ iconUrl, latitudeLongitude, popupContent }: Icon): void => {
-  marker({
+for (const { iconUrl, latitudeLongitude, popupContent } of <Icon[]>[
+  {
+    iconUrl: 'image/green.png',
+    latitudeLongitude: [51.5, -0.09],
+    popupContent: 'I am a green leaf.',
+  },
+  {
+    iconUrl: 'image/orange.png',
+    latitudeLongitude: [51.49, -0.1],
+    popupContent: 'I am an orange leaf.',
+  },
+  {
+    iconUrl: 'image/red.png',
+    latitudeLongitude: [51.495, -0.083],
+    popupContent: 'I am a red leaf.',
+  },
+]) {
+  await marker({
     iconOptions: {
       iconAnchor: [22, 94],
       iconSize: [38, 95],
@@ -50,4 +49,4 @@ icons.forEach(({ iconUrl, latitudeLongitude, popupContent }: Icon): void => {
     map,
     popupContent,
   })
-})
+}
