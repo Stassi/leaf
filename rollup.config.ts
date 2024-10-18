@@ -120,17 +120,76 @@ const rollupConfig: RollupOptions[] = [
     ],
   },
   {
-    external: ['@stassi/leaf'],
     input: 'src/tutorial/mobile/mobile.ts',
     output: {
-      file: 'public/tutorial/mobile/dist/script/mobile.js',
+      assetFileNames: 'style/[name][extname]',
+      chunkFileNames: 'script/[name]-[hash].js',
+      dir: 'public/tutorial/dist/',
+      entryFileNames: 'script/[name].js',
       format: 'esm',
-      paths: {
-        '@stassi/leaf': '../../../../leaf/leaf.js',
-      },
       sourcemap: true,
     },
-    plugins: [typescript(), terser()],
+    plugins: [
+      commonjs(),
+      nodeResolve(),
+      styles({
+        mode: 'extract',
+        sourceMap: true,
+        url: { hash: false, publicPath: '../assets/' },
+      }),
+      typescript(),
+      terser(),
+      html({
+        fileName: 'mobile.html',
+        meta: [
+          { charset: 'utf-8' },
+          {
+            content:
+              'initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width',
+            name: 'viewport',
+          },
+        ],
+        publicPath: './',
+        template({
+          attributes,
+          files,
+          meta,
+          publicPath,
+          title,
+        }: RollupHtmlTemplateOptions): string {
+          return `
+            <!DOCTYPE html>
+            <html${makeHtmlAttributes(<Record<string, string>>attributes.html)}>
+            <head>
+              ${meta
+                .map(
+                  (input: Record<string, string>): string =>
+                    `<meta${makeHtmlAttributes(input)}>`,
+                )
+                .join('\n')}
+              <title>${title}</title>
+              ${(files.css ?? [])
+                .map(
+                  ({ fileName }: OutputChunk | OutputAsset): string =>
+                    `<link href="${publicPath}${fileName}" rel="stylesheet"${makeHtmlAttributes(<Record<string, string>>attributes.link)}>`,
+                )
+                .join('\n')}
+            </head>
+            <body>
+              <div id="map"></div>
+              ${(files.js ?? [])
+                .map(
+                  ({ fileName }: OutputChunk | OutputAsset): string =>
+                    `<script src="${publicPath}${fileName}"${makeHtmlAttributes(<Record<string, string>>attributes.script)}></script>`,
+                )
+                .join('\n')}
+            </body>
+            </html>
+          `
+        },
+        title: 'Markers With Custom Icons',
+      }),
+    ],
   },
   {
     input: 'src/tutorial/custom-icons/custom-icons.ts',

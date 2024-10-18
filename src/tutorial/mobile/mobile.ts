@@ -1,14 +1,12 @@
-import { type ErrorEvent, type LocationEvent } from 'leaflet'
+import 'leaflet/dist/leaflet.css'
+import '../style/theme.css'
+import '../style/fullscreen.css'
 
-import {
-  circle,
-  map as leafletMap,
-  type Map,
-  marker,
-  tileLayerOsm,
-} from '@stassi/leaf'
+import { type ErrorEvent, type LocationEvent, type Map } from '@stassi/leaf'
 
-const map: Map = await leafletMap({
+const map: Map = await (
+  await import('../../leaf/map/map.js')
+).map({
   fitWorld: true,
   id: 'map',
   locateOptions: {
@@ -19,13 +17,21 @@ const map: Map = await leafletMap({
     accuracy: radius,
     latlng: latitudeLongitude,
   }: LocationEvent): Promise<void> {
-    await circle({
+    await (
+      await import('../../leaf/circle.js')
+    ).circle({
       latitudeLongitude,
       map,
       radius,
     })
     ;(
-      await marker({
+      await (
+        await import('../../leaf/marker.js')
+      ).marker({
+        iconOptions: {
+          iconUrl: '../../../leaflet/images/marker-icon.png',
+          shadowUrl: '../../../leaflet/images/marker-shadow.png',
+        },
         latitudeLongitude,
         map,
         popupContent: `You are within ${radius.toString()} meters from this point.`,
@@ -38,7 +44,9 @@ const map: Map = await leafletMap({
   },
 })
 
-await tileLayerOsm({
+await (
+  await import('../../leaf/tile-layer/tile-layer-osm.js')
+).tileLayerOsm({
   map,
   zoomMax: 19,
 })
