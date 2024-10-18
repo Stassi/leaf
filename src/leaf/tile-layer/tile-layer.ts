@@ -1,9 +1,6 @@
-import {
-  type LayerGroup,
-  type Map,
-  type TileLayer,
-  type TileLayerOptions as LeafletTileLayerOptions,
-} from 'leaflet'
+import { type TileLayerOptions as LeafletTileLayerOptions } from 'leaflet'
+
+import { type LayerGroup, type Map, type TileLayer } from '@stassi/leaf'
 
 export type TileLayerOptions = {
   urlTemplate: string

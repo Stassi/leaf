@@ -1,6 +1,6 @@
-import { type TileLayer } from 'leaflet'
-
 import { tileLayer, type TileLayerOptions } from './tile-layer.js'
+
+import { type TileLayer } from '@stassi/leaf'
 
 export type TileLayerOsmOptions = Omit<
   TileLayerOptions,

@@ -7,7 +7,7 @@ import {
   type LayerGroup,
   type Map,
   type Popup,
-} from 'leaflet'
+} from '@stassi/leaf'
 
 export type CircleOptions = CircleMarkerOptions & {
   latitudeLongitude: LatLngExpression

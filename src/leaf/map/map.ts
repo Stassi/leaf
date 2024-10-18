@@ -1,4 +1,9 @@
 import {
+  type Map as LeafletMap,
+  type MapOptions as LeafletMapOptions,
+} from 'leaflet'
+
+import {
   type CRS,
   type ErrorEventHandlerFn,
   type FitBoundsOptions,
@@ -8,9 +13,7 @@ import {
   type LocateOptions,
   type LocationEvent,
   type LocationEventHandlerFn,
-  type Map as LeafletMap,
-  type MapOptions as LeafletMapOptions,
-} from 'leaflet'
+} from '@stassi/leaf'
 
 type OnClick =
   | LeafletMouseEventHandlerFn

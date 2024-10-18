@@ -1,11 +1,12 @@
+import { type PopupOptions as LeafletPopupOptions } from 'leaflet'
+
 import {
   type Content,
   type LatLngExpression,
   type Layer,
   type Map,
   type Popup,
-  type PopupOptions as LeafletPopupOptions,
-} from 'leaflet'
+} from '@stassi/leaf'
 
 export type PopupOptions = Partial<LeafletPopupOptions> & {
   htmlContent: ((source: Layer) => Content) | Content

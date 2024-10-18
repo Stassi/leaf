@@ -7,7 +7,7 @@ import {
   type Polygon,
   type PolylineOptions,
   type Popup,
-} from 'leaflet'
+} from '@stassi/leaf'
 
 export type PolygonOptions = PolylineOptions & {
   latitudeLongitudes:
