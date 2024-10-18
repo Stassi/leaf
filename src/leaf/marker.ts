@@ -1,3 +1,5 @@
+import { type MarkerOptions as LeafletMarkerOptions } from 'leaflet'
+
 import {
   type Content,
   type IconOptions,
@@ -6,9 +8,8 @@ import {
   type LayerGroup,
   type Map,
   type Marker,
-  type MarkerOptions as LeafletMarkerOptions,
   type Popup,
-} from 'leaflet'
+} from '@stassi/leaf'
 
 export type MarkerOptions = LeafletMarkerOptions & {
   latitudeLongitude: LatLngExpression
@@ -30,7 +31,7 @@ export async function marker({
   const created: Marker = (await import('leaflet')).marker(latitudeLongitude, {
       alt,
       ...(iconOptions
-        ? { icon: (await import('leaflet')).icon(iconOptions) }
+        ? { icon: await (await import('./icon.js')).icon(iconOptions) }
         : {}),
       ...props,
     }),
