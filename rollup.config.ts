@@ -55,206 +55,98 @@ const rollupConfig: RollupOptions[] = [
       terser(),
     ],
   },
-  {
-    input: 'src/tutorial/quick-start/quick-start.ts',
-    output: {
-      assetFileNames: 'style/[name][extname]',
-      chunkFileNames: 'script/[name]-[hash].js',
-      dir: 'public/tutorial/dist/',
-      entryFileNames: 'script/[name].js',
-      format: 'esm',
-      sourcemap: true,
+  ...[
+    {
+      fileName: 'quick-start.html',
+      input: 'src/tutorial/quick-start/quick-start.ts',
+      title: 'Leaflet Quick Start Guide',
     },
-    plugins: [
-      commonjs(),
-      nodeResolve(),
-      styles({
-        mode: 'extract',
-        sourceMap: true,
-        url: { hash: false, publicPath: '../assets/' },
-      }),
-      typescript(),
-      terser(),
-      html({
-        fileName: 'quick-start.html',
-        publicPath: './',
-        template({
-          attributes,
-          files,
-          meta,
-          publicPath,
-          title,
-        }: RollupHtmlTemplateOptions): string {
-          return `
-            <!DOCTYPE html>
-            <html${makeHtmlAttributes(<Record<string, string>>attributes.html)}>
-            <head>
-              ${meta
-                .map(
-                  (input: Record<string, string>): string =>
-                    `<meta${makeHtmlAttributes(input)}>`,
-                )
-                .join('\n')}
-              <title>${title}</title>
-              ${(files.css ?? [])
-                .map(
-                  ({ fileName }: OutputChunk | OutputAsset): string =>
-                    `<link href="${publicPath}${fileName}" rel="stylesheet"${makeHtmlAttributes(<Record<string, string>>attributes.link)}>`,
-                )
-                .join('\n')}
-            </head>
-            <body>
-              <div id="map"></div>
-              ${(files.js ?? [])
-                .map(
-                  ({ fileName }: OutputChunk | OutputAsset): string =>
-                    `<script src="${publicPath}${fileName}"${makeHtmlAttributes(<Record<string, string>>attributes.script)}></script>`,
-                )
-                .join('\n')}
-            </body>
-            </html>
-          `
+    {
+      fileName: 'mobile.html',
+      input: 'src/tutorial/mobile/mobile.ts',
+      title: 'Leaflet on Mobile',
+    },
+    {
+      fileName: 'custom-icons.html',
+      input: 'src/tutorial/custom-icons/custom-icons.ts',
+      title: 'Markers With Custom Icons',
+    },
+  ].map(
+    ({
+      fileName,
+      input,
+      title,
+    }: Record<'fileName' | 'input' | 'title', string>): RollupOptions => {
+      return {
+        input,
+        output: {
+          assetFileNames: 'style/[name][extname]',
+          chunkFileNames: 'script/[name]-[hash].js',
+          dir: 'public/tutorial/dist/',
+          entryFileNames: 'script/[name].js',
+          format: 'esm',
+          sourcemap: true,
         },
-        title: 'Leaflet Quick Start Guide',
-      }),
-    ],
-  },
-  {
-    input: 'src/tutorial/mobile/mobile.ts',
-    output: {
-      assetFileNames: 'style/[name][extname]',
-      chunkFileNames: 'script/[name]-[hash].js',
-      dir: 'public/tutorial/dist/',
-      entryFileNames: 'script/[name].js',
-      format: 'esm',
-      sourcemap: true,
-    },
-    plugins: [
-      commonjs(),
-      nodeResolve(),
-      styles({
-        mode: 'extract',
-        sourceMap: true,
-        url: { hash: false, publicPath: '../assets/' },
-      }),
-      typescript(),
-      terser(),
-      html({
-        fileName: 'mobile.html',
-        meta: [
-          { charset: 'utf-8' },
-          {
-            content:
-              'initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width',
-            name: 'viewport',
-          },
+        plugins: [
+          commonjs(),
+          nodeResolve(),
+          styles({
+            mode: 'extract',
+            sourceMap: true,
+            url: { hash: false, publicPath: '../assets/' },
+          }),
+          typescript(),
+          terser(),
+          html({
+            fileName,
+            publicPath: './',
+            template({
+              attributes,
+              files,
+              meta,
+              publicPath,
+              title: templateTitle,
+            }: RollupHtmlTemplateOptions): string {
+              return `
+                <!DOCTYPE html>
+                <html${makeHtmlAttributes(<Record<string, string>>attributes.html)}>
+                <head>
+                  ${meta
+                    .map(
+                      (metaInput: Record<string, string>): string =>
+                        `<meta${makeHtmlAttributes(metaInput)}>`,
+                    )
+                    .join('\n')}
+                  <title>${templateTitle}</title>
+                  ${(files.css ?? [])
+                    .map(
+                      ({
+                        fileName: templateFileName,
+                      }: OutputChunk | OutputAsset): string =>
+                        `<link href="${publicPath}${templateFileName}" rel="stylesheet"${makeHtmlAttributes(<Record<string, string>>attributes.link)}>`,
+                    )
+                    .join('\n')}
+                </head>
+                <body>
+                  <div id="map"></div>
+                  ${(files.js ?? [])
+                    .map(
+                      ({
+                        fileName: templateFileName,
+                      }: OutputChunk | OutputAsset): string =>
+                        `<script src="${publicPath}${templateFileName}"${makeHtmlAttributes(<Record<string, string>>attributes.script)}></script>`,
+                    )
+                    .join('\n')}
+                </body>
+                </html>
+              `
+            },
+            title,
+          }),
         ],
-        publicPath: './',
-        template({
-          attributes,
-          files,
-          meta,
-          publicPath,
-          title,
-        }: RollupHtmlTemplateOptions): string {
-          return `
-            <!DOCTYPE html>
-            <html${makeHtmlAttributes(<Record<string, string>>attributes.html)}>
-            <head>
-              ${meta
-                .map(
-                  (input: Record<string, string>): string =>
-                    `<meta${makeHtmlAttributes(input)}>`,
-                )
-                .join('\n')}
-              <title>${title}</title>
-              ${(files.css ?? [])
-                .map(
-                  ({ fileName }: OutputChunk | OutputAsset): string =>
-                    `<link href="${publicPath}${fileName}" rel="stylesheet"${makeHtmlAttributes(<Record<string, string>>attributes.link)}>`,
-                )
-                .join('\n')}
-            </head>
-            <body>
-              <div id="map"></div>
-              ${(files.js ?? [])
-                .map(
-                  ({ fileName }: OutputChunk | OutputAsset): string =>
-                    `<script src="${publicPath}${fileName}"${makeHtmlAttributes(<Record<string, string>>attributes.script)}></script>`,
-                )
-                .join('\n')}
-            </body>
-            </html>
-          `
-        },
-        title: 'Markers With Custom Icons',
-      }),
-    ],
-  },
-  {
-    input: 'src/tutorial/custom-icons/custom-icons.ts',
-    output: {
-      assetFileNames: 'style/[name][extname]',
-      chunkFileNames: 'script/[name]-[hash].js',
-      dir: 'public/tutorial/dist/',
-      entryFileNames: 'script/[name].js',
-      format: 'esm',
-      sourcemap: true,
+      }
     },
-    plugins: [
-      commonjs(),
-      nodeResolve(),
-      styles({
-        mode: 'extract',
-        sourceMap: true,
-        url: { hash: false, publicPath: '../assets/' },
-      }),
-      typescript(),
-      terser(),
-      html({
-        fileName: 'custom-icons.html',
-        publicPath: './',
-        template({
-          attributes,
-          files,
-          meta,
-          publicPath,
-          title,
-        }: RollupHtmlTemplateOptions): string {
-          return `
-            <!DOCTYPE html>
-            <html${makeHtmlAttributes(<Record<string, string>>attributes.html)}>
-            <head>
-              ${meta
-                .map(
-                  (input: Record<string, string>): string =>
-                    `<meta${makeHtmlAttributes(input)}>`,
-                )
-                .join('\n')}
-              <title>${title}</title>
-              ${(files.css ?? [])
-                .map(
-                  ({ fileName }: OutputChunk | OutputAsset): string =>
-                    `<link href="${publicPath}${fileName}" rel="stylesheet"${makeHtmlAttributes(<Record<string, string>>attributes.link)}>`,
-                )
-                .join('\n')}
-            </head>
-            <body>
-              <div id="map"></div>
-              ${(files.js ?? [])
-                .map(
-                  ({ fileName }: OutputChunk | OutputAsset): string =>
-                    `<script src="${publicPath}${fileName}"${makeHtmlAttributes(<Record<string, string>>attributes.script)}></script>`,
-                )
-                .join('\n')}
-            </body>
-            </html>
-          `
-        },
-        title: 'Markers With Custom Icons',
-      }),
-    ],
-  },
+  ),
 ]
 
 // eslint-disable-next-line import/no-default-export -- default export required by Rollup.js
