@@ -10,7 +10,7 @@ describe('mobile tutorial', (): void => {
       longitude: -0.09,
     })
 
-    await page.goto('http://localhost:3001/tutorial/mobile/mobile')
+    await page.goto('http://localhost:3001/tutorial/dist/mobile')
   })
 
   describe('map', (): void => {
