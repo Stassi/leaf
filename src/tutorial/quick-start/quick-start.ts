@@ -34,7 +34,8 @@ await (
   await import('../../leaf/marker.js')
 ).marker({
   iconOptions: {
-    iconUrl: './assets/marker-icon.png',
+    iconUrl: '../../../leaflet/images/marker-icon.png',
+    shadowUrl: '../../../leaflet/images/marker-shadow.png',
   },
   latitudeLongitude: [51.5, -0.09],
   map,
