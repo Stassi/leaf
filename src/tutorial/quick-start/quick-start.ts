@@ -2,9 +2,7 @@ import 'leaflet/dist/leaflet.css'
 import '../style/theme.css'
 import './style/short.css'
 
-import { type LeafletMouseEvent } from 'leaflet'
-
-import { type Map } from '@stassi/leaf'
+import { type LeafletMouseEvent, type Map } from '@stassi/leaf'
 
 const map: Map = await (
   await import('../../leaf/map/map.js')

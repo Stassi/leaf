@@ -2,9 +2,7 @@ import 'leaflet/dist/leaflet.css'
 import '../style/theme.css'
 import '../style/medium.css'
 
-import { type LatLngExpression } from 'leaflet'
-
-import { type Map } from '@stassi/leaf'
+import { type LatLngExpression, type Map } from '@stassi/leaf'
 
 type Icon = {
   iconUrl: string
