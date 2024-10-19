@@ -1,17 +1,45 @@
 import {
-  map as leafletMap,
+  type Map as LeafletMap,
+  type MapOptions as LeafletMapOptions,
+} from 'leaflet'
+
+import {
   type CRS,
   type ErrorEventHandlerFn,
   type FitBoundsOptions,
   type Layer,
+  type LeafletMouseEvent,
   type LeafletMouseEventHandlerFn,
   type LocateOptions,
+  type LocationEvent,
   type LocationEventHandlerFn,
-  type Map,
-  type MapOptions as LeafletMapOptions,
-} from 'leaflet'
+} from '@stassi/leaf'
 
-import { epsg3857 } from '../coordinate-reference-system/epsg-3857.js'
+type OnClick =
+  | LeafletMouseEventHandlerFn
+  | ((event: LeafletMouseEvent) => Promise<void>)
+type OnLocate =
+  | LocationEventHandlerFn
+  | ((event: LocationEvent) => Promise<void>)
+
+export type Map = LeafletMap & {
+  on:
+    | ((
+        type:
+          | 'click'
+          | 'dblclick'
+          | 'mousedown'
+          | 'mouseup'
+          | 'mouseover'
+          | 'mouseout'
+          | 'mousemove'
+          | 'contextmenu'
+          | 'preclick',
+        fn: OnClick,
+        context?: unknown,
+      ) => void)
+    | ((type: 'locationfound', fn: OnLocate, context?: unknown) => void)
+}
 
 export type MapOptions = LeafletMapOptions & {
   id: string | HTMLElement
@@ -22,8 +50,8 @@ export type MapOptions = LeafletMapOptions & {
     fitWorld: boolean
     fitWorldOptions: FitBoundsOptions
     locateOptions: LocateOptions
-    onClick: LeafletMouseEventHandlerFn
-    onLocate: LocationEventHandlerFn
+    onClick: OnClick
+    onLocate: OnLocate
     onLocateError: ErrorEventHandlerFn
     zoomDelta: number
     zoomMax: number
@@ -31,9 +59,9 @@ export type MapOptions = LeafletMapOptions & {
     zoomSnap: number
   }>
 
-export function map({
+export async function map({
   activeLayers: layers,
-  crs = epsg3857,
+  crs,
   dragging = true,
   fitWorld,
   fitWorldOptions = fitWorld ? {} : undefined,
@@ -47,9 +75,12 @@ export function map({
   zoomMin: minZoom,
   zoomSnap = 1,
   ...props
-}: MapOptions): Map {
-  const created: Map = leafletMap(element, {
-      crs,
+}: MapOptions): Promise<Map> {
+  const created: Map = (await import('leaflet')).map(element, {
+      crs: crs
+        ? crs
+        : (await import('../coordinate-reference-system/epsg-3857.js'))
+            .epsg3857,
       dragging,
       layers,
       maxZoom,

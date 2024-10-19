@@ -1,19 +1,20 @@
-import { type LeafletMouseEvent, type Map } from 'leaflet'
+import 'leaflet/dist/leaflet.css'
+import '../style/theme.css'
+import './style/short.css'
 
-import {
-  circle,
-  map as leafletMap,
-  marker,
-  polygon,
-  popup,
-  tileLayerOsm,
-} from '@stassi/leaf'
+import { type LeafletMouseEvent, type Map } from '@stassi/leaf'
 
-const map: Map = leafletMap({
+const map: Map = await (
+  await import('../../leaf/map/map.js')
+).map({
   center: [51.505, -0.09],
   id: 'map',
-  onClick: ({ latlng: latitudeLongitude }: LeafletMouseEvent): void => {
-    popup({
+  async onClick({
+    latlng: latitudeLongitude,
+  }: LeafletMouseEvent): Promise<void> {
+    await (
+      await import('../../leaf/popup.js')
+    ).popup({
       htmlContent: `You clicked the map at ${latitudeLongitude.toString()}`,
       latitudeLongitude,
       map,
@@ -22,18 +23,28 @@ const map: Map = leafletMap({
   zoom: 13,
 })
 
-tileLayerOsm({
+await (
+  await import('../../leaf/tile-layer/tile-layer-osm.js')
+).tileLayerOsm({
   map,
   zoomMax: 19,
 })
 
-marker({
+await (
+  await import('../../leaf/marker.js')
+).marker({
+  iconOptions: {
+    iconUrl: '../../../leaflet/images/marker-icon.png',
+    shadowUrl: '../../../leaflet/images/marker-shadow.png',
+  },
   latitudeLongitude: [51.5, -0.09],
   map,
   popupContent: '<b>Hello world!</b><br>I am a popup.',
 })
 
-circle({
+await (
+  await import('../../leaf/circle.js')
+).circle({
   color: 'red',
   fillColor: '#f03',
   fillOpacity: 0.5,
@@ -43,7 +54,9 @@ circle({
   radius: 500,
 })
 
-polygon({
+await (
+  await import('../../leaf/polygon.js')
+).polygon({
   latitudeLongitudes: [
     [51.509, -0.08],
     [51.503, -0.06],
@@ -53,7 +66,9 @@ polygon({
   popupContent: 'I am a polygon.',
 })
 
-popup({
+await (
+  await import('../../leaf/popup.js')
+).popup({
   htmlContent: 'I am a standalone popup.',
   latitudeLongitude: [51.513, -0.09],
   map,

@@ -1,10 +1,6 @@
-import {
-  tileLayer as leafletTileLayer,
-  type LayerGroup,
-  type Map,
-  type TileLayer,
-  type TileLayerOptions as LeafletTileLayerOptions,
-} from 'leaflet'
+import { type TileLayerOptions as LeafletTileLayerOptions } from 'leaflet'
+
+import { type LayerGroup, type Map, type TileLayer } from '@stassi/leaf'
 
 export type TileLayerOptions = {
   urlTemplate: string
@@ -15,13 +11,13 @@ export type TileLayerOptions = {
   }
 >
 
-export function tileLayer({
+export async function tileLayer({
   map,
   urlTemplate,
   zoomMax: maxZoom = 18,
   ...props
-}: TileLayerOptions): TileLayer {
-  const created = leafletTileLayer(urlTemplate, {
+}: TileLayerOptions): Promise<TileLayer> {
+  const created: TileLayer = (await import('leaflet')).tileLayer(urlTemplate, {
     maxZoom,
     ...props,
   })

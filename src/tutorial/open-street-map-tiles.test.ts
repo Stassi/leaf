@@ -2,9 +2,9 @@
 describe('OpenStreetMap tiles', (): void => {
   describe.each([
     'accessibility/interactive',
-    'custom-icons/custom-icons',
-    'mobile/mobile',
-    'quick-start/quick-start',
+    'dist/custom-icons',
+    'dist/mobile',
+    'dist/quick-start',
   ])('tutorial: %s', (path: string): void => {
     it('should render', async (): Promise<void> => {
       await page.goto(`http://localhost:3001/tutorial/${path}`)

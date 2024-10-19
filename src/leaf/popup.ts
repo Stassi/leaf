@@ -1,12 +1,12 @@
+import { type PopupOptions as LeafletPopupOptions } from 'leaflet'
+
 import {
-  popup as leafletPopup,
   type Content,
   type LatLngExpression,
   type Layer,
   type Map,
   type Popup,
-  type PopupOptions as LeafletPopupOptions,
-} from 'leaflet'
+} from '@stassi/leaf'
 
 export type PopupOptions = Partial<LeafletPopupOptions> & {
   htmlContent: ((source: Layer) => Content) | Content
@@ -14,13 +14,14 @@ export type PopupOptions = Partial<LeafletPopupOptions> & {
   map: Map
 }
 
-export function popup({
+export async function popup({
   htmlContent,
   latitudeLongitude,
   map,
   ...props
-}: PopupOptions): Popup {
-  return leafletPopup(props)
+}: PopupOptions): Promise<Popup> {
+  return (await import('leaflet'))
+    .popup(props)
     .setLatLng(latitudeLongitude)
     .setContent(htmlContent)
     .openOn(map)

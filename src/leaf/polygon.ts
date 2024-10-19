@@ -1,5 +1,4 @@
 import {
-  polygon as leafletPolygon,
   type Content,
   type LatLngExpression,
   type Layer,
@@ -8,7 +7,7 @@ import {
   type Polygon,
   type PolylineOptions,
   type Popup,
-} from 'leaflet'
+} from '@stassi/leaf'
 
 export type PolygonOptions = PolylineOptions & {
   latitudeLongitudes:
@@ -20,14 +19,19 @@ export type PolygonOptions = PolylineOptions & {
     popupContent: ((layer: Layer) => Content) | Content | Popup
   }>
 
-export function polygon({
+export async function polygon({
   latitudeLongitudes,
   map,
   popupContent,
   ...props
-}: PolygonOptions): Polygon {
-  const created = leafletPolygon(latitudeLongitudes, props),
-    prerendered = popupContent ? created.bindPopup(popupContent) : created
+}: PolygonOptions): Promise<Polygon> {
+  const created: Polygon = (await import('leaflet')).polygon(
+      latitudeLongitudes,
+      props,
+    ),
+    prerendered: Polygon = popupContent
+      ? created.bindPopup(popupContent)
+      : created
 
   return map ? prerendered.addTo(map) : prerendered
 }

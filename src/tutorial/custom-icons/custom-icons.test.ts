@@ -1,6 +1,6 @@
 describe('custom icons tutorial', (): void => {
   beforeAll(async (): Promise<void> => {
-    await page.goto('http://localhost:3001/tutorial/custom-icons/custom-icons')
+    await page.goto('http://localhost:3001/tutorial/dist/custom-icons')
   })
 
   describe('map', (): void => {
@@ -9,15 +9,15 @@ describe('custom icons tutorial', (): void => {
         describe.each([
           {
             popupText: 'I am a green leaf.',
-            src: 'image/green.png',
+            src: '../custom-icons/image/green.png',
           },
           {
             popupText: 'I am an orange leaf.',
-            src: 'image/orange.png',
+            src: '../custom-icons/image/orange.png',
           },
           {
             popupText: 'I am a red leaf.',
-            src: 'image/red.png',
+            src: '../custom-icons/image/red.png',
           },
         ])(
           'src="$src"',

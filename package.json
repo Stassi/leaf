@@ -1,6 +1,6 @@
 {
   "name": "@stassi/leaf",
-  "version": "0.0.61",
+  "version": "0.0.62",
   "description": "Leaflet adapter.",
   "keywords": [
     "cartography",
@@ -63,7 +63,9 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.25.8",
     "@babel/plugin-syntax-import-attributes": "^7.25.7",
+    "@rollup/plugin-alias": "^5.1.1",
     "@rollup/plugin-commonjs": "^28.0.0",
+    "@rollup/plugin-html": "^1.0.4",
     "@rollup/plugin-inject": "^5.0.5",
     "@rollup/plugin-node-resolve": "^15.3.0",
     "@rollup/plugin-replace": "^6.0.1",
@@ -91,6 +93,7 @@
     "puppeteer": "^23.5.3",
     "rollup": "^4.24.0",
     "rollup-plugin-modify": "^3.0.0",
+    "rollup-plugin-styles": "^4.0.0",
     "shx": "^0.3.4",
     "ts-jest": "^29.2.5",
     "typescript": "^5.6.3"
