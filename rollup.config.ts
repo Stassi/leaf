@@ -6,12 +6,13 @@ import {
   type Plugin,
   type RollupOptions,
 } from 'rollup'
+import alias, { type RollupAliasOptions } from '@rollup/plugin-alias'
 import commonjs from '@rollup/plugin-commonjs'
 import html, {
   makeHtmlAttributes,
   type RollupHtmlTemplateOptions,
 } from '@rollup/plugin-html'
-import inject from '@rollup/plugin-inject'
+import inject, { type RollupInjectOptions } from '@rollup/plugin-inject'
 import terser from '@rollup/plugin-terser'
 import typescript from '@rollup/plugin-typescript'
 // @ts-expect-error -- untyped plugin
@@ -19,95 +20,110 @@ import untypedModify from 'rollup-plugin-modify'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import styles from 'rollup-plugin-styles'
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- untyped plugin
-const modify: (modifyOptions: {
+type ModifyOptions = {
   find: string | RegExp
   replace: string | ((match: string, element: string, value: string) => string)
-}) => Plugin = untypedModify
+}
 
-const rollupConfig: RollupOptions[] = [
-  {
-    input: 'src/index.ts',
-    output: [
+const aliasOptions: RollupAliasOptions = {
+    entries: [
       {
-        dir: 'dist/',
-        entryFileNames: 'leaf.js',
-        format: 'esm',
-        sourcemap: true,
+        find: /^leaflet$/,
+        replacement: 'leaflet/dist/leaflet-src.esm.js',
       },
     ],
-    plugins: [
-      commonjs(),
-      modify({
-        find: /(?<element>.*)\.innerHTML\s*=\s*(?<value>.*);/,
-        replace: (_match: string, element: string, value: string): string =>
-          `${element}.innerHTML = DOMPurify.sanitize(${value});`,
-      }),
-      inject({
-        DOMPurify: 'dompurify',
-      }),
-      nodeResolve(),
-      typescript({
-        declaration: true,
-        exclude: ['rollup.config.ts', 'src/tutorial/**/*.ts'],
-        outDir: './dist',
-      }),
-      terser(),
-    ],
   },
-  ...[
+  modifyOptions: ModifyOptions = {
+    find: /(?<element>.*)\.innerHTML\s*=\s*(?<value>.*);/,
+    replace: (_match: string, element: string, value: string): string =>
+      `${element}.innerHTML = DOMPurify.sanitize(${value});`,
+  },
+  injectOptions: RollupInjectOptions = {
+    DOMPurify: 'dompurify',
+  },
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- untyped plugin
+  modify: (modifyOptions: ModifyOptions) => Plugin = untypedModify,
+  rollupConfig: RollupOptions[] = [
     {
-      fileName: 'quick-start.html',
-      input: 'src/tutorial/quick-start/quick-start.ts',
-      title: 'Leaflet Quick Start Guide',
-    },
-    {
-      fileName: 'mobile.html',
-      input: 'src/tutorial/mobile/mobile.ts',
-      title: 'Leaflet on Mobile',
-    },
-    {
-      fileName: 'custom-icons.html',
-      input: 'src/tutorial/custom-icons/custom-icons.ts',
-      title: 'Markers With Custom Icons',
-    },
-  ].map(
-    ({
-      fileName,
-      input,
-      title,
-    }: Record<'fileName' | 'input' | 'title', string>): RollupOptions => {
-      return {
-        input,
-        output: {
-          assetFileNames: 'style/[name][extname]',
-          chunkFileNames: 'script/[name]-[hash].js',
-          dir: 'public/tutorial/dist/',
-          entryFileNames: 'script/[name].js',
+      input: 'src/index.ts',
+      output: [
+        {
+          dir: 'dist/',
+          entryFileNames: 'leaf.js',
           format: 'esm',
           sourcemap: true,
         },
-        plugins: [
-          commonjs(),
-          nodeResolve(),
-          styles({
-            mode: 'extract',
-            sourceMap: true,
-            url: { hash: false, publicPath: '../assets/' },
-          }),
-          typescript(),
-          terser(),
-          html({
-            fileName,
-            publicPath: './',
-            template({
-              attributes,
-              files,
-              meta,
-              publicPath,
-              title: templateTitle,
-            }: RollupHtmlTemplateOptions): string {
-              return `
+      ],
+      plugins: [
+        alias(aliasOptions),
+        nodeResolve(),
+        commonjs(),
+        modify(modifyOptions),
+        inject(injectOptions),
+        typescript({
+          declaration: true,
+          exclude: ['rollup.config.ts', 'src/tutorial/**/*.ts'],
+          outDir: './dist',
+        }),
+        terser(),
+      ],
+    },
+    ...[
+      {
+        fileName: 'quick-start.html',
+        input: 'src/tutorial/quick-start/quick-start.ts',
+        title: 'Leaflet Quick Start Guide',
+      },
+      {
+        fileName: 'mobile.html',
+        input: 'src/tutorial/mobile/mobile.ts',
+        title: 'Leaflet on Mobile',
+      },
+      {
+        fileName: 'custom-icons.html',
+        input: 'src/tutorial/custom-icons/custom-icons.ts',
+        title: 'Markers With Custom Icons',
+      },
+    ].map(
+      ({
+        fileName,
+        input,
+        title,
+      }: Record<'fileName' | 'input' | 'title', string>): RollupOptions => {
+        return {
+          input,
+          output: {
+            assetFileNames: 'style/[name][extname]',
+            chunkFileNames: 'script/[name]-[hash].js',
+            dir: 'public/tutorial/dist/',
+            entryFileNames: 'script/[name].js',
+            format: 'esm',
+            sourcemap: true,
+          },
+          plugins: [
+            alias(aliasOptions),
+            nodeResolve(),
+            commonjs(),
+            modify(modifyOptions),
+            inject(injectOptions),
+            styles({
+              mode: 'extract',
+              sourceMap: true,
+              url: { hash: false, publicPath: '../assets/' },
+            }),
+            typescript(),
+            terser(),
+            html({
+              fileName,
+              publicPath: './',
+              template({
+                attributes,
+                files,
+                meta,
+                publicPath,
+                title: templateTitle,
+              }: RollupHtmlTemplateOptions): string {
+                return `
                 <!DOCTYPE html>
                 <html${makeHtmlAttributes(<Record<string, string>>attributes.html)}>
                 <head>
@@ -140,14 +156,14 @@ const rollupConfig: RollupOptions[] = [
                 </body>
                 </html>
               `
-            },
-            title,
-          }),
-        ],
-      }
-    },
-  ),
-]
+              },
+              title,
+            }),
+          ],
+        }
+      },
+    ),
+  ]
 
 // eslint-disable-next-line import/no-default-export -- default export required by Rollup.js
 export default rollupConfig
