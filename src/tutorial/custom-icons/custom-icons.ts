@@ -48,6 +48,7 @@ for (const { iconUrl, latitudeLongitude, popupContent } of <Icon[]>[
       iconAnchor: [22, 94],
       iconSize: [38, 95],
       iconUrl,
+      iconUrlRetina: iconUrl,
       popupAnchor: [-3, -76],
       shadowAnchor: [4, 62],
       shadowSize: [50, 64],
