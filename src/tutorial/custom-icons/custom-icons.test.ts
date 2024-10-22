@@ -10,28 +10,25 @@ describe('custom icons tutorial', (): void => {
       describe('map', (): void => {
         describe('element displays popup text on click', (): void => {
           describe('markers with custom icons', (): void => {
-            function expectImagesLoaded(src: string): () => Promise<void> {
+            function expectImagesLoaded(source: string): () => Promise<void> {
               return async (): Promise<void> => {
                 await page.waitForFunction(
-                  (imageSrc: string): boolean => {
+                  (src: string): boolean => {
                     return Array.from(
-                      document.querySelectorAll<HTMLImageElement>(
-                        `img[src="${imageSrc}"]`,
-                      ),
-                    ).every(
-                      ({
-                        complete,
-                        naturalHeight,
-                        naturalWidth,
-                      }: HTMLImageElement): boolean =>
-                        complete && naturalHeight > 0 && naturalWidth > 0,
+                      document.querySelectorAll(`img[src="${src}"]`),
+                    ).every((img: Element): boolean =>
+                      img instanceof HTMLImageElement
+                        ? img.complete &&
+                          img.naturalHeight > 0 &&
+                          img.naturalWidth > 0
+                        : false,
                     )
                   },
                   undefined,
-                  src,
+                  source,
                 )
 
-                for (const img of await page.$$(`img[src="${src}"]`)) {
+                for (const img of await page.$$(`img[src="${source}"]`)) {
                   expect(
                     await img.evaluate(
                       ({
