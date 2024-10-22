@@ -12,6 +12,25 @@ describe('custom icons tutorial', (): void => {
           describe('markers with custom icons', (): void => {
             function expectImagesLoaded(src: string): () => Promise<void> {
               return async (): Promise<void> => {
+                await page.waitForFunction(
+                  (imageSrc: string): boolean => {
+                    return Array.from(
+                      document.querySelectorAll<HTMLImageElement>(
+                        `img[src="${imageSrc}"]`,
+                      ),
+                    ).every(
+                      ({
+                        complete,
+                        naturalHeight,
+                        naturalWidth,
+                      }: HTMLImageElement): boolean =>
+                        complete && naturalHeight > 0 && naturalWidth > 0,
+                    )
+                  },
+                  undefined,
+                  src,
+                )
+
                 for (const img of await page.$$(`img[src="${src}"]`)) {
                   expect(
                     await img.evaluate(
