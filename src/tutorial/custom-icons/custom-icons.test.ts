@@ -19,10 +19,20 @@ describe('custom icons tutorial', (): void => {
                         complete,
                         naturalHeight,
                         naturalWidth,
-                      }: HTMLImageElement): boolean =>
-                        complete && naturalHeight > 0 && naturalWidth > 0,
+                      }: HTMLImageElement): Record<
+                        'complete' | 'heightModified' | 'widthModified',
+                        boolean
+                      > => ({
+                        complete,
+                        heightModified: naturalHeight > 0,
+                        widthModified: naturalWidth > 0,
+                      }),
                     ),
-                  ).toBe(true)
+                  ).toEqual({
+                    complete: true,
+                    heightModified: true,
+                    widthModified: true,
+                  })
                 }
               }
             }
