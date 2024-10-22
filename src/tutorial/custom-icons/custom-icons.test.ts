@@ -18,24 +18,11 @@ describe('custom icons tutorial', (): void => {
                       ({
                         complete,
                         naturalHeight,
+                        naturalWidth,
                       }: HTMLImageElement): boolean =>
-                        complete && naturalHeight > 0,
+                        complete && naturalHeight > 0 && naturalWidth > 0,
                     ),
                   ).toBe(true)
-
-                  expect(
-                    await img.evaluate(
-                      ({ naturalHeight }: HTMLImageElement): number =>
-                        naturalHeight,
-                    ),
-                  ).toBeGreaterThan(0)
-
-                  expect(
-                    await img.evaluate(
-                      ({ naturalWidth }: HTMLImageElement): number =>
-                        naturalWidth,
-                    ),
-                  ).toBeGreaterThan(0)
                 }
               }
             }
