@@ -10,6 +10,36 @@ describe('custom icons tutorial', (): void => {
       describe('map', (): void => {
         describe('element displays popup text on click', (): void => {
           describe('markers with custom icons', (): void => {
+            function expectImagesLoaded(src: string): () => Promise<void> {
+              return async (): Promise<void> => {
+                for (const img of await page.$$(`img[src="${src}"]`)) {
+                  expect(
+                    await img.evaluate(
+                      ({
+                        complete,
+                        naturalHeight,
+                      }: HTMLImageElement): boolean =>
+                        complete && naturalHeight > 0,
+                    ),
+                  ).toBe(true)
+
+                  expect(
+                    await img.evaluate(
+                      ({ naturalHeight }: HTMLImageElement): number =>
+                        naturalHeight,
+                    ),
+                  ).toBeGreaterThan(0)
+
+                  expect(
+                    await img.evaluate(
+                      ({ naturalWidth }: HTMLImageElement): number =>
+                        naturalWidth,
+                    ),
+                  ).toBeGreaterThan(0)
+                }
+              }
+            }
+
             describe.each([
               {
                 popupText: 'I am a green leaf.',
@@ -29,6 +59,10 @@ describe('custom icons tutorial', (): void => {
                 popupText,
                 src,
               }: Record<'popupText' | 'src', string>): void => {
+                /* eslint-disable-next-line jest/expect-expect --
+                   `expectImageLoaded` returns assertions */
+                it('should have loaded', expectImagesLoaded(src))
+
                 it(`should display popup text "${popupText}"`, async (): Promise<void> => {
                   await (await page.$(`img[src="${src}"]`))?.click()
 
@@ -49,6 +83,15 @@ describe('custom icons tutorial', (): void => {
                 })
               },
             )
+
+            describe('shadows', (): void => {
+              /* eslint-disable-next-line jest/expect-expect --
+                 `expectImageLoaded` returns assertions */
+              it(
+                'should have loaded',
+                expectImagesLoaded('../custom-icons/image/shadow.png'),
+              )
+            })
           })
         })
       })
