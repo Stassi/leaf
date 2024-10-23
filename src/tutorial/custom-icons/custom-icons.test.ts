@@ -8,64 +8,61 @@ describe('custom icons tutorial', (): void => {
       })
 
       describe('map', (): void => {
-        describe('element displays popup text on click', (): void => {
-          describe('markers with custom icons', (): void => {
-            function expectImagesLoaded(source: string): () => Promise<void> {
-              return async (): Promise<void> => {
-                await page.waitForFunction(
-                  (src: string): boolean => {
-                    return Array.from(
-                      document.querySelectorAll(`img[src="${src}"]`),
-                    ).every((img: Element): boolean =>
-                      img instanceof HTMLImageElement
-                        ? img.complete &&
-                          img.naturalHeight > 0 &&
-                          img.naturalWidth > 0
-                        : false,
-                    )
-                  },
-                  undefined,
-                  source,
-                )
+        describe('markers with custom icons', (): void => {
+          function expectImagesLoaded(source: string): () => Promise<void> {
+            return async (): Promise<void> => {
+              await page.waitForFunction(
+                (src: string): boolean => {
+                  return Array.from(
+                    document.querySelectorAll(`img[src="${src}"]`),
+                  ).every((img: Element): boolean =>
+                    img instanceof HTMLImageElement
+                      ? img.complete &&
+                        img.naturalHeight > 0 &&
+                        img.naturalWidth > 0
+                      : false,
+                  )
+                },
+                undefined,
+                source,
+              )
 
-                for (const img of await page.$$(`img[src="${source}"]`)) {
-                  expect(
-                    await img.evaluate(
-                      ({
-                        complete,
-                        naturalHeight,
-                        naturalWidth,
-                      }: HTMLImageElement): boolean =>
-                        complete && naturalHeight > 0 && naturalWidth > 0,
-                    ),
-                  ).toBe(true)
-                }
+              for (const img of await page.$$(`img[src="${source}"]`)) {
+                expect(
+                  await img.evaluate(
+                    ({
+                      complete,
+                      naturalHeight,
+                      naturalWidth,
+                    }: HTMLImageElement): boolean =>
+                      complete && naturalHeight > 0 && naturalWidth > 0,
+                  ),
+                ).toBe(true)
               }
             }
+          }
 
-            describe.each([
-              {
-                popupText: 'I am a green leaf.',
-                src: '../custom-icons/image/green.png',
-              },
-              {
-                popupText: 'I am an orange leaf.',
-                src: '../custom-icons/image/orange.png',
-              },
-              {
-                popupText: 'I am a red leaf.',
-                src: '../custom-icons/image/red.png',
-              },
-            ])(
-              'src="$src"',
-              ({
-                popupText,
-                src,
-              }: Record<'popupText' | 'src', string>): void => {
-                /* eslint-disable-next-line jest/expect-expect --
+          describe.each([
+            {
+              popupText: 'I am a green leaf.',
+              src: '../custom-icons/image/green.png',
+            },
+            {
+              popupText: 'I am an orange leaf.',
+              src: '../custom-icons/image/orange.png',
+            },
+            {
+              popupText: 'I am a red leaf.',
+              src: '../custom-icons/image/red.png',
+            },
+          ])(
+            'src="$src"',
+            ({ popupText, src }: Record<'popupText' | 'src', string>): void => {
+              /* eslint-disable-next-line jest/expect-expect --
                    `expectImageLoaded` returns assertions */
-                it('should load', expectImagesLoaded(src))
+              it('should load', expectImagesLoaded(src))
 
+              describe('on click', (): void => {
                 it(`should display popup text "${popupText}"`, async (): Promise<void> => {
                   await (await page.$(`img[src="${src}"]`))?.click()
 
@@ -84,17 +81,17 @@ describe('custom icons tutorial', (): void => {
                     ),
                   ).toBe(popupText)
                 })
-              },
-            )
+              })
+            },
+          )
 
-            describe('shadows', (): void => {
-              /* eslint-disable-next-line jest/expect-expect --
+          describe('shadows', (): void => {
+            /* eslint-disable-next-line jest/expect-expect --
                  `expectImageLoaded` returns assertions */
-              it(
-                'should load',
-                expectImagesLoaded('../custom-icons/image/shadow.png'),
-              )
-            })
+            it(
+              'should load',
+              expectImagesLoaded('../custom-icons/image/shadow.png'),
+            )
           })
         })
       })
