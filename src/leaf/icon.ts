@@ -3,27 +3,27 @@ import { type IconOptions as LeafletIconOptions } from 'leaflet'
 import { type Icon } from '@stassi/leaf'
 
 export type IconOptions = Omit<LeafletIconOptions, 'iconUrl'> &
-  Partial<{
-    iconUrl: string
-  }>
+  Partial<Record<'iconUrl' | 'iconUrlRetina' | 'shadowUrlRetina', string>>
 
 export async function icon({
-  iconUrl = 'marker-icon.png',
-  iconRetinaUrl = 'marker-icon-2x.png',
-  shadowUrl = 'marker-shadow.png',
-  iconSize = [25, 41],
   iconAnchor = [12, 41],
+  iconSize = [25, 41],
+  iconUrl = 'marker-icon.png',
+  iconUrlRetina = 'marker-icon-2x.png',
   popupAnchor = [1, -34],
-  tooltipAnchor = [16, -28],
   shadowSize = [41, 41],
+  shadowUrl = 'marker-shadow.png',
+  shadowUrlRetina = shadowUrl,
+  tooltipAnchor = [16, -28],
   ...props
 }: IconOptions): Promise<Icon> {
   return (await import('leaflet')).icon({
     iconAnchor,
-    iconRetinaUrl,
+    iconRetinaUrl: iconUrlRetina,
     iconSize,
     iconUrl,
     popupAnchor,
+    shadowRetinaUrl: shadowUrlRetina,
     shadowSize,
     shadowUrl,
     tooltipAnchor,
