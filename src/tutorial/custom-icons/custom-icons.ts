@@ -4,12 +4,6 @@ import '../style/medium.css'
 
 import { type LatLngExpression, type Map } from '@stassi/leaf'
 
-type Icon = {
-  iconUrl: string
-  latitudeLongitude: LatLngExpression
-  popupContent: string
-}
-
 const map: Map = await (
   await import('../../leaf/map/map.js')
 ).map({
@@ -24,7 +18,11 @@ await (
   map,
 })
 
-for (const { iconUrl, latitudeLongitude, popupContent } of <Icon[]>[
+for (const { iconUrl, latitudeLongitude, popupContent } of <
+  ({
+    latitudeLongitude: LatLngExpression
+  } & Record<'iconUrl' | 'popupContent', string>)[]
+>[
   {
     iconUrl: '../custom-icons/image/green.png',
     latitudeLongitude: [51.5, -0.09],
