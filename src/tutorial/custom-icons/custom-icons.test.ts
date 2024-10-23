@@ -64,7 +64,7 @@ describe('custom icons tutorial', (): void => {
               }: Record<'popupText' | 'src', string>): void => {
                 /* eslint-disable-next-line jest/expect-expect --
                    `expectImageLoaded` returns assertions */
-                it('should have loaded', expectImagesLoaded(src))
+                it('should load', expectImagesLoaded(src))
 
                 it(`should display popup text "${popupText}"`, async (): Promise<void> => {
                   await (await page.$(`img[src="${src}"]`))?.click()
@@ -91,7 +91,7 @@ describe('custom icons tutorial', (): void => {
               /* eslint-disable-next-line jest/expect-expect --
                  `expectImageLoaded` returns assertions */
               it(
-                'should have loaded',
+                'should load',
                 expectImagesLoaded('../custom-icons/image/shadow.png'),
               )
             })
