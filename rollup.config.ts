@@ -62,7 +62,11 @@ const aliasOptions: RollupAliasOptions = {
         inject(injectOptions),
         typescript({
           declaration: true,
-          exclude: ['rollup.config.ts', 'src/tutorial/**/*.ts'],
+          exclude: [
+            'rollup.config.ts',
+            'src/test-utilities/**/*.ts',
+            'src/tutorial/**/*.ts',
+          ],
           outDir: './dist',
         }),
         terser(),
