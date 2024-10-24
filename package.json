@@ -46,6 +46,9 @@
     "globalSetup": "jest-environment-puppeteer/setup",
     "globalTeardown": "jest-environment-puppeteer/teardown",
     "maxWorkers": 1,
+    "moduleNameMapper": {
+      "^test-utilities/(.*)\\.js$": "<rootDir>/src/test-utilities/$1.ts"
+    },
     "preset": "ts-jest/presets/default-esm",
     "setupFilesAfterEnv": [
       "expect-puppeteer"

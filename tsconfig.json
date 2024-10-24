@@ -6,7 +6,8 @@
     "module": "ESNext",
     "moduleResolution": "node",
     "paths": {
-      "@stassi/leaf": ["src/index.ts"]
+      "@stassi/leaf": ["src/index.ts"],
+      "test-utilities/*": ["src/test-utilities/*"]
     },
     "strict": true,
     "target": "ESNext"
