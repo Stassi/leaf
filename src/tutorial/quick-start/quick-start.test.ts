@@ -1,5 +1,7 @@
 import { type BoundingBox } from 'puppeteer'
 
+import { expectImagesLoaded } from 'test-utilities/expect-images-loaded.js'
+
 describe('quick start tutorial', (): void => {
   beforeAll(async (): Promise<void> => {
     await page.goto('http://localhost:3001/tutorial/dist/quick-start')
@@ -15,6 +17,17 @@ describe('quick start tutorial', (): void => {
               ({ textContent }: Element): string | null => textContent,
             ),
           ).toBe('I am a standalone popup.')
+        })
+      })
+
+      describe('marker images', (): void => {
+        describe.each([
+          'leaflet/images/marker-icon.png',
+          'leaflet/images/marker-shadow.png',
+        ])('src="%s"', (src: string): void => {
+          /* eslint-disable-next-line jest/expect-expect --
+             `expectImagesLoaded` returns assertions */
+          it('should load', expectImagesLoaded(src))
         })
       })
     })
