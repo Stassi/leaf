@@ -27,7 +27,7 @@ describe('quick start tutorial', (): void => {
               '../../../leaflet/images/marker-shadow.png',
             ])('src="%s"', (src: string): void => {
               /* eslint-disable-next-line jest/expect-expect --
-           `expectImagesLoaded` returns assertions */
+                 `expectImagesLoaded` returns assertions */
               it('should load', expectImagesLoaded(src))
             })
           })
