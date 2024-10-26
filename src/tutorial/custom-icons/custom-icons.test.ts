@@ -1,5 +1,5 @@
-import { expectImagesLoaded } from 'test-utilities/expect-images-loaded.js'
-import { expectOpenStreetMapTilesLoaded } from 'test-utilities/expect-open-street-map-tiles-loaded.js'
+import { expectImagesLoaded } from 'test-utilities/expect-loaded/images.js'
+import { expectOpenStreetMapTilesLoaded } from 'test-utilities/expect-loaded/open-street-map-tiles.js'
 
 describe('custom icons tutorial', (): void => {
   describe.each([1, 2])(

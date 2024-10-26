@@ -1,7 +1,7 @@
 import { type BoundingBox } from 'puppeteer'
 
-import { expectImagesLoaded } from 'test-utilities/expect-images-loaded.js'
-import { expectOpenStreetMapTilesLoaded } from 'test-utilities/expect-open-street-map-tiles-loaded.js'
+import { expectImagesLoaded } from 'test-utilities/expect-loaded/images.js'
+import { expectOpenStreetMapTilesLoaded } from 'test-utilities/expect-loaded/open-street-map-tiles.js'
 
 describe('quick start tutorial', (): void => {
   describe.each([1, 2])(

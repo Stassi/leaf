@@ -1,4 +1,4 @@
-import { expectOpenStreetMapTilesLoaded } from 'test-utilities/expect-open-street-map-tiles-loaded.js'
+import { expectOpenStreetMapTilesLoaded } from 'test-utilities/expect-loaded/open-street-map-tiles.js'
 
 describe('decorative accessibility tutorial', (): void => {
   beforeAll(async (): Promise<void> => {
