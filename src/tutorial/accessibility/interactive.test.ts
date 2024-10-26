@@ -1,9 +1,18 @@
+import { expectOpenStreetMapTilesLoaded } from 'test-utilities/expect-open-street-map-tiles-loaded.js'
+
 describe('interactive accessibility tutorial', (): void => {
   beforeAll(async (): Promise<void> => {
     await page.goto('http://localhost:3001/tutorial/accessibility/interactive')
   })
 
   describe('map', (): void => {
+    // eslint-disable-next-line jest/prefer-lowercase-title -- official case
+    describe('OpenStreetMap tiles', (): void => {
+      /* eslint-disable-next-line jest/expect-expect --
+         `expectOpenStreetMapTilesLoaded` returns assertions */
+      it('should load', expectOpenStreetMapTilesLoaded())
+    })
+
     describe('"Tab"-focused marker when "Enter" is pressed', (): void => {
       it('should display popup text "Kyiv, Ukraine is the birthplace of Leaflet!"', async (): Promise<void> => {
         let markerFocused = false
