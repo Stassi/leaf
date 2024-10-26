@@ -26,7 +26,7 @@ describe('quick start tutorial', (): void => {
 
           describe('marker images', (): void => {
             describe.each([
-              '../../../leaflet/images/marker-icon.png',
+              `../../../leaflet/images/marker-icon${deviceScaleFactor === 2 ? '-2x' : ''}.png`,
               '../../../leaflet/images/marker-shadow.png',
             ])('src="%s"', (src: string): void => {
               /* eslint-disable-next-line jest/expect-expect --
