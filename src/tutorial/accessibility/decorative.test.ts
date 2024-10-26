@@ -15,7 +15,7 @@ describe('decorative accessibility tutorial', (): void => {
     })
 
     describe('marker', (): void => {
-      describe('when repeatedly pressing Tab', (): void => {
+      describe('on repeated `Tab`-presses', (): void => {
         it('should not obtain focus', async (): Promise<void> => {
           const tabPressesMaximum = 20
           let markerFocused = false,

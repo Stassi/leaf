@@ -14,28 +14,32 @@ describe('interactive accessibility tutorial', (): void => {
       it('should load', expectOpenStreetMapTilesLoaded())
     })
 
-    describe('"Tab"-focused marker when "Enter" is pressed', (): void => {
-      it('should display popup text "Kyiv, Ukraine is the birthplace of Leaflet!"', async (): Promise<void> => {
-        let markerFocused = false
+    describe('marker', (): void => {
+      describe('on focus', (): void => {
+        describe('on `Enter`-press', (): void => {
+          it('should display popup text "Kyiv, Ukraine is the birthplace of Leaflet!"', async (): Promise<void> => {
+            let markerFocused = false
 
-        while (!markerFocused) {
-          await page.keyboard.press('Tab')
+            while (!markerFocused) {
+              await page.keyboard.press('Tab')
 
-          if (
-            (await activeElementClassName()).includes('leaflet-marker-icon')
-          ) {
-            markerFocused = true
-          }
-        }
+              if (
+                (await activeElementClassName()).includes('leaflet-marker-icon')
+              ) {
+                markerFocused = true
+              }
+            }
 
-        await page.keyboard.press('Enter')
+            await page.keyboard.press('Enter')
 
-        expect(
-          await page.$eval(
-            '.leaflet-popup-content',
-            ({ textContent }: Element): string | null => textContent,
-          ),
-        ).toBe('Kyiv, Ukraine is the birthplace of Leaflet!')
+            expect(
+              await page.$eval(
+                '.leaflet-popup-content',
+                ({ textContent }: Element): string | null => textContent,
+              ),
+            ).toBe('Kyiv, Ukraine is the birthplace of Leaflet!')
+          })
+        })
       })
     })
   })
