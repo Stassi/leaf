@@ -1,3 +1,5 @@
+import { expectOpenStreetMapTilesLoaded } from 'test-utilities/expect-loaded/open-street-map-tiles.js'
+
 describe('mobile tutorial', (): void => {
   beforeAll(async (): Promise<void> => {
     await browser
@@ -14,6 +16,13 @@ describe('mobile tutorial', (): void => {
   })
 
   describe('map', (): void => {
+    // eslint-disable-next-line jest/prefer-lowercase-title -- official case
+    describe('OpenStreetMap tiles', (): void => {
+      /* eslint-disable-next-line jest/expect-expect --
+         `expectOpenStreetMapTilesLoaded` returns assertions */
+      it('should load', expectOpenStreetMapTilesLoaded())
+    })
+
     describe('layer', (): void => {
       describe.each([
         {
