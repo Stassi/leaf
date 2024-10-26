@@ -1,6 +1,6 @@
 {
   "name": "@stassi/leaf",
-  "version": "0.0.66",
+  "version": "0.0.67",
   "description": "Leaflet adapter.",
   "keywords": [
     "cartography",
@@ -88,10 +88,10 @@
     "eslint-plugin-jsonc": "^2.16.0",
     "eslint-plugin-no-unsanitized": "^4.1.2",
     "eslint-plugin-prettier": "^5.2.1",
-    "expect-puppeteer": "^10.1.3",
+    "expect-puppeteer": "^10.1.4",
     "jest": "^29.7.0",
-    "jest-environment-puppeteer": "^10.1.3",
-    "jest-puppeteer": "^10.1.3",
+    "jest-environment-puppeteer": "^10.1.4",
+    "jest-puppeteer": "^10.1.4",
     "prettier": "3.3.3",
     "puppeteer": "^23.6.0",
     "rollup": "^4.24.0",
