@@ -1,3 +1,5 @@
+import { type ElementHandle } from 'puppeteer'
+
 export function expectImagesLoaded(source: string): () => Promise<void> {
   return async (): Promise<void> => {
     await page.waitForFunction(
@@ -13,9 +15,15 @@ export function expectImagesLoaded(source: string): () => Promise<void> {
       source,
     )
 
-    for (const img of await page.$$(`img[src="${source}"]`)) {
+    const images: ElementHandle<HTMLImageElement>[] = await page.$$(
+      `img[src="${source}"]`,
+    )
+
+    expect(images.length).toBeGreaterThan(0)
+
+    for (const image of images) {
       expect(
-        await img.evaluate(
+        await image.evaluate(
           ({
             complete,
             naturalHeight,

@@ -1,6 +1,6 @@
 {
   "name": "@stassi/leaf",
-  "version": "0.0.65",
+  "version": "0.0.66",
   "description": "Leaflet adapter.",
   "keywords": [
     "cartography",
@@ -65,7 +65,7 @@
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.25.9",
-    "@babel/plugin-syntax-import-attributes": "^7.25.9",
+    "@babel/plugin-syntax-import-attributes": "^7.26.0",
     "@rollup/plugin-alias": "^5.1.1",
     "@rollup/plugin-commonjs": "^28.0.1",
     "@rollup/plugin-html": "^1.0.4",

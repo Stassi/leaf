@@ -35,6 +35,7 @@ await (
 ).marker({
   iconOptions: {
     iconUrl: '../../../leaflet/images/marker-icon.png',
+    iconUrlRetina: '../../../leaflet/images/marker-icon-2x.png',
     shadowUrl: '../../../leaflet/images/marker-shadow.png',
   },
   latitudeLongitude: [51.5, -0.09],
