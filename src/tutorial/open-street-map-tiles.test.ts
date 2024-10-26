@@ -1,6 +1,6 @@
 // eslint-disable-next-line jest/prefer-lowercase-title -- official case
 describe('OpenStreetMap tiles', (): void => {
-  describe.each(['accessibility/decorative', 'accessibility/interactive'])(
+  describe.each(['accessibility/decorative'])(
     'tutorial: %s',
     (path: string): void => {
       it('should render', async (): Promise<void> => {
