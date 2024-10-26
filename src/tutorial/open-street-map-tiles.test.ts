@@ -1,6 +1,7 @@
 // eslint-disable-next-line jest/prefer-lowercase-title -- official case
 describe('OpenStreetMap tiles', (): void => {
   describe.each([
+    'accessibility/decorative',
     'accessibility/interactive',
     'dist/custom-icons',
     'dist/mobile',
