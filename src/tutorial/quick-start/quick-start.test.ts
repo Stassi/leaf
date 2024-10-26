@@ -13,17 +13,6 @@ describe('quick start tutorial', (): void => {
 
       describe('map', (): void => {
         describe('on initial page load', (): void => {
-          describe('standalone popup', (): void => {
-            it('should display text "I am a standalone popup."', async (): Promise<void> => {
-              expect(
-                await page.$eval(
-                  '.leaflet-popup-content',
-                  ({ textContent }: Element): string | null => textContent,
-                ),
-              ).toBe('I am a standalone popup.')
-            })
-          })
-
           describe('marker images', (): void => {
             describe.each([
               `../../../leaflet/images/marker-icon${deviceScaleFactor === 2 ? '-2x' : ''}.png`,
@@ -32,6 +21,17 @@ describe('quick start tutorial', (): void => {
               /* eslint-disable-next-line jest/expect-expect --
              `expectImagesLoaded` returns assertions */
               it('should load', expectImagesLoaded(src))
+            })
+          })
+
+          describe('standalone popup', (): void => {
+            it('should display text "I am a standalone popup."', async (): Promise<void> => {
+              expect(
+                await page.$eval(
+                  '.leaflet-popup-content',
+                  ({ textContent }: Element): string | null => textContent,
+                ),
+              ).toBe('I am a standalone popup.')
             })
           })
         })
