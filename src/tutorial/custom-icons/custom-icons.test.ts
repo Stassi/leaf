@@ -1,4 +1,5 @@
 import { expectImagesLoaded } from 'test-utilities/expect-images-loaded.js'
+import { expectOpenStreetMapTilesLoaded } from 'test-utilities/expect-open-street-map-tiles-loaded.js'
 
 describe('custom icons tutorial', (): void => {
   describe.each([1, 2])(
@@ -10,6 +11,13 @@ describe('custom icons tutorial', (): void => {
       })
 
       describe('map', (): void => {
+        // eslint-disable-next-line jest/prefer-lowercase-title -- official case
+        describe('OpenStreetMap tiles', (): void => {
+          /* eslint-disable-next-line jest/expect-expect --
+             `expectOpenStreetMapTilesLoaded` returns assertions */
+          it('should load', expectOpenStreetMapTilesLoaded())
+        })
+
         describe('markers with custom icons', (): void => {
           describe.each([
             {
