@@ -1,3 +1,4 @@
+import { activeElementClassName } from 'test-utilities/active-element-class-name.js'
 import { expectOpenStreetMapTilesLoaded } from 'test-utilities/expect-loaded/open-street-map-tiles.js'
 
 describe('interactive accessibility tutorial', (): void => {
@@ -21,11 +22,7 @@ describe('interactive accessibility tutorial', (): void => {
           await page.keyboard.press('Tab')
 
           if (
-            (
-              await page.evaluate(
-                (): string => document.activeElement?.className ?? '',
-              )
-            ).includes('leaflet-marker-icon')
+            (await activeElementClassName()).includes('leaflet-marker-icon')
           ) {
             markerFocused = true
           }
