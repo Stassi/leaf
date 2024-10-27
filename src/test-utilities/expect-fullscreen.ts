@@ -1,8 +1,6 @@
 import { clickFullscreenControl } from 'test-utilities/click/fullscreen-control.js'
 import { pressEnter } from 'test-utilities/keypress/enter.js'
 
-const fullscreenActiveClassName = 'leaflet-fullscreen-on'
-
 function expectFullscreen({
   action,
   active,
@@ -14,17 +12,17 @@ function expectFullscreen({
     await (action === 'click-control' ? clickFullscreenControl : pressEnter)()
 
     await (active
-      ? page.waitForSelector(`#map.${fullscreenActiveClassName}`)
+      ? page.waitForSelector(`#map.leaflet-fullscreen-on`)
       : page.waitForFunction(
           (): boolean =>
             !document
               .querySelector('#map')
-              ?.classList.contains(fullscreenActiveClassName),
+              ?.classList.contains('leaflet-fullscreen-on'),
         ))
 
     expect(
       await page.$eval('#map', (element: Element): boolean =>
-        element.classList.contains(fullscreenActiveClassName),
+        element.classList.contains('leaflet-fullscreen-on'),
       ),
     ).toBe(active)
   }
