@@ -1,7 +1,7 @@
 import { activeElementClassName } from 'test-utilities/active-element-class-name.js'
 import { expectOpenStreetMapTilesLoaded } from 'test-utilities/expect-loaded/open-street-map-tiles.js'
-import { pressEnter } from 'test-utilities/keypress/enter.js'
-import { pressTab } from 'test-utilities/keypress/tab.js'
+import { pressEnter } from 'test-utilities/input/keypress/enter.js'
+import { pressTab } from 'test-utilities/input/keypress/tab.js'
 
 describe('interactive accessibility tutorial', (): void => {
   beforeAll(async (): Promise<void> => {

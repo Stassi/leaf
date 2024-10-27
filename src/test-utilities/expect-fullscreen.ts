@@ -1,5 +1,5 @@
-import { clickFullscreenControl } from 'test-utilities/click/click-fullscreen-control.js'
-import { pressEnter } from 'test-utilities/keypress/enter.js'
+import { clickFullscreenControl } from 'test-utilities/input/click-fullscreen-control.js'
+import { pressEnter } from 'test-utilities/input/keypress/enter.js'
 
 function expectFullscreen({
   action,

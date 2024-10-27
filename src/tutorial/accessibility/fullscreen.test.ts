@@ -6,7 +6,7 @@ import {
   expectFullscreenInactiveOnEnterPress,
 } from 'test-utilities/expect-fullscreen.js'
 import { expectOpenStreetMapTilesLoaded } from 'test-utilities/expect-loaded/open-street-map-tiles.js'
-import { pressTab } from 'test-utilities/keypress/tab.js'
+import { pressTab } from 'test-utilities/input/keypress/tab.js'
 
 describe('fullscreen accessibility tutorial', (): void => {
   beforeAll(async (): Promise<void> => {
