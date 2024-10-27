@@ -4,8 +4,8 @@ import {
   expectFullscreenActiveOnEnterPress,
   expectFullscreenInactiveOnControlClick,
   expectFullscreenInactiveOnEnterPress,
-} from 'test-utilities/expect/expect-fullscreen.js'
-import { expectOpenStreetMapTilesLoaded } from 'test-utilities/expect/expect-loaded/open-street-map-tiles.js'
+} from 'test-utilities/expect/fullscreen.js'
+import { expectOpenStreetMapTilesLoaded } from 'test-utilities/expect/loaded/open-street-map-tiles.js'
 import { pressTab } from 'test-utilities/input/keypress/tab.js'
 
 describe('fullscreen accessibility tutorial', (): void => {
