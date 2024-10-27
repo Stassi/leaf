@@ -1,4 +1,6 @@
-import { expectOpenStreetMapTilesLoaded } from 'test-utilities/expect-loaded/open-street-map-tiles.js'
+import { activeElementClassName } from 'test-utilities/active-element-class-name.js'
+import { expectOpenStreetMapTilesLoaded } from 'test-utilities/expect/loaded/open-street-map-tiles.js'
+import { pressTab } from 'test-utilities/input/keypress/tab.js'
 
 describe('decorative accessibility tutorial', (): void => {
   beforeAll(async (): Promise<void> => {
@@ -14,22 +16,18 @@ describe('decorative accessibility tutorial', (): void => {
     })
 
     describe('marker', (): void => {
-      describe('when repeatedly pressing Tab', (): void => {
+      describe('on repeated `Tab`-presses', (): void => {
         it('should not obtain focus', async (): Promise<void> => {
           const tabPressesMaximum = 20
           let markerFocused = false,
             tabPresses = 0
 
           while (tabPresses < tabPressesMaximum) {
-            await page.keyboard.press('Tab')
+            await pressTab()
             tabPresses++
 
             if (
-              (
-                await page.evaluate(
-                  (): string => document.activeElement?.className ?? '',
-                )
-              ).includes('leaflet-marker-icon')
+              (await activeElementClassName()).includes('leaflet-marker-icon')
             ) {
               markerFocused = true
               break

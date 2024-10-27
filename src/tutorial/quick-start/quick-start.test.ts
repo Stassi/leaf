@@ -1,7 +1,7 @@
 import { type BoundingBox } from 'puppeteer'
 
-import { expectImagesLoaded } from 'test-utilities/expect-loaded/images.js'
-import { expectOpenStreetMapTilesLoaded } from 'test-utilities/expect-loaded/open-street-map-tiles.js'
+import { expectImagesLoaded } from 'test-utilities/expect/loaded/images.js'
+import { expectOpenStreetMapTilesLoaded } from 'test-utilities/expect/loaded/open-street-map-tiles.js'
 
 describe('quick start tutorial', (): void => {
   describe.each([1, 2])(
@@ -27,7 +27,7 @@ describe('quick start tutorial', (): void => {
               '../../../leaflet/images/marker-shadow.png',
             ])('src="%s"', (src: string): void => {
               /* eslint-disable-next-line jest/expect-expect --
-           `expectImagesLoaded` returns assertions */
+                 `expectImagesLoaded` returns assertions */
               it('should load', expectImagesLoaded(src))
             })
           })
