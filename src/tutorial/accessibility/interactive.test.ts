@@ -1,5 +1,7 @@
 import { activeElementClassName } from 'test-utilities/active-element-class-name.js'
 import { expectOpenStreetMapTilesLoaded } from 'test-utilities/expect-loaded/open-street-map-tiles.js'
+import { pressEnter } from 'test-utilities/keypress/enter.js'
+import { pressTab } from 'test-utilities/keypress/tab.js'
 
 describe('interactive accessibility tutorial', (): void => {
   beforeAll(async (): Promise<void> => {
@@ -21,7 +23,7 @@ describe('interactive accessibility tutorial', (): void => {
             let markerFocused = false
 
             while (!markerFocused) {
-              await page.keyboard.press('Tab')
+              await pressTab()
 
               if (
                 (await activeElementClassName()).includes('leaflet-marker-icon')
@@ -30,7 +32,7 @@ describe('interactive accessibility tutorial', (): void => {
               }
             }
 
-            await page.keyboard.press('Enter')
+            await pressEnter()
 
             expect(
               await page.$eval(

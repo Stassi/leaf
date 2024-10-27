@@ -1,5 +1,6 @@
 import { activeElementClassName } from 'test-utilities/active-element-class-name.js'
 import { expectOpenStreetMapTilesLoaded } from 'test-utilities/expect-loaded/open-street-map-tiles.js'
+import { pressTab } from 'test-utilities/keypress/tab.js'
 
 describe('decorative accessibility tutorial', (): void => {
   beforeAll(async (): Promise<void> => {
@@ -22,7 +23,7 @@ describe('decorative accessibility tutorial', (): void => {
             tabPresses = 0
 
           while (tabPresses < tabPressesMaximum) {
-            await page.keyboard.press('Tab')
+            await pressTab()
             tabPresses++
 
             if (
