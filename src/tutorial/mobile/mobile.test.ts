@@ -1,4 +1,4 @@
-import { expectOpenStreetMapTilesLoaded } from 'test-utilities/expect-loaded/open-street-map-tiles.js'
+import { expectOpenStreetMapTilesLoaded } from 'test-utilities/expect/expect-loaded/open-street-map-tiles.js'
 
 describe('mobile tutorial', (): void => {
   beforeAll(async (): Promise<void> => {
