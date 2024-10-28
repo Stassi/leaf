@@ -1,12 +1,12 @@
-import { activeElementClassName } from 'test-utilities/active-element-class-name.js'
 import {
+  activeElementClassName,
   expectFullscreenActiveOnControlClick,
   expectFullscreenActiveOnEnterPress,
   expectFullscreenInactiveOnControlClick,
   expectFullscreenInactiveOnEnterPress,
-} from 'test-utilities/expect/fullscreen.js'
-import { expectOpenStreetMapTilesLoaded } from 'test-utilities/expect/loaded/open-street-map-tiles.js'
-import { pressTab } from 'test-utilities/input/keypress/tab.js'
+  expectOpenStreetMapTilesLoaded,
+  pressTab,
+} from 'test-utilities'
 
 describe('fullscreen accessibility tutorial', (): void => {
   beforeAll(async (): Promise<void> => {

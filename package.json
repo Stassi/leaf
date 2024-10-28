@@ -1,6 +1,6 @@
 {
   "name": "@stassi/leaf",
-  "version": "0.0.70",
+  "version": "0.0.71",
   "description": "Leaflet adapter.",
   "keywords": [
     "cartography",
@@ -47,7 +47,7 @@
     "globalTeardown": "jest-environment-puppeteer/teardown",
     "maxWorkers": 1,
     "moduleNameMapper": {
-      "^test-utilities/(.*)\\.js$": "<rootDir>/src/test-utilities/$1.ts"
+      "^test-utilities$": "<rootDir>/src/test-utilities/index.ts"
     },
     "preset": "ts-jest/presets/default-esm",
     "setupFilesAfterEnv": [
