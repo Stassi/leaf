@@ -1,14 +1,17 @@
 import { expectImagesLoaded } from 'test-utilities/expect/loaded/images.js'
 import { expectOpenStreetMapTilesLoaded } from 'test-utilities/expect/loaded/open-street-map-tiles.js'
+import { setBrowserConfiguration } from 'test-utilities/browser-configuration.js'
 
 describe('custom icons tutorial', (): void => {
   describe.each([1, 2])(
     'device scale factor: %d',
     (deviceScaleFactor: number): void => {
-      beforeAll(async (): Promise<void> => {
-        await page.setViewport({ deviceScaleFactor, height: 600, width: 800 })
-        await page.goto('http://localhost:3001/tutorial/dist/custom-icons')
-      })
+      beforeAll(
+        setBrowserConfiguration({
+          deviceScaleFactor,
+          url: 'http://localhost:3001/tutorial/dist/custom-icons',
+        }),
+      )
 
       describe('map', (): void => {
         // eslint-disable-next-line jest/prefer-lowercase-title -- official case

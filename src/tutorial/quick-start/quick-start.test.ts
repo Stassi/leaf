@@ -2,15 +2,18 @@ import { type BoundingBox } from 'puppeteer'
 
 import { expectImagesLoaded } from 'test-utilities/expect/loaded/images.js'
 import { expectOpenStreetMapTilesLoaded } from 'test-utilities/expect/loaded/open-street-map-tiles.js'
+import { setBrowserConfiguration } from 'test-utilities/browser-configuration.js'
 
 describe('quick start tutorial', (): void => {
   describe.each([1, 2])(
     'device scale factor: %d',
     (deviceScaleFactor: number): void => {
-      beforeAll(async (): Promise<void> => {
-        await page.setViewport({ deviceScaleFactor, height: 600, width: 800 })
-        await page.goto('http://localhost:3001/tutorial/dist/quick-start')
-      })
+      beforeAll(
+        setBrowserConfiguration({
+          deviceScaleFactor,
+          url: 'http://localhost:3001/tutorial/dist/quick-start',
+        }),
+      )
 
       describe('map', (): void => {
         describe('on initial page load', (): void => {
