@@ -14,7 +14,7 @@ describe('interactive accessibility tutorial', (): void => {
       beforeAll(
         setBrowserConfiguration({
           deviceScaleFactor,
-          url: 'http://localhost:3000/tutorial/dist/accessibility-interactive',
+          url: 'http://localhost:3001/tutorial/dist/accessibility-interactive',
         }),
       )
 
