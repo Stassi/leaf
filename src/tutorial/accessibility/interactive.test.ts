@@ -3,12 +3,15 @@ import {
   expectOpenStreetMapTilesLoaded,
   pressEnter,
   pressTab,
+  setBrowserConfiguration,
 } from 'test-utilities'
 
 describe('interactive accessibility tutorial', (): void => {
-  beforeAll(async (): Promise<void> => {
-    await page.goto('http://localhost:3001/tutorial/accessibility/interactive')
-  })
+  beforeAll(
+    setBrowserConfiguration({
+      url: 'http://localhost:3000/tutorial/dist/accessibility-interactive',
+    }),
+  )
 
   describe('map', (): void => {
     // eslint-disable-next-line jest/prefer-lowercase-title -- official case
