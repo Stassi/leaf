@@ -88,6 +88,11 @@ const aliasOptions: RollupAliasOptions = {
         input: 'src/tutorial/custom-icons/custom-icons.ts',
         title: 'Markers With Custom Icons',
       },
+      {
+        fileName: 'accessibility-interactive.html',
+        input: 'src/tutorial/accessibility/interactive.ts',
+        title: 'Accessible maps: Interactive',
+      },
     ].map(
       ({
         fileName,
