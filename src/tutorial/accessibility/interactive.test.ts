@@ -1,5 +1,6 @@
 import {
   activeElementClassName,
+  expectImagesLoaded,
   expectOpenStreetMapTilesLoaded,
   pressEnter,
   pressTab,
@@ -7,47 +8,65 @@ import {
 } from 'test-utilities'
 
 describe('interactive accessibility tutorial', (): void => {
-  beforeAll(
-    setBrowserConfiguration({
-      url: 'http://localhost:3000/tutorial/dist/accessibility-interactive',
-    }),
-  )
+  describe.each([1, 2])(
+    'device scale factor: %d',
+    (deviceScaleFactor: number): void => {
+      beforeAll(
+        setBrowserConfiguration({
+          deviceScaleFactor,
+          url: 'http://localhost:3000/tutorial/dist/accessibility-interactive',
+        }),
+      )
 
-  describe('map', (): void => {
-    // eslint-disable-next-line jest/prefer-lowercase-title -- official case
-    describe('OpenStreetMap tiles', (): void => {
-      /* eslint-disable-next-line jest/expect-expect --
+      describe('map', (): void => {
+        // eslint-disable-next-line jest/prefer-lowercase-title -- official case
+        describe('OpenStreetMap tiles', (): void => {
+          /* eslint-disable-next-line jest/expect-expect --
          `expectOpenStreetMapTilesLoaded` returns assertions */
-      it('should load', expectOpenStreetMapTilesLoaded())
-    })
+          it('should load', expectOpenStreetMapTilesLoaded())
+        })
 
-    describe('marker', (): void => {
-      describe('on focus', (): void => {
-        describe('on `Enter`-press', (): void => {
-          it('should display popup text "Kyiv, Ukraine is the birthplace of Leaflet!"', async (): Promise<void> => {
-            let markerFocused = false
+        describe('marker', (): void => {
+          describe('images', (): void => {
+            describe.each([
+              `../../../leaflet/images/marker-icon${deviceScaleFactor === 2 ? '-2x' : ''}.png`,
+              '../../../leaflet/images/marker-shadow.png',
+            ])('src="%s"', (src: string): void => {
+              /* eslint-disable-next-line jest/expect-expect --
+                 `expectImagesLoaded` returns assertions */
+              it('should load', expectImagesLoaded(src))
+            })
+          })
 
-            while (!markerFocused) {
-              await pressTab()
+          describe('on focus', (): void => {
+            describe('on `Enter`-press', (): void => {
+              it('should display popup text "Kyiv, Ukraine is the birthplace of Leaflet!"', async (): Promise<void> => {
+                let markerFocused = false
 
-              if (
-                (await activeElementClassName()).includes('leaflet-marker-icon')
-              ) {
-                markerFocused = true
-              }
-            }
+                while (!markerFocused) {
+                  await pressTab()
 
-            await pressEnter()
+                  if (
+                    (await activeElementClassName()).includes(
+                      'leaflet-marker-icon',
+                    )
+                  )
+                    markerFocused = true
+                }
 
-            expect(
-              await page.$eval(
-                '.leaflet-popup-content',
-                ({ textContent }: Element): string | null => textContent,
-              ),
-            ).toBe('Kyiv, Ukraine is the birthplace of Leaflet!')
+                await pressEnter()
+
+                expect(
+                  await page.$eval(
+                    '.leaflet-popup-content',
+                    ({ textContent }: Element): string | null => textContent,
+                  ),
+                ).toBe('Kyiv, Ukraine is the birthplace of Leaflet!')
+              })
+            })
           })
         })
       })
-    })
-  })
+    },
+  )
 })
