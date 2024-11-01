@@ -38,7 +38,7 @@
     "serve:test": "serve -p 3001",
     "start": "npm run serve",
     "test": "jest",
-    "turbo:daemon:reload": "turbo daemon clean"
+    "turbo:daemon:clean": "turbo daemon clean"
   },
   "prettier": "@vercel/style-guide/prettier",
   "jest": {
