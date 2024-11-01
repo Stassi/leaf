@@ -36,8 +36,10 @@
     "prepublishOnly": "npm test",
     "serve": "serve",
     "serve:test": "serve -p 3001",
-    "start": "npm run serve",
-    "test": "jest",
+    "start": "turbo run start:noturbo",
+    "start:noturbo": "npm run serve",
+    "test": "turbo run test:noturbo",
+    "test:noturbo": "jest",
     "turbo:daemon:clean": "turbo daemon clean"
   },
   "prettier": "@vercel/style-guide/prettier",

@@ -21,11 +21,11 @@
       "outputs": [],
       "dependsOn": ["build"]
     },
-    "test": {
+    "test:noturbo": {
       "outputs": [],
       "dependsOn": ["build", "import:all"]
     },
-    "start": {
+    "start:noturbo": {
       "cache": false,
       "persistent": true,
       "dependsOn": ["build", "import:all"]
