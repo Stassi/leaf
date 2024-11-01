@@ -36,9 +36,7 @@
     "prepublishOnly": "npm test",
     "serve": "serve",
     "serve:test": "serve -p 3001",
-    "prestart": "npm run build",
     "start": "npm run serve",
-    "pretest": "npm run build",
     "test": "jest"
   },
   "prettier": "@vercel/style-guide/prettier",
