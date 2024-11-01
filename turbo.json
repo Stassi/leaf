@@ -19,12 +19,12 @@
     "lint": {
       "dependsOn": ["build"]
     },
-    "test:noturbo": {
-      "dependsOn": ["build", "import:all", "lint"]
-    },
     "start:noturbo": {
       "cache": false,
       "persistent": true,
+      "dependsOn": ["build", "import:all", "lint"]
+    },
+    "test:noturbo": {
       "dependsOn": ["build", "import:all", "lint"]
     }
   }
