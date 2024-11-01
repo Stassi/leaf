@@ -23,12 +23,12 @@
     },
     "test:noturbo": {
       "outputs": [],
-      "dependsOn": ["build", "import:all"]
+      "dependsOn": ["build", "import:all", "lint"]
     },
     "start:noturbo": {
       "cache": false,
       "persistent": true,
-      "dependsOn": ["build", "import:all"]
+      "dependsOn": ["build", "import:all", "lint"]
     }
   }
 }
