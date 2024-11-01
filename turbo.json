@@ -10,19 +10,16 @@
   ],
   "tasks": {
     "build": {
-      "outputs": ["dist/**", "public/tutorial/dist/**"],
-      "dependsOn": []
+      "outputs": ["dist/**", "public/tutorial/dist/**"]
     },
     "import:all": {
       "outputs": ["!public/tutorial/dist/**", "public/**"],
       "dependsOn": ["build"]
     },
     "lint": {
-      "outputs": [],
       "dependsOn": ["build"]
     },
     "test:noturbo": {
-      "outputs": [],
       "dependsOn": ["build", "import:all", "lint"]
     },
     "start:noturbo": {
