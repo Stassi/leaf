@@ -16,9 +16,7 @@
       "outputs": ["!public/tutorial/dist/**", "public/**"],
       "dependsOn": ["build"]
     },
-    "lint": {
-      "dependsOn": ["build"]
-    },
+    "lint": {},
     "start:noturbo": {
       "cache": false,
       "persistent": true,
