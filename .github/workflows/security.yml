@@ -11,6 +11,7 @@ on:
 jobs:
   codeql:
     env:
+      TURBO_TELEMETRY_DISABLED: 1
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
     name: CodeQL
     permissions:
