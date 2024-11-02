@@ -158,6 +158,9 @@ $RECYCLE.BIN/
 # JetBrains IDEA
 .idea
 
+# Turbo
+.turbo
+
 # Project
 public/dompurify
 public/leaf

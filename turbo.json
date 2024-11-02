@@ -1,0 +1,31 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": [
+    ".eslintrc.cjs",
+    ".npmrc",
+    "package.json",
+    "package-lock.json",
+    "rollup.config.ts",
+    "tsconfig.json"
+  ],
+  "tasks": {
+    "build": {
+      "outputs": ["dist/**", "public/tutorial/dist/**"]
+    },
+    "import:all": {
+      "outputs": ["!public/tutorial/dist/**", "public/**"],
+      "dependsOn": ["build"]
+    },
+    "lint": {
+      "dependsOn": ["build"]
+    },
+    "start:noturbo": {
+      "cache": false,
+      "persistent": true,
+      "dependsOn": ["build", "import:all", "lint"]
+    },
+    "test:noturbo": {
+      "dependsOn": ["build", "import:all", "lint"]
+    }
+  }
+}
