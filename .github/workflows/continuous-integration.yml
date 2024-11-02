@@ -9,6 +9,7 @@ on:
 jobs:
   test:
     env:
+      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
       TURBO_TELEMETRY_DISABLED: 1
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
     name: Test
