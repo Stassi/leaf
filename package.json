@@ -40,7 +40,7 @@
     "start:noturbo": "npm run serve",
     "test": "turbo run test:noturbo",
     "test:noturbo": "jest",
-    "turbo:daemon:clean": "turbo daemon clean"
+    "turbo:daemon:clean": "turbo daemon clean || exit 0"
   },
   "prettier": "@vercel/style-guide/prettier",
   "jest": {
