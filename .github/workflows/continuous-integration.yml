@@ -10,7 +10,7 @@ jobs:
   test:
     env:
       TURBO_TEAM: ${{ vars.TURBO_TEAM }}
-      TURBO_TELEMETRY_DISABLED: 1
+      TURBO_TELEMETRY_DISABLED: ${{ vars.TURBO_TELEMETRY_DISABLED }}
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
     name: Test
     runs-on: ${{ matrix.os }}
