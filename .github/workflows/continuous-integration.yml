@@ -8,6 +8,8 @@ on:
 
 jobs:
   test:
+    env:
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
     name: Test
     runs-on: ${{ matrix.os }}
 

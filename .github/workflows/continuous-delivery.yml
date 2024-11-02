@@ -6,7 +6,10 @@ on:
 
 jobs:
   publish-npm:
+    env:
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
     if: github.event.pull_request.merged
+    name: Publish to npm
     permissions:
       contents: read
       id-token: write
