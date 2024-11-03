@@ -2,43 +2,54 @@ import {
   activeElementClassName,
   expectOpenStreetMapTilesLoaded,
   pressTab,
+  setBrowserConfiguration,
 } from 'test-utilities'
 
 describe('decorative accessibility tutorial', (): void => {
-  beforeAll(async (): Promise<void> => {
-    await page.goto('http://localhost:3001/tutorial/accessibility/decorative')
-  })
+  describe.each([1, 2])(
+    'device scale factor: %d',
+    (deviceScaleFactor: number): void => {
+      beforeAll(
+        setBrowserConfiguration({
+          deviceScaleFactor,
+          url: 'http://localhost:3001/tutorial/dist/accessibility-decorative',
+        }),
+      )
 
-  describe('map', (): void => {
-    // eslint-disable-next-line jest/prefer-lowercase-title -- official case
-    describe('OpenStreetMap tiles', (): void => {
-      /* eslint-disable-next-line jest/expect-expect --
+      describe('map', (): void => {
+        // eslint-disable-next-line jest/prefer-lowercase-title -- official case
+        describe('OpenStreetMap tiles', (): void => {
+          /* eslint-disable-next-line jest/expect-expect --
          `expectOpenStreetMapTilesLoaded` returns assertions */
-      it('should load', expectOpenStreetMapTilesLoaded())
-    })
+          it('should load', expectOpenStreetMapTilesLoaded())
+        })
 
-    describe('marker', (): void => {
-      describe('on repeated `Tab`-presses', (): void => {
-        it('should not obtain focus', async (): Promise<void> => {
-          const tabPressesMaximum = 20
-          let markerFocused = false,
-            tabPresses = 0
+        describe('marker', (): void => {
+          describe('on repeated `Tab`-presses', (): void => {
+            it('should not obtain focus', async (): Promise<void> => {
+              const tabPressesMaximum = 20
+              let markerFocused = false,
+                tabPresses = 0
 
-          while (tabPresses < tabPressesMaximum) {
-            await pressTab()
-            tabPresses++
+              while (tabPresses < tabPressesMaximum) {
+                await pressTab()
+                tabPresses++
 
-            if (
-              (await activeElementClassName()).includes('leaflet-marker-icon')
-            ) {
-              markerFocused = true
-              break
-            }
-          }
+                if (
+                  (await activeElementClassName()).includes(
+                    'leaflet-marker-icon',
+                  )
+                ) {
+                  markerFocused = true
+                  break
+                }
+              }
 
-          expect(markerFocused).toBe(false)
+              expect(markerFocused).toBe(false)
+            })
+          })
         })
       })
-    })
-  })
+    },
+  )
 })
