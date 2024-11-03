@@ -17,6 +17,11 @@ const map: Map = await (
 await (
   await import('../../leaf/marker.js')
 ).marker({
+  iconOptions: {
+    iconUrl: '../../../leaflet/images/marker-icon.png',
+    iconUrlRetina: '../../../leaflet/images/marker-icon-2x.png',
+    shadowUrl: '../../../leaflet/images/marker-shadow.png',
+  },
   latitudeLongitude: [50.4501, 30.5234],
   map,
 })
