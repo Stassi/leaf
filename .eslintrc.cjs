@@ -90,6 +90,16 @@ module.exports = {
         'no-unsanitized/property': 'error',
       },
     },
+    {
+      extends: ['plugin:yml/prettier', 'plugin:yml/standard'],
+      files: ['*.yaml', '*.yml'],
+      parser: 'yaml-eslint-parser',
+      plugins: ['yml'],
+      rules: {
+        'yml/quotes': ['error', { prefer: 'single' }],
+        'yml/sort-keys': 'error',
+      },
+    },
   ],
   parser: '@babel/eslint-parser',
   parserOptions: {

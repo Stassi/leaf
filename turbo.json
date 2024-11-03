@@ -2,9 +2,10 @@
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": [
     ".eslintrc.cjs",
+    ".github/workflows/**",
     ".npmrc",
-    "package.json",
     "package-lock.json",
+    "package.json",
     "rollup.config.ts",
     "tsconfig.json"
   ],
