@@ -10,6 +10,10 @@ on:
 
 jobs:
   codeql:
+    env:
+      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+      TURBO_TELEMETRY_DISABLED: ${{ vars.TURBO_TELEMETRY_DISABLED }}
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
     name: CodeQL
     permissions:
       packages: read
@@ -18,10 +22,10 @@ jobs:
 
     steps:
       - name: Repository checkout
-        uses: actions/checkout@v4.1.7
+        uses: actions/checkout@v4.2.2
 
       - name: Node.js setup
-        uses: actions/setup-node@v4.0.4
+        uses: actions/setup-node@v4.1.0
         with:
           cache: npm
           cache-dependency-path: package-lock.json
@@ -34,15 +38,15 @@ jobs:
         run: npm test
 
       - name: Initialization
-        uses: github/codeql-action/init@v3.26.9
+        uses: github/codeql-action/init@v3.27.0
         with:
           languages: 'javascript-typescript'
 
       - name: Analysis
-        uses: github/codeql-action/analyze@v3.26.9
+        uses: github/codeql-action/analyze@v3.27.0
 
       - name: Results upload
-        uses: github/codeql-action/upload-sarif@v3.26.9
+        uses: github/codeql-action/upload-sarif@v3.27.0
         with:
           category: codeql-analysis
 
@@ -54,10 +58,10 @@ jobs:
 
     steps:
       - name: Repository checkout
-        uses: actions/checkout@v4.1.7
+        uses: actions/checkout@v4.2.2
 
       - name: Node.js setup
-        uses: actions/setup-node@v4.0.4
+        uses: actions/setup-node@v4.1.0
         with:
           cache: npm
           cache-dependency-path: package-lock.json
@@ -75,7 +79,7 @@ jobs:
           args: --sarif-file-output=snyk.sarif
 
       - name: Results upload
-        uses: github/codeql-action/upload-sarif@v3.26.9
+        uses: github/codeql-action/upload-sarif@v3.27.0
         with:
           category: snyk-analysis
           sarif_file: snyk.sarif

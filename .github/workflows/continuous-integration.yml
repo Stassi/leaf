@@ -8,6 +8,10 @@ on:
 
 jobs:
   test:
+    env:
+      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+      TURBO_TELEMETRY_DISABLED: ${{ vars.TURBO_TELEMETRY_DISABLED }}
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
     name: Test
     runs-on: ${{ matrix.os }}
 
@@ -18,10 +22,10 @@ jobs:
 
     steps:
       - name: Repository checkout
-        uses: actions/checkout@v4.1.7
+        uses: actions/checkout@v4.2.2
 
       - name: Node.js setup ${{ matrix.node-version }}
-        uses: actions/setup-node@v4.0.4
+        uses: actions/setup-node@v4.1.0
         with:
           cache: npm
           cache-dependency-path: package-lock.json
