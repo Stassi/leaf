@@ -38,15 +38,15 @@ jobs:
         run: npm test
 
       - name: Initialization
-        uses: github/codeql-action/init@v3.26.9
+        uses: github/codeql-action/init@v3.27.0
         with:
           languages: 'javascript-typescript'
 
       - name: Analysis
-        uses: github/codeql-action/analyze@v3.26.9
+        uses: github/codeql-action/analyze@v3.27.0
 
       - name: Results upload
-        uses: github/codeql-action/upload-sarif@v3.26.9
+        uses: github/codeql-action/upload-sarif@v3.27.0
         with:
           category: codeql-analysis
 
@@ -79,7 +79,7 @@ jobs:
           args: --sarif-file-output=snyk.sarif
 
       - name: Results upload
-        uses: github/codeql-action/upload-sarif@v3.26.9
+        uses: github/codeql-action/upload-sarif@v3.27.0
         with:
           category: snyk-analysis
           sarif_file: snyk.sarif
