@@ -1,5 +1,6 @@
 import {
   activeElementClassName,
+  expectImagesLoaded,
   expectOpenStreetMapTilesLoaded,
   pressTab,
   setBrowserConfiguration,
@@ -25,6 +26,17 @@ describe('decorative accessibility tutorial', (): void => {
         })
 
         describe('marker', (): void => {
+          describe('images', (): void => {
+            describe.each([
+              `../../../leaflet/images/marker-icon${deviceScaleFactor === 2 ? '-2x' : ''}.png`,
+              '../../../leaflet/images/marker-shadow.png',
+            ])('src="%s"', (src: string): void => {
+              /* eslint-disable-next-line jest/expect-expect --
+                 `expectImagesLoaded` returns assertions */
+              it('should load', expectImagesLoaded(src))
+            })
+          })
+
           describe('on repeated `Tab`-presses', (): void => {
             it('should not obtain focus', async (): Promise<void> => {
               const tabPressesMaximum = 20
