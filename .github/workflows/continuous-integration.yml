@@ -22,7 +22,7 @@ jobs:
 
     steps:
       - name: Repository checkout
-        uses: actions/checkout@v4.1.7
+        uses: actions/checkout@v4.2.2
 
       - name: Node.js setup ${{ matrix.node-version }}
         uses: actions/setup-node@v4.1.0
