@@ -32,7 +32,7 @@
     "import:leaflet": "shx cp -r node_modules/leaflet/dist/* public/leaflet",
     "preimport:leaflet:fullscreen": "shx mkdir -p public/leaflet/fullscreen",
     "import:leaflet:fullscreen": "shx cp -r node_modules/leaflet-fullscreen/dist/* public/leaflet/fullscreen",
-    "lint": "eslint .",
+    "lint": "eslint . && eslint .github/workflows",
     "prepublishOnly": "npm test",
     "serve": "serve",
     "serve:test": "serve -p 3001",
