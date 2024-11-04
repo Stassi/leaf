@@ -10,7 +10,9 @@ import {
 
 describe('fullscreen accessibility tutorial', (): void => {
   beforeAll(async (): Promise<void> => {
-    await page.goto('http://localhost:3001/tutorial/accessibility/fullscreen')
+    await page.goto(
+      'http://localhost:3001/tutorial/dist/accessibility-fullscreen',
+    )
   })
 
   describe('map', (): void => {
