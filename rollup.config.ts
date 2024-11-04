@@ -98,6 +98,11 @@ const aliasOptions: RollupAliasOptions = {
         input: 'src/tutorial/accessibility/decorative.ts',
         title: 'Accessible maps: Decorative',
       },
+      {
+        fileName: 'accessibility-fullscreen.html',
+        input: 'src/tutorial/accessibility/fullscreen.ts',
+        title: 'Accessible maps: Fullscreen',
+      },
     ].map(
       ({
         fileName,
