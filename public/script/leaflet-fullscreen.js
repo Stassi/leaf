@@ -1,56 +1,12 @@
 // noinspection JSIgnoredPromiseFromCall, JSUnresolvedReference, JSUnusedGlobalSymbols
 
 import {
+  bind,
   Control,
   DomEvent,
   DomUtil,
   Map,
-  bind,
-  control,
-  map as leafletMap,
 } from '../leaflet/leaflet-src.esm.js'
-
-Control.Fullscreen = Control.extend({
-  _click(e) {
-    DomEvent.stopPropagation(e)
-    DomEvent.preventDefault(e)
-    this._map.toggleFullscreen(this.options)
-  },
-
-  _toggleTitle() {
-    this.link.title = this.options.title[this._map.isFullscreen()]
-  },
-
-  onAdd(map) {
-    const container = DomUtil.create(
-      'div',
-      'leaflet-control-fullscreen leaflet-bar leaflet-control',
-    )
-
-    this.link = DomUtil.create(
-      'a',
-      'leaflet-control-fullscreen-button leaflet-bar-part',
-      container,
-    )
-    this.link.href = '#'
-
-    this._map = map
-    this._map.on('fullscreenchange', this._toggleTitle, this)
-    this._toggleTitle()
-
-    DomEvent.on(this.link, 'click', this._click, this)
-
-    return container
-  },
-
-  options: {
-    position: 'topleft',
-    title: {
-      false: 'View Fullscreen',
-      true: 'Exit Fullscreen',
-    },
-  },
-})
 
 Map.include({
   _disablePseudoFullscreen(container) {
@@ -135,9 +91,51 @@ Map.mergeOptions({
   fullscreenControl: false,
 })
 
+const ControlFullscreen = Control.extend({
+  _click(e) {
+    DomEvent.stopPropagation(e)
+    DomEvent.preventDefault(e)
+    this._map.toggleFullscreen(this.options)
+  },
+
+  _toggleTitle() {
+    this.link.title = this.options.title[this._map.isFullscreen()]
+  },
+
+  onAdd(map) {
+    const container = DomUtil.create(
+      'div',
+      'leaflet-control-fullscreen leaflet-bar leaflet-control',
+    )
+
+    this.link = DomUtil.create(
+      'a',
+      'leaflet-control-fullscreen-button leaflet-bar-part',
+      container,
+    )
+    this.link.href = '#'
+
+    this._map = map
+    this._map.on('fullscreenchange', this._toggleTitle, this)
+    this._toggleTitle()
+
+    DomEvent.on(this.link, 'click', this._click, this)
+
+    return container
+  },
+
+  options: {
+    position: 'topleft',
+    title: {
+      false: 'View Fullscreen',
+      true: 'Exit Fullscreen',
+    },
+  },
+})
+
 Map.addInitHook(function addInitHookHandler() {
   if (this.options.fullscreenControl) {
-    this.fullscreenControl = new Control.Fullscreen(
+    this.fullscreenControl = new ControlFullscreen(
       this.options.fullscreenControl,
     )
     this.addControl(this.fullscreenControl)
@@ -168,20 +166,4 @@ Map.addInitHook(function addInitHookHandler() {
   }
 })
 
-control.fullscreen = function fullscreenHandler(options) {
-  return new Control.Fullscreen(options)
-}
-
-function map(id, options) {
-  return new Map(id, options)
-}
-
-function createFullscreenMap({ center, id, onClick = () => {}, zoom }) {
-  return leafletMap(id, {
-    center,
-    fullscreenControl: true,
-    zoom,
-  }).on('click', onClick)
-}
-
-export { Control, Map, control, createFullscreenMap, map }
+export { Map as MapFullscreen }
