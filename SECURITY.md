@@ -2,7 +2,7 @@
 
 ## Updates
 
-[![The project's latest version published to the npm registry.](https://img.shields.io/npm/v/%40stassi%2Fleaf "npm latest version badge")](https://www.npmjs.com/package/@stassi/leaf)
+[![The project's latest version published to the npm registry.](https://img.shields.io/npm/v/%40stassi%2Fleaf 'npm latest version badge')](https://www.npmjs.com/package/@stassi/leaf)
 
 **Always use the latest version of `@stassi/leaf`** via the `npm update` command ([documentation](https://docs.npmjs.com/cli/v10/commands/npm-update)) to ensure the latest security updates are received.
 
@@ -16,7 +16,7 @@ If you discover a **potential vulnerability in the `@stassi/leaf` codebase**, pl
 
 ## Maintenance
 
-[![Displays the pass-fail status of the project's automated security scans via GitHub Actions.](https://github.com/Stassi/leaf/actions/workflows/security.yml/badge.svg "Automated security analysis status badge")](https://github.com/Stassi/leaf/actions/workflows/security.yml)
+[![Displays the pass-fail status of the project's automated security scans via GitHub Actions.](https://github.com/Stassi/leaf/actions/workflows/security.yml/badge.svg 'Automated security analysis status badge')](https://github.com/Stassi/leaf/actions/workflows/security.yml)
 
 Automated security scans are integrated into the [continuous delivery (CD)](https://en.wikipedia.org/wiki/Continuous_delivery) pipeline.
 
@@ -70,6 +70,18 @@ The following potential vulnerabilities were **resolved** after detection.
   - **Dependabot**: [GHSA-9wv6-86v2-598j](https://github.com/advisories/GHSA-9wv6-86v2-598j)
   - **Snyk**: [SNYK-JS-PATHTOREGEXP-7925106](https://security.snyk.io/vuln/SNYK-JS-PATHTOREGEXP-7925106)
 - **CVE:** [CVE-2024-45296](https://nvd.nist.gov/vuln/detail/CVE-2024-45296)
+- **CWE:** [CWE-1333](https://cwe.mitre.org/data/definitions/1333.html) (Inefficient regular expression complexity)
+
+### Regular expression denial of service (ReDoS) in `cross-spawn`
+
+- **Detected by:** Snyk
+- **Vulnerable package:** [cross-spawn](https://www.npmjs.com/package/cross-spawn) (via [serve](https://www.npmjs.com/package/serve))
+- **Detection time:** 2024-11-07 8:43
+- **Resolution time:** 2024-11-12 1:13
+- **Resolution version (`@stassi/leaf`):** [v0.0.78](https://github.com/Stassi/leaf/releases/tag/v0.0.78)
+- **CVSS (severity):** 8.7 (high)
+- **Advisory:** [SNYK-JS-CROSSSPAWN-8303230](https://security.snyk.io/vuln/SNYK-JS-CROSSSPAWN-8303230)
+- **CVE:** [CVE-2024-21538](https://nvd.nist.gov/vuln/detail/CVE-2024-21538)
 - **CWE:** [CWE-1333](https://cwe.mitre.org/data/definitions/1333.html) (Inefficient regular expression complexity)
 
 ### Unsafe HTML constructed from `leaflet` library input
