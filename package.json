@@ -1,6 +1,6 @@
 {
   "name": "@stassi/leaf",
-  "version": "0.0.76",
+  "version": "0.0.77",
   "description": "Leaflet adapter.",
   "keywords": [
     "cartography",
