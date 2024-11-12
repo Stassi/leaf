@@ -1,10 +1,10 @@
 import { attributionOsm, urlTemplateOsm } from '../../../script/base-layers.js'
 import { marker } from '../../../leaflet-adapter/marker.js'
 import { tileLayer } from '../../../leaflet-adapter/tile-layer/tile-layer.js'
-import { MapFullscreen } from '../../../script/leaflet-fullscreen.js'
+import { fullscreenMap } from '../../../script/leaflet-fullscreen.js'
 
 function mapFullscreen({ id, ...props }) {
-  return new MapFullscreen(id, {
+  return fullscreenMap(id, {
     fullscreenControl: true,
     ...props,
   })
