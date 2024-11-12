@@ -1,6 +1,6 @@
 {
   "name": "@stassi/leaf",
-  "version": "0.0.77",
+  "version": "0.0.78",
   "description": "Leaflet adapter.",
   "keywords": [
     "cartography",
@@ -133,5 +133,8 @@
       "launchTimeout": 10000,
       "port": 3001
     }
+  },
+  "overrides": {
+    "cross-spawn": "^7.0.5"
   }
 }
