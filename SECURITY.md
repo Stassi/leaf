@@ -72,6 +72,18 @@ The following potential vulnerabilities were **resolved** after detection.
 - **CVE:** [CVE-2024-45296](https://nvd.nist.gov/vuln/detail/CVE-2024-45296)
 - **CWE:** [CWE-1333](https://cwe.mitre.org/data/definitions/1333.html) (Inefficient regular expression complexity)
 
+### Regular expression denial of service (ReDoS) in `cross-spawn`
+
+- **Detected by:** Snyk
+- **Vulnerable package:** [cross-spawn](https://www.npmjs.com/package/cross-spawn) (via [serve](https://www.npmjs.com/package/serve))
+- **Detection time:** 2024-11-07 8:43
+- **Resolution time:** 2024-11-12 1:13
+- **Resolution version (`@stassi/leaf`):** [v0.0.78](https://github.com/Stassi/leaf/releases/tag/v0.0.78)
+- **CVSS (severity):** 8.7 (high)
+- **Advisory:** [SNYK-JS-CROSSSPAWN-8303230](https://security.snyk.io/vuln/SNYK-JS-CROSSSPAWN-8303230)
+- **CVE:** [CVE-2024-21538](https://nvd.nist.gov/vuln/detail/CVE-2024-21538)
+- **CWE:** [CWE-1333](https://cwe.mitre.org/data/definitions/1333.html) (Inefficient regular expression complexity)
+
 ### Unsafe HTML constructed from `leaflet` library input
 
 - **Detected by:** CodeQL
