@@ -5,6 +5,18 @@ import {
   map as leafletMap,
 } from '../leaflet/leaflet-src.esm.js'
 
+function useBoolean(initialValue = false) {
+  let state = initialValue
+  return {
+    get() {
+      return state
+    },
+    set(newState) {
+      state = newState
+    },
+  }
+}
+
 function getFullscreenChangeEventName() {
   if ('onfullscreenchange' in document) return 'fullscreenchange'
   else if ('onmozfullscreenchange' in document) return 'mozfullscreenchange'
