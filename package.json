@@ -1,6 +1,6 @@
 {
   "name": "@stassi/leaf",
-  "version": "0.0.76",
+  "version": "0.0.79",
   "description": "Leaflet adapter.",
   "keywords": [
     "cartography",
@@ -59,7 +59,7 @@
   },
   "dependencies": {
     "@types/leaflet": "^1.9.14",
-    "dompurify": "^3.1.7",
+    "dompurify": "^3.2.0",
     "leaflet": "^1.9.4",
     "leaflet-fullscreen": "^1.0.2",
     "serve": "^14.2.4"
@@ -85,8 +85,8 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-import-resolver-typescript": "^3.6.3",
     "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-jest": "^28.8.3",
-    "eslint-plugin-jsonc": "^2.16.0",
+    "eslint-plugin-jest": "^28.9.0",
+    "eslint-plugin-jsonc": "^2.18.1",
     "eslint-plugin-no-unsanitized": "^4.1.2",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-yml": "^1.15.0",
@@ -95,8 +95,8 @@
     "jest-environment-puppeteer": "^10.1.4",
     "jest-puppeteer": "^10.1.4",
     "prettier": "3.3.3",
-    "puppeteer": "^23.6.1",
-    "rollup": "^4.24.3",
+    "puppeteer": "^23.7.1",
+    "rollup": "^4.25.0",
     "rollup-plugin-modify": "^3.0.0",
     "rollup-plugin-styles": "^4.0.0",
     "shx": "^0.3.4",
@@ -133,5 +133,8 @@
       "launchTimeout": 10000,
       "port": 3001
     }
+  },
+  "overrides": {
+    "cross-spawn": "^7.0.5"
   }
 }
