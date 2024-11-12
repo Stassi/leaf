@@ -1,169 +1,142 @@
-// noinspection JSIgnoredPromiseFromCall, JSUnresolvedReference, JSUnusedGlobalSymbols
-
 import {
-  bind,
-  Control,
+  control,
   DomEvent,
   DomUtil,
-  Map,
+  map as leafletMap,
 } from '../leaflet/leaflet-src.esm.js'
 
-Map.include({
-  _disablePseudoFullscreen(container) {
-    DomUtil.removeClass(container, 'leaflet-pseudo-fullscreen')
-    this._setFullscreen(false)
-    this.fire('fullscreenchange')
-  },
+function getFullscreenChangeEventName() {
+  if ('onfullscreenchange' in document) return 'fullscreenchange'
+  else if ('onmozfullscreenchange' in document) return 'mozfullscreenchange'
+  else if ('onwebkitfullscreenchange' in document)
+    return 'webkitfullscreenchange'
+  else if ('onmsfullscreenchange' in document) return 'MSFullscreenChange'
+  return null
+}
 
-  _enablePseudoFullscreen(container) {
-    DomUtil.addClass(container, 'leaflet-pseudo-fullscreen')
-    this._setFullscreen(true)
-    this.fire('fullscreenchange')
-  },
-
-  _onFullscreenChange() {
-    const fullscreenElement =
-      document.fullscreenElement ||
-      document.mozFullScreenElement ||
-      document.webkitFullscreenElement ||
-      document.msFullscreenElement
-
-    if (fullscreenElement === this.getContainer() && !this._isFullscreen) {
-      this._setFullscreen(true)
-      this.fire('fullscreenchange')
-    } else if (
-      fullscreenElement !== this.getContainer() &&
-      this._isFullscreen
-    ) {
-      this._setFullscreen(false)
-      this.fire('fullscreenchange')
-    }
-  },
-
-  _setFullscreen(fullscreen) {
-    this._isFullscreen = fullscreen
-    const container = this.getContainer()
-    if (fullscreen) {
-      DomUtil.addClass(container, 'leaflet-fullscreen-on')
-    } else {
-      DomUtil.removeClass(container, 'leaflet-fullscreen-on')
-    }
-    this.invalidateSize()
-  },
-
-  isFullscreen() {
-    return this._isFullscreen || false
-  },
-
-  toggleFullscreen(options) {
-    const container = this.getContainer()
-    if (this.isFullscreen()) {
-      if (options && options.pseudoFullscreen) {
-        this._disablePseudoFullscreen(container)
-      } else if (document.exitFullscreen) {
-        document.exitFullscreen()
-      } else if (document.mozCancelFullScreen) {
-        document.mozCancelFullScreen()
-      } else if (document.webkitCancelFullScreen) {
-        document.webkitCancelFullScreen()
-      } else if (document.msExitFullscreen) {
-        document.msExitFullscreen()
-      } else {
-        this._disablePseudoFullscreen(container)
-      }
-    } else if (options && options.pseudoFullscreen) {
-      this._enablePseudoFullscreen(container)
-    } else if (container.requestFullscreen) {
-      container.requestFullscreen()
-    } else if (container.mozRequestFullScreen) {
-      container.mozRequestFullScreen()
-    } else if (container.webkitRequestFullscreen) {
-      container.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT)
-    } else if (container.msRequestFullscreen) {
-      container.msRequestFullscreen()
-    } else {
-      this._enablePseudoFullscreen(container)
-    }
-  },
-})
-
-Map.mergeOptions({
-  fullscreenControl: false,
-})
-
-const ControlFullscreen = Control.extend({
-  _click(e) {
-    DomEvent.stopPropagation(e)
-    DomEvent.preventDefault(e)
-    this._map.toggleFullscreen(this.options)
-  },
-
-  _toggleTitle() {
-    this.link.title = this.options.title[this._map.isFullscreen()]
-  },
-
-  onAdd(map) {
-    const container = DomUtil.create(
-      'div',
-      'leaflet-control-fullscreen leaflet-bar leaflet-control',
-    )
-
-    this.link = DomUtil.create(
-      'a',
-      'leaflet-control-fullscreen-button leaflet-bar-part',
-      container,
-    )
-    this.link.href = '#'
-
-    this._map = map
-    this._map.on('fullscreenchange', this._toggleTitle, this)
-    this._toggleTitle()
-
-    DomEvent.on(this.link, 'click', this._click, this)
-
-    return container
-  },
-
-  options: {
+function createFullscreenControl(options = {}) {
+  const mergedOptions = {
     position: 'topleft',
     title: {
       false: 'View Fullscreen',
       true: 'Exit Fullscreen',
     },
-  },
-})
+    ...options,
+  }
+  const fullscreenControl = control({ position: mergedOptions.position })
 
-Map.addInitHook(function addInitHookHandler() {
-  if (this.options.fullscreenControl) {
-    this.fullscreenControl = new ControlFullscreen(
-      this.options.fullscreenControl,
+  fullscreenControl.onAdd = function onAdd(map) {
+    const container = DomUtil.create(
+      'div',
+      'leaflet-control-fullscreen leaflet-bar leaflet-control',
     )
-    this.addControl(this.fullscreenControl)
-  }
 
-  let fullscreenchange
+    const link = DomUtil.create(
+      'a',
+      'leaflet-control-fullscreen-button leaflet-bar-part',
+      container,
+    )
 
-  if ('onfullscreenchange' in document) {
-    fullscreenchange = 'fullscreenchange'
-  } else if ('onmozfullscreenchange' in document) {
-    fullscreenchange = 'mozfullscreenchange'
-  } else if ('onwebkitfullscreenchange' in document) {
-    fullscreenchange = 'webkitfullscreenchange'
-  } else if ('onmsfullscreenchange' in document) {
-    fullscreenchange = 'MSFullscreenChange'
-  }
+    link.href = '#'
+    link.title = mergedOptions.title[isFullscreen(map)]
 
-  if (fullscreenchange) {
-    const onFullscreenChange = bind(this._onFullscreenChange, this)
-
-    this.whenReady(function whenReadyHandler() {
-      DomEvent.on(document, fullscreenchange, onFullscreenChange)
+    DomEvent.on(link, 'click', function onClick(e) {
+      DomEvent.stopPropagation(e)
+      DomEvent.preventDefault(e)
+      toggleFullscreen(map, mergedOptions)
     })
 
-    this.on('unload', function onUnloadHandler() {
-      DomEvent.off(document, fullscreenchange, onFullscreenChange)
+    return container
+  }
+
+  return fullscreenControl
+}
+
+function isFullscreen(map) {
+  return map._isFullscreen || false
+}
+
+/**
+ * @param {*} map
+ * @param {boolean} isFullscreen
+ */
+function setFullscreen(map, isFullscreen) {
+  map._isFullscreen = isFullscreen
+  const container = map.getContainer()
+  if (isFullscreen) DomUtil.addClass(container, 'leaflet-fullscreen-on')
+  else DomUtil.removeClass(container, 'leaflet-fullscreen-on')
+  map.invalidateSize()
+}
+
+function enablePseudoFullscreen(map) {
+  const container = map.getContainer()
+  DomUtil.addClass(container, 'leaflet-pseudo-fullscreen')
+  setFullscreen(map, true)
+  map.fire('fullscreenchange')
+}
+
+function disablePseudoFullscreen(map) {
+  const container = map.getContainer()
+  DomUtil.removeClass(container, 'leaflet-pseudo-fullscreen')
+  setFullscreen(map, false)
+  map.fire('fullscreenchange')
+}
+
+function toggleFullscreen(map, options = {}) {
+  const container = map.getContainer()
+
+  if (isFullscreen(map)) {
+    if (options.pseudoFullscreen) disablePseudoFullscreen(map)
+    else if (document.exitFullscreen) document.exitFullscreen()
+    else disablePseudoFullscreen(map)
+  } else if (options.pseudoFullscreen) enablePseudoFullscreen(map)
+  else if (container.requestFullscreen) container.requestFullscreen()
+  else enablePseudoFullscreen(map)
+}
+
+function onFullscreenChange(map) {
+  const fullscreenElement =
+    document.fullscreenElement ||
+    document.mozFullScreenElement ||
+    document.webkitFullscreenElement ||
+    document.msFullscreenElement
+
+  if (fullscreenElement === map.getContainer()) {
+    if (!map._isFullscreen) {
+      setFullscreen(map, true)
+      map.fire('fullscreenchange')
+    }
+  } else if (map._isFullscreen) {
+    setFullscreen(map, false)
+    map.fire('fullscreenchange')
+  }
+}
+
+export function fullscreenMap(id, options = {}) {
+  const map = leafletMap(id, options)
+
+  map._isFullscreen = false
+
+  if (options.fullscreenControl) {
+    const fullscreenControl = createFullscreenControl(options.fullscreenControl)
+    fullscreenControl.addTo(map)
+  }
+
+  const fullscreenChangeEvent = getFullscreenChangeEventName()
+
+  function handleFullscreenChange() {
+    return onFullscreenChange(map)
+  }
+
+  if (fullscreenChangeEvent) {
+    map.whenReady(function readyHandler() {
+      DomEvent.on(document, fullscreenChangeEvent, handleFullscreenChange)
+    })
+
+    map.on('unload', function unloadHandler() {
+      DomEvent.off(document, fullscreenChangeEvent, handleFullscreenChange)
     })
   }
-})
 
-export { Map as MapFullscreen }
+  return map
+}
