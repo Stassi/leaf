@@ -25,6 +25,13 @@ function expectFullscreen({
         element.classList.contains('leaflet-fullscreen-on'),
       ),
     ).toBe(active)
+
+    expect(
+      await page.$eval(
+        'a.leaflet-control-fullscreen-button',
+        (element: Element): string | null => element.getAttribute('title'),
+      ),
+    ).toBe(active ? 'Exit Fullscreen' : 'View Fullscreen')
   }
 }
 
