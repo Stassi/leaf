@@ -133,5 +133,8 @@
       "launchTimeout": 10000,
       "port": 3001
     }
+  },
+  "overrides": {
+    "cross-spawn": "^7.0.5"
   }
 }
