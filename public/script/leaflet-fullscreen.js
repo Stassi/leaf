@@ -56,10 +56,6 @@ function isFullscreen(map) {
   return map._isFullscreen || false
 }
 
-/**
- * @param {*} map
- * @param {boolean} isFullscreen
- */
 function setFullscreen(map, isFullscreen) {
   map._isFullscreen = isFullscreen
   const container = map.getContainer()
