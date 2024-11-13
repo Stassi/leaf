@@ -46,8 +46,6 @@ export function fullscreenMap({
   ...mapOptions
 }) {
   const { get: getFullscreen, toggle: toggleFullscreen } = useBoolean(),
-    control = leafletControl({ position }),
-    map = leafletMap(id, mapOptions),
     container = DomUtil.create(
       'div',
       joinClassNames([
@@ -65,30 +63,13 @@ export function fullscreenMap({
         ]),
         container,
       ),
-    )
-
-  linkAssign({ href: '#' })
+    ),
+    control = leafletControl({ position }),
+    map = leafletMap(id, mapOptions)
 
   function updateTitle() {
     linkAssign({ title: title[getFullscreen()] })
   }
-
-  control.onAdd = function onControlAdd(addedMap) {
-    updateTitle()
-
-    onLinkClick(async function handleLinkClick(e) {
-      DomEvent.stopPropagation(e)
-      DomEvent.preventDefault(e)
-
-      await (getFullscreen()
-        ? document?.exitFullscreen()
-        : addedMap.getContainer()?.requestFullscreen())
-    })
-
-    return container
-  }
-
-  control.addTo(map)
 
   function mapLifecycleListener(documentFirstReady) {
     return function onMapLifecycleEvent() {
@@ -108,6 +89,25 @@ export function fullscreenMap({
       )
     }
   }
+
+  linkAssign({ href: '#' })
+
+  control.onAdd = function onControlAdd(addedMap) {
+    updateTitle()
+
+    onLinkClick(async function handleLinkClick(e) {
+      DomEvent.stopPropagation(e)
+      DomEvent.preventDefault(e)
+
+      await (getFullscreen()
+        ? document?.exitFullscreen()
+        : addedMap.getContainer()?.requestFullscreen())
+    })
+
+    return container
+  }
+
+  control.addTo(map)
 
   map.whenReady(mapLifecycleListener(true))
   map.on('unload', mapLifecycleListener(false))
