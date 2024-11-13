@@ -7,17 +7,7 @@ import {
 
 import { joinClassNames } from './join-class-names.js'
 import { useBoolean } from './use-boolean.js'
-
-function useLink(element) {
-  return {
-    assign(props) {
-      Object.assign(element, props)
-    },
-    onClick(handler) {
-      DomEvent.on(element, 'click', handler)
-    },
-  }
-}
+import { useLink } from './use-link.js'
 
 export function fullscreenMap({
   fullscreenOptions: {
