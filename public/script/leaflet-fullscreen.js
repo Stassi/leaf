@@ -32,6 +32,8 @@ function useLink(element) {
   }
 }
 
+const fullscreenChangeEvent = 'fullscreenchange'
+
 export function fullscreenMap({
   fullscreenControlOptions: { position, title } = {
     position: 'topleft',
@@ -84,7 +86,7 @@ export function fullscreenMap({
     }
 
     updateTitle()
-    addedMap.on('fullscreenchange', updateTitle)
+    addedMap.on(fullscreenChangeEvent, updateTitle)
 
     return container
   }
@@ -100,15 +102,15 @@ export function fullscreenMap({
     toggleFullscreen()
 
     map.invalidateSize()
-    map.fire('fullscreenchange')
+    map.fire(fullscreenChangeEvent)
   }
 
   map.whenReady(function readyHandler() {
-    DomEvent.on(document, 'fullscreenchange', handleFullscreenChange)
+    DomEvent.on(document, fullscreenChangeEvent, handleFullscreenChange)
   })
 
   map.on('unload', function unloadHandler() {
-    DomEvent.off(document, 'fullscreenchange', handleFullscreenChange)
+    DomEvent.off(document, fullscreenChangeEvent, handleFullscreenChange)
   })
 
   return map
