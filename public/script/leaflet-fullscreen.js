@@ -11,8 +11,8 @@ function useBoolean(initialValue = false) {
     get() {
       return state
     },
-    set(newState) {
-      state = newState
+    toggle() {
+      state = !state
     },
   }
 }
@@ -48,7 +48,7 @@ export function fullscreenMap({
   id,
   ...mapOptions
 }) {
-  const { get: getFullscreen, set: setFullscreen } = useBoolean(),
+  const { get: getFullscreen, toggle: toggleFullscreen } = useBoolean(),
     control = leafletControl({ position }),
     map = leafletMap(id, mapOptions)
 
@@ -106,7 +106,7 @@ export function fullscreenMap({
         document.msFullscreenElement)
     ) {
       if (!fullscreen) {
-        setFullscreen(true)
+        toggleFullscreen()
 
         DomUtil.addClass(container, 'leaflet-fullscreen-on')
 
@@ -114,7 +114,7 @@ export function fullscreenMap({
         map.fire('fullscreenchange')
       }
     } else if (fullscreen) {
-      setFullscreen(false)
+      toggleFullscreen()
 
       DomUtil.removeClass(container, 'leaflet-fullscreen-on')
 
