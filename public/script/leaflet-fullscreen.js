@@ -80,12 +80,9 @@ export function fullscreenMap({
       DomEvent.stopPropagation(e)
       DomEvent.preventDefault(e)
 
-      const addedMapContainer = addedMap.getContainer()
-
-      if (getFullscreen()) {
-        if (document.exitFullscreen) await document.exitFullscreen()
-      } else if (addedMapContainer.requestFullscreen)
-        await addedMapContainer.requestFullscreen()
+      await (getFullscreen()
+        ? document?.exitFullscreen()
+        : addedMap.getContainer()?.requestFullscreen())
     })
 
     return container
