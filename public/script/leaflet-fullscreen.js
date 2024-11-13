@@ -50,8 +50,7 @@ function createFullscreenControl(options = {}, getFullscreen, setFullscreen) {
       container,
     )
 
-    link.href = '#'
-    link.title = mergedOptions.title[getFullscreen()]
+    Object.assign(link, { href: '#' })
 
     DomEvent.on(link, 'click', function onLinkClick(e) {
       DomEvent.stopPropagation(e)
