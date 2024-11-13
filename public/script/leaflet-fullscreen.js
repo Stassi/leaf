@@ -48,38 +48,9 @@ function setFullscreenState(map, newState, getFullscreen, setFullscreen) {
   map.invalidateSize()
 }
 
-function enablePseudoFullscreen(map, getFullscreen, setFullscreen) {
-  const container = map.getContainer()
-  DomUtil.addClass(container, 'leaflet-pseudo-fullscreen')
-  setFullscreenState(map, true, getFullscreen, setFullscreen)
-  map.fire('fullscreenchange')
-}
-
-function disablePseudoFullscreen(map, getFullscreen, setFullscreen) {
-  const container = map.getContainer()
-  DomUtil.removeClass(container, 'leaflet-pseudo-fullscreen')
-  setFullscreenState(map, false, getFullscreen, setFullscreen)
-  map.fire('fullscreenchange')
-}
-
-function toggleFullscreen(map, pseudoFullscreen, getFullscreen, setFullscreen) {
-  const container = map.getContainer()
-
-  if (getFullscreen()) {
-    if (pseudoFullscreen)
-      disablePseudoFullscreen(map, getFullscreen, setFullscreen)
-    else if (document.exitFullscreen) document.exitFullscreen()
-    else disablePseudoFullscreen(map, getFullscreen, setFullscreen)
-  } else if (pseudoFullscreen)
-    enablePseudoFullscreen(map, getFullscreen, setFullscreen)
-  else if (container.requestFullscreen) container.requestFullscreen()
-  else enablePseudoFullscreen(map, getFullscreen, setFullscreen)
-}
-
 export function fullscreenMap({
-  fullscreenControlOptions: { position, pseudoFullscreen, title } = {
+  fullscreenControlOptions: { position, title } = {
     position: 'topleft',
-    pseudoFullscreen: false,
     title: {
       false: 'View Fullscreen',
       true: 'Exit Fullscreen',
@@ -109,7 +80,13 @@ export function fullscreenMap({
     onLinkClick(function handleLinkClick(e) {
       DomEvent.stopPropagation(e)
       DomEvent.preventDefault(e)
-      toggleFullscreen(addedMap, pseudoFullscreen, getFullscreen, setFullscreen)
+
+      const addedMapContainer = addedMap.getContainer()
+
+      if (getFullscreen()) {
+        if (document.exitFullscreen) document.exitFullscreen()
+      } else if (addedMapContainer.requestFullscreen)
+        addedMapContainer.requestFullscreen()
     })
 
     linkAssign({ href: '#' })
