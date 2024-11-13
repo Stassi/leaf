@@ -5,8 +5,8 @@ import {
   map as leafletMap,
 } from '../leaflet/leaflet-src.esm.js'
 
-function joinClasses(classes) {
-  return classes.join(' ')
+function joinClassNames(classNames) {
+  return classNames.join(' ')
 }
 
 function useBoolean(initialValue = false) {
@@ -50,7 +50,7 @@ export function fullscreenMap({
     map = leafletMap(id, mapOptions),
     container = DomUtil.create(
       'div',
-      joinClasses([
+      joinClassNames([
         'leaflet-bar',
         'leaflet-control',
         'leaflet-control-fullscreen',
@@ -59,7 +59,10 @@ export function fullscreenMap({
     { assign: linkAssign, onClick: onLinkClick } = useLink(
       DomUtil.create(
         'a',
-        joinClasses(['leaflet-bar-part', 'leaflet-control-fullscreen-button']),
+        joinClassNames([
+          'leaflet-bar-part',
+          'leaflet-control-fullscreen-button',
+        ]),
         container,
       ),
     )
