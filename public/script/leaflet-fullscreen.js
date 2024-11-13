@@ -17,14 +17,13 @@ function useBoolean(initialValue = false) {
   }
 }
 
-function useLink(initialValue) {
-  const state = initialValue
+function useLink(element) {
   return {
     assign(props) {
-      Object.assign(state, props)
+      Object.assign(element, props)
     },
     onClick(handler) {
-      DomEvent.on(state, 'click', handler)
+      DomEvent.on(element, 'click', handler)
     },
   }
 }
