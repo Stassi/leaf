@@ -32,8 +32,6 @@ function useLink(element) {
   }
 }
 
-const fullscreenChangeEvent = 'fullscreenchange'
-
 export function fullscreenMap({
   fullscreenControlOptions: { position, title } = {
     position: 'topleft',
@@ -75,7 +73,7 @@ export function fullscreenMap({
     return function onMapLifecycleEvent() {
       DomEvent[documentFirstReady ? 'on' : 'off'](
         document,
-        fullscreenChangeEvent,
+        'fullscreenchange',
         function handleFullscreenChange() {
           ;(getFullscreen() ? DomUtil.removeClass : DomUtil.addClass)(
             map.getContainer(),
