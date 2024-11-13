@@ -6,18 +6,7 @@ import {
 } from '../leaflet/leaflet-src.esm.js'
 
 import { joinClassNames } from './join-class-names.js'
-
-function useBoolean(initialValue) {
-  let state = initialValue
-  return {
-    get() {
-      return state
-    },
-    toggle() {
-      state = !state
-    },
-  }
-}
+import { useBoolean } from './use-boolean.js'
 
 function useLink(element) {
   return {
