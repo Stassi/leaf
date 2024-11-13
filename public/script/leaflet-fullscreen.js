@@ -46,6 +46,7 @@ function setFullscreenState(map, newState, getFullscreen, setFullscreen) {
   else DomUtil.removeClass(container, 'leaflet-fullscreen-on')
 
   map.invalidateSize()
+  map.fire('fullscreenchange')
 }
 
 export function fullscreenMap({
@@ -115,11 +116,9 @@ export function fullscreenMap({
     ) {
       if (!getFullscreen()) {
         setFullscreenState(map, true, getFullscreen, setFullscreen)
-        map.fire('fullscreenchange')
       }
     } else if (getFullscreen()) {
       setFullscreenState(map, false, getFullscreen, setFullscreen)
-      map.fire('fullscreenchange')
     }
   }
 
