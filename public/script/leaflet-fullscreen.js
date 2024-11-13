@@ -33,7 +33,19 @@ function useLink(element) {
 }
 
 export function fullscreenMap({
-  fullscreenControlOptions: { position, title } = {
+  fullscreenControlOptions: {
+    classNames: { container: containerClassNames, link: linkClassNames },
+    position,
+    title,
+  } = {
+    classNames: {
+      container: [
+        'leaflet-bar',
+        'leaflet-control',
+        'leaflet-control-fullscreen',
+      ],
+      link: ['leaflet-bar-part', 'leaflet-control-fullscreen-button'],
+    },
     position: 'topleft',
     title: {
       false: 'View Fullscreen',
@@ -44,23 +56,9 @@ export function fullscreenMap({
   ...mapOptions
 }) {
   const { get: getFullscreen, toggle: toggleFullscreen } = useBoolean(false),
-    container = DomUtil.create(
-      'div',
-      joinClassNames([
-        'leaflet-bar',
-        'leaflet-control',
-        'leaflet-control-fullscreen',
-      ]),
-    ),
+    container = DomUtil.create('div', joinClassNames(containerClassNames)),
     { assign: linkAssign, onClick: onLinkClick } = useLink(
-      DomUtil.create(
-        'a',
-        joinClassNames([
-          'leaflet-bar-part',
-          'leaflet-control-fullscreen-button',
-        ]),
-        container,
-      ),
+      DomUtil.create('a', joinClassNames(linkClassNames), container),
     ),
     control = leafletControl({ position }),
     map = leafletMap(id, mapOptions)
