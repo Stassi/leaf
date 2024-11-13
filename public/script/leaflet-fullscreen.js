@@ -39,8 +39,7 @@ export function fullscreenMap({
       link: linkClassNames,
       mapFullscreen: mapFullscreenClassName,
     },
-    position,
-    title,
+    control: { position, title },
   } = {
     classNames: {
       container: [
@@ -51,10 +50,12 @@ export function fullscreenMap({
       link: ['leaflet-bar-part', 'leaflet-control-fullscreen-button'],
       mapFullscreen: 'leaflet-fullscreen-on',
     },
-    position: 'topleft',
-    title: {
-      false: 'View Fullscreen',
-      true: 'Exit Fullscreen',
+    control: {
+      position: 'topleft',
+      title: {
+        false: 'View Fullscreen',
+        true: 'Exit Fullscreen',
+      },
     },
   },
   id,
