@@ -56,14 +56,14 @@ export function fullscreenMap({
         document,
         'fullscreenchange',
         function handleFullscreenChange() {
-          const fullscreen = getFullscreen()
-          ;(fullscreen ? DomUtil.removeClass : DomUtil.addClass)(
+          ;(getFullscreen() ? DomUtil.removeClass : DomUtil.addClass)(
             map.getContainer(),
             mapFullscreenClassName,
           )
-          setControlTitle(fullscreen)
+
           map.invalidateSize()
           toggleFullscreen()
+          setControlTitle(getFullscreen())
         },
       )
     }
