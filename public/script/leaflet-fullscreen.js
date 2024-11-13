@@ -90,24 +90,27 @@ export function fullscreenMap({
 
   control.addTo(map)
 
-  function handleFullscreenChange() {
-    ;(getFullscreen() ? DomUtil.removeClass : DomUtil.addClass)(
-      map.getContainer(),
-      'leaflet-fullscreen-on',
-    )
+  function mapLifecycleListener(documentFirstReady) {
+    return function onMapLifecycleEvent() {
+      DomEvent[documentFirstReady ? 'on' : 'off'](
+        document,
+        fullscreenChangeEvent,
+        function handleFullscreenChange() {
+          ;(getFullscreen() ? DomUtil.removeClass : DomUtil.addClass)(
+            map.getContainer(),
+            'leaflet-fullscreen-on',
+          )
 
-    toggleFullscreen()
-    updateTitle()
-    map.invalidateSize()
+          toggleFullscreen()
+          updateTitle()
+          map.invalidateSize()
+        },
+      )
+    }
   }
 
-  map.whenReady(function readyHandler() {
-    DomEvent.on(document, fullscreenChangeEvent, handleFullscreenChange)
-  })
-
-  map.on('unload', function unloadHandler() {
-    DomEvent.off(document, fullscreenChangeEvent, handleFullscreenChange)
-  })
+  map.whenReady(mapLifecycleListener(true))
+  map.on('unload', mapLifecycleListener(false))
 
   return map
 }
