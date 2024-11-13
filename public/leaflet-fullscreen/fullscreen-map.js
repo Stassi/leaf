@@ -5,9 +5,7 @@ import {
   map as leafletMap,
 } from '../leaflet/leaflet-src.esm.js'
 
-function joinClassNames(classNames) {
-  return classNames.join(' ')
-}
+import { joinClassNames } from './join-class-names.js'
 
 function useBoolean(initialValue) {
   let state = initialValue
