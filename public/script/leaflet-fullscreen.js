@@ -53,7 +53,7 @@ function createFullscreenControl(options = {}, getFullscreen, setFullscreen) {
     link.href = '#'
     link.title = mergedOptions.title[getFullscreen()]
 
-    DomEvent.on(link, 'click', function onClick(e) {
+    DomEvent.on(link, 'click', function onLinkClick(e) {
       DomEvent.stopPropagation(e)
       DomEvent.preventDefault(e)
       toggleFullscreen(map, mergedOptions, getFullscreen, setFullscreen)
