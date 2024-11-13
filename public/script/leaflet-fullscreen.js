@@ -56,22 +56,24 @@ function createFullscreenControl(options = {}, getFullscreen, setFullscreen) {
       'leaflet-control-fullscreen leaflet-bar leaflet-control',
     )
 
-    const link = DomUtil.create(
-      'a',
-      'leaflet-control-fullscreen-button leaflet-bar-part',
-      container,
+    const { assign: linkAssign, onClick: onLinkClick } = useLink(
+      DomUtil.create(
+        'a',
+        'leaflet-control-fullscreen-button leaflet-bar-part',
+        container,
+      ),
     )
 
-    Object.assign(link, { href: '#' })
-
-    DomEvent.on(link, 'click', function onLinkClick(e) {
+    onLinkClick(function handleLinkClick(e) {
       DomEvent.stopPropagation(e)
       DomEvent.preventDefault(e)
       toggleFullscreen(map, mergedOptions, getFullscreen, setFullscreen)
     })
 
+    linkAssign({ href: '#' })
+
     function updateTitle() {
-      Object.assign(link, { title: mergedOptions.title[getFullscreen()] })
+      linkAssign({ title: mergedOptions.title[getFullscreen()] })
     }
 
     updateTitle()
