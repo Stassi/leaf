@@ -73,16 +73,16 @@ export function fullscreenMap({
   control.onAdd = function onControlAdd(addedMap) {
     updateTitle()
 
-    onLinkClick(function handleLinkClick(e) {
+    onLinkClick(async function handleLinkClick(e) {
       DomEvent.stopPropagation(e)
       DomEvent.preventDefault(e)
 
       const addedMapContainer = addedMap.getContainer()
 
       if (getFullscreen()) {
-        if (document.exitFullscreen) document.exitFullscreen()
+        if (document.exitFullscreen) await document.exitFullscreen()
       } else if (addedMapContainer.requestFullscreen)
-        addedMapContainer.requestFullscreen()
+        await addedMapContainer.requestFullscreen()
     })
 
     return container
