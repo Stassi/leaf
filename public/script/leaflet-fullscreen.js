@@ -5,6 +5,10 @@ import {
   map as leafletMap,
 } from '../leaflet/leaflet-src.esm.js'
 
+function joinClasses(classes) {
+  return classes.join(' ')
+}
+
 function useBoolean(initialValue = false) {
   let state = initialValue
   return {
@@ -46,13 +50,17 @@ export function fullscreenMap({
   control.onAdd = function onControlAdd(addedMap) {
     const container = DomUtil.create(
       'div',
-      'leaflet-control-fullscreen leaflet-bar leaflet-control',
+      joinClasses([
+        'leaflet-bar',
+        'leaflet-control',
+        'leaflet-control-fullscreen',
+      ]),
     )
 
     const { assign: linkAssign, onClick: onLinkClick } = useLink(
       DomUtil.create(
         'a',
-        'leaflet-control-fullscreen-button leaflet-bar-part',
+        joinClasses(['leaflet-bar-part', 'leaflet-control-fullscreen-button']),
         container,
       ),
     )
