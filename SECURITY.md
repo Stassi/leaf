@@ -45,7 +45,7 @@ The following potential vulnerabilities were **resolved** after detection.
 - **Detected by:** Dependabot
 - **Vulnerable package:** [rollup](https://www.npmjs.com/package/rollup)
 - **Detection time:** 2024-09-24 19:48
-- **Resolution time:** 2024-09-25 4:41
+- **Resolution time:** 2024-09-25 04:41
 - **Resolution version (`@stassi/leaf`):** [v0.0.30](https://github.com/Stassi/leaf/releases/tag/v0.0.30)
 - **CVSS (severity):** 8.3 (high)
 - **Advisory:** [GHSA-gcx4-mw62-g8wm](https://github.com/advisories/GHSA-gcx4-mw62-g8wm)
@@ -61,7 +61,7 @@ The following potential vulnerabilities were **resolved** after detection.
 - **Detection times:**
   - **Dependabot**: 2024-09-24 19:48
   - **Snyk**: 2024-09-23 19:08
-- **Resolution time:** 2024-09-25 5:05
+- **Resolution time:** 2024-09-25 05:05
 - **Resolution version (`@stassi/leaf`):** [v0.0.31](https://github.com/Stassi/leaf/releases/tag/v0.0.31)
 - **CVSS (severity):**
   - **Dependabot**: 7.7 (high)
@@ -76,8 +76,8 @@ The following potential vulnerabilities were **resolved** after detection.
 
 - **Detected by:** Snyk
 - **Vulnerable package:** [cross-spawn](https://www.npmjs.com/package/cross-spawn) (via [serve](https://www.npmjs.com/package/serve))
-- **Detection time:** 2024-11-07 8:43
-- **Resolution time:** 2024-11-12 1:13
+- **Detection time:** 2024-11-07 08:43
+- **Resolution time:** 2024-11-12 01:13
 - **Resolution version (`@stassi/leaf`):** [v0.0.78](https://github.com/Stassi/leaf/releases/tag/v0.0.78)
 - **CVSS (severity):** 8.7 (high)
 - **Advisory:** [SNYK-JS-CROSSSPAWN-8303230](https://security.snyk.io/vuln/SNYK-JS-CROSSSPAWN-8303230)
