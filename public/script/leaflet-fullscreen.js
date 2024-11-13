@@ -17,6 +17,18 @@ function useBoolean(initialValue = false) {
   }
 }
 
+function useLink(initialValue) {
+  const state = initialValue
+  return {
+    assign(props) {
+      Object.assign(state, props)
+    },
+    onClick(handler) {
+      DomEvent.on(state, 'click', handler)
+    },
+  }
+}
+
 function getFullscreenChangeEventName() {
   if ('onfullscreenchange' in document) return 'fullscreenchange'
   else if ('onmozfullscreenchange' in document) return 'mozfullscreenchange'
