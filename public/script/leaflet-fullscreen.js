@@ -1,5 +1,5 @@
 import {
-  control,
+  control as leafletControl,
   DomEvent,
   DomUtil,
   map as leafletMap,
@@ -38,48 +38,6 @@ function getFullscreenChangeEventName() {
   return null
 }
 
-function createFullscreenControl(
-  { position, title, ...optionsProps } = {},
-  getFullscreen,
-  setFullscreen,
-) {
-  const fullscreenControl = control({ position })
-
-  fullscreenControl.onAdd = function onAdd(map) {
-    const container = DomUtil.create(
-      'div',
-      'leaflet-control-fullscreen leaflet-bar leaflet-control',
-    )
-
-    const { assign: linkAssign, onClick: onLinkClick } = useLink(
-      DomUtil.create(
-        'a',
-        'leaflet-control-fullscreen-button leaflet-bar-part',
-        container,
-      ),
-    )
-
-    onLinkClick(function handleLinkClick(e) {
-      DomEvent.stopPropagation(e)
-      DomEvent.preventDefault(e)
-      toggleFullscreen(map, optionsProps, getFullscreen, setFullscreen)
-    })
-
-    linkAssign({ href: '#' })
-
-    function updateTitle() {
-      linkAssign({ title: title[getFullscreen()] })
-    }
-
-    updateTitle()
-    map.on('fullscreenchange', updateTitle)
-
-    return container
-  }
-
-  return fullscreenControl
-}
-
 function setFullscreenState(map, newState, getFullscreen, setFullscreen) {
   setFullscreen(newState)
 
@@ -104,12 +62,7 @@ function disablePseudoFullscreen(map, getFullscreen, setFullscreen) {
   map.fire('fullscreenchange')
 }
 
-function toggleFullscreen(
-  map,
-  { pseudoFullscreen } = {},
-  getFullscreen,
-  setFullscreen,
-) {
+function toggleFullscreen(map, pseudoFullscreen, getFullscreen, setFullscreen) {
   const container = map.getContainer()
 
   if (getFullscreen()) {
@@ -124,8 +77,9 @@ function toggleFullscreen(
 }
 
 export function fullscreenMap({
-  fullscreenControlOptions = {
+  fullscreenControlOptions: { position, pseudoFullscreen, title } = {
     position: 'topleft',
+    pseudoFullscreen: false,
     title: {
       false: 'View Fullscreen',
       true: 'Exit Fullscreen',
@@ -135,13 +89,42 @@ export function fullscreenMap({
   ...mapOptions
 }) {
   const { get: getFullscreen, set: setFullscreen } = useBoolean(),
+    control = leafletControl({ position }),
     map = leafletMap(id, mapOptions)
 
-  createFullscreenControl(
-    fullscreenControlOptions,
-    getFullscreen,
-    setFullscreen,
-  ).addTo(map)
+  control.onAdd = function onControlAdd(addedMap) {
+    const container = DomUtil.create(
+      'div',
+      'leaflet-control-fullscreen leaflet-bar leaflet-control',
+    )
+
+    const { assign: linkAssign, onClick: onLinkClick } = useLink(
+      DomUtil.create(
+        'a',
+        'leaflet-control-fullscreen-button leaflet-bar-part',
+        container,
+      ),
+    )
+
+    onLinkClick(function handleLinkClick(e) {
+      DomEvent.stopPropagation(e)
+      DomEvent.preventDefault(e)
+      toggleFullscreen(addedMap, pseudoFullscreen, getFullscreen, setFullscreen)
+    })
+
+    linkAssign({ href: '#' })
+
+    function updateTitle() {
+      linkAssign({ title: title[getFullscreen()] })
+    }
+
+    updateTitle()
+    addedMap.on('fullscreenchange', updateTitle)
+
+    return container
+  }
+
+  control.addTo(map)
 
   const fullscreenChangeEvent = getFullscreenChangeEventName()
 
