@@ -9,7 +9,7 @@ function joinClassNames(classNames) {
   return classNames.join(' ')
 }
 
-function useBoolean(initialValue = false) {
+function useBoolean(initialValue) {
   let state = initialValue
   return {
     get() {
@@ -45,7 +45,7 @@ export function fullscreenMap({
   id,
   ...mapOptions
 }) {
-  const { get: getFullscreen, toggle: toggleFullscreen } = useBoolean(),
+  const { get: getFullscreen, toggle: toggleFullscreen } = useBoolean(false),
     container = DomUtil.create(
       'div',
       joinClassNames([
