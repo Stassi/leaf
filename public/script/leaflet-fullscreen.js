@@ -38,17 +38,12 @@ function getFullscreenChangeEventName() {
   return null
 }
 
-function createFullscreenControl(options = {}, getFullscreen, setFullscreen) {
-  const mergedOptions = {
-    position: 'topleft',
-    title: {
-      false: 'View Fullscreen',
-      true: 'Exit Fullscreen',
-    },
-    ...options,
-  }
-
-  const fullscreenControl = control({ position: mergedOptions.position })
+function createFullscreenControl(
+  { position, title, ...optionsProps } = {},
+  getFullscreen,
+  setFullscreen,
+) {
+  const fullscreenControl = control({ position })
 
   fullscreenControl.onAdd = function onAdd(map) {
     const container = DomUtil.create(
@@ -67,13 +62,13 @@ function createFullscreenControl(options = {}, getFullscreen, setFullscreen) {
     onLinkClick(function handleLinkClick(e) {
       DomEvent.stopPropagation(e)
       DomEvent.preventDefault(e)
-      toggleFullscreen(map, mergedOptions, getFullscreen, setFullscreen)
+      toggleFullscreen(map, optionsProps, getFullscreen, setFullscreen)
     })
 
     linkAssign({ href: '#' })
 
     function updateTitle() {
-      linkAssign({ title: mergedOptions.title[getFullscreen()] })
+      linkAssign({ title: title[getFullscreen()] })
     }
 
     updateTitle()
@@ -109,31 +104,44 @@ function disablePseudoFullscreen(map, getFullscreen, setFullscreen) {
   map.fire('fullscreenchange')
 }
 
-function toggleFullscreen(map, options = {}, getFullscreen, setFullscreen) {
+function toggleFullscreen(
+  map,
+  { pseudoFullscreen } = {},
+  getFullscreen,
+  setFullscreen,
+) {
   const container = map.getContainer()
 
   if (getFullscreen()) {
-    if (options.pseudoFullscreen)
+    if (pseudoFullscreen)
       disablePseudoFullscreen(map, getFullscreen, setFullscreen)
     else if (document.exitFullscreen) document.exitFullscreen()
     else disablePseudoFullscreen(map, getFullscreen, setFullscreen)
-  } else if (options.pseudoFullscreen)
+  } else if (pseudoFullscreen)
     enablePseudoFullscreen(map, getFullscreen, setFullscreen)
   else if (container.requestFullscreen) container.requestFullscreen()
   else enablePseudoFullscreen(map, getFullscreen, setFullscreen)
 }
 
-export function fullscreenMap(id, options = {}) {
-  const map = leafletMap(id, options)
+export function fullscreenMap({
+  fullscreenControlOptions = {
+    position: 'topleft',
+    title: {
+      false: 'View Fullscreen',
+      true: 'Exit Fullscreen',
+    },
+  },
+  id,
+  ...mapOptions
+}) {
+  const { get: getFullscreen, set: setFullscreen } = useBoolean(),
+    map = leafletMap(id, mapOptions)
 
-  const { get: getFullscreen, set: setFullscreen } = useBoolean()
-
-  if (options.fullscreenControl)
-    createFullscreenControl(
-      options.fullscreenControl,
-      getFullscreen,
-      setFullscreen,
-    ).addTo(map)
+  createFullscreenControl(
+    fullscreenControlOptions,
+    getFullscreen,
+    setFullscreen,
+  ).addTo(map)
 
   const fullscreenChangeEvent = getFullscreenChangeEventName()
 
