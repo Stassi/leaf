@@ -52,11 +52,11 @@ export function fullscreenMap({
   }
 
   function mapLifecycleListener(documentFirstReady) {
-    return function onMapLifecycleEvent() {
+    return function handleFullscreenMapLifecycleEvent() {
       DomEvent[documentFirstReady ? 'on' : 'off'](
         document,
         'fullscreenchange',
-        function handleFullscreenChange() {
+        function handleFullscreenMapChange() {
           ;(getFullscreenState() ? DomUtil.removeClass : DomUtil.addClass)(
             map.getContainer(),
             mapFullscreenClassName,
