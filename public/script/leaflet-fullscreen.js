@@ -28,15 +28,6 @@ function useLink(element) {
   }
 }
 
-function getFullscreenChangeEventName() {
-  if ('onfullscreenchange' in document) return 'fullscreenchange'
-  else if ('onmozfullscreenchange' in document) return 'mozfullscreenchange'
-  else if ('onwebkitfullscreenchange' in document)
-    return 'webkitfullscreenchange'
-  else if ('onmsfullscreenchange' in document) return 'MSFullscreenChange'
-  return null
-}
-
 export function fullscreenMap({
   fullscreenControlOptions: { position, title } = {
     position: 'topleft',
@@ -92,8 +83,6 @@ export function fullscreenMap({
 
   control.addTo(map)
 
-  const fullscreenChangeEvent = getFullscreenChangeEventName()
-
   function handleFullscreenChange() {
     const container = map.getContainer()
 
@@ -114,15 +103,13 @@ export function fullscreenMap({
     }
   }
 
-  if (fullscreenChangeEvent) {
-    map.whenReady(function readyHandler() {
-      DomEvent.on(document, fullscreenChangeEvent, handleFullscreenChange)
-    })
+  map.whenReady(function readyHandler() {
+    DomEvent.on(document, 'fullscreenchange', handleFullscreenChange)
+  })
 
-    map.on('unload', function unloadHandler() {
-      DomEvent.off(document, fullscreenChangeEvent, handleFullscreenChange)
-    })
-  }
+  map.on('unload', function unloadHandler() {
+    DomEvent.off(document, 'fullscreenchange', handleFullscreenChange)
+  })
 
   return map
 }
