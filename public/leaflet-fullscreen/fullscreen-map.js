@@ -38,7 +38,8 @@ export function fullscreenMap({
   id,
   ...mapOptions
 }) {
-  const { get: getFullscreen, toggle: toggleFullscreen } = useBoolean(false),
+  const { get: getFullscreenState, toggle: toggleFullscreenState } =
+      useBoolean(false),
     container = DomUtil.create('div', joinClassNames(containerClassNames)),
     { assign: linkAssign, onClick: onLinkClick } = useLink(
       DomUtil.create('a', joinClassNames(linkClassNames), container),
@@ -56,14 +57,14 @@ export function fullscreenMap({
         document,
         'fullscreenchange',
         function handleFullscreenChange() {
-          ;(getFullscreen() ? DomUtil.removeClass : DomUtil.addClass)(
+          ;(getFullscreenState() ? DomUtil.removeClass : DomUtil.addClass)(
             map.getContainer(),
             mapFullscreenClassName,
           )
 
           map.invalidateSize()
-          toggleFullscreen()
-          setControlTitle(getFullscreen())
+          toggleFullscreenState()
+          setControlTitle(getFullscreenState())
         },
       )
     }
@@ -72,13 +73,13 @@ export function fullscreenMap({
   linkAssign({ href: '#' })
 
   control.onAdd = function onControlAdd(addedMap) {
-    setControlTitle(getFullscreen())
+    setControlTitle(getFullscreenState())
 
     onLinkClick(async function handleLinkClick(e) {
       DomEvent.stopPropagation(e)
       DomEvent.preventDefault(e)
 
-      await (getFullscreen()
+      await (getFullscreenState()
         ? document?.exitFullscreen()
         : addedMap.getContainer()?.requestFullscreen())
     })
