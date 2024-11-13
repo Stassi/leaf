@@ -95,22 +95,19 @@ export function fullscreenMap({
   const fullscreenChangeEvent = getFullscreenChangeEventName()
 
   function handleFullscreenChange() {
-    const container = map.getContainer(),
-      fullscreen = getFullscreen()
+    const container = map.getContainer()
 
-    if (container === document.fullscreenElement) {
-      if (!fullscreen) {
-        toggleFullscreen()
-
-        DomUtil.addClass(container, 'leaflet-fullscreen-on')
-
-        map.invalidateSize()
-        map.fire('fullscreenchange')
-      }
-    } else if (fullscreen) {
+    if (getFullscreen()) {
       toggleFullscreen()
 
       DomUtil.removeClass(container, 'leaflet-fullscreen-on')
+
+      map.invalidateSize()
+      map.fire('fullscreenchange')
+    } else if (container === document.fullscreenElement) {
+      toggleFullscreen()
+
+      DomUtil.addClass(container, 'leaflet-fullscreen-on')
 
       map.invalidateSize()
       map.fire('fullscreenchange')
