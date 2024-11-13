@@ -98,13 +98,7 @@ export function fullscreenMap({
     const container = map.getContainer(),
       fullscreen = getFullscreen()
 
-    if (
-      container ===
-      (document.fullscreenElement ||
-        document.mozFullScreenElement ||
-        document.webkitFullscreenElement ||
-        document.msFullscreenElement)
-    ) {
+    if (container === document.fullscreenElement) {
       if (!fullscreen) {
         toggleFullscreen()
 
