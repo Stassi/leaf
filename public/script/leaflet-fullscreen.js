@@ -58,6 +58,13 @@ function createFullscreenControl(options = {}, getFullscreen, setFullscreen) {
       toggleFullscreen(map, mergedOptions, getFullscreen, setFullscreen)
     })
 
+    function updateTitle() {
+      Object.assign(link, { title: mergedOptions.title[getFullscreen()] })
+    }
+
+    updateTitle()
+    map.on('fullscreenchange', updateTitle)
+
     return container
   }
 
