@@ -47,25 +47,31 @@ export function fullscreenMap({
 }) {
   const { get: getFullscreen, toggle: toggleFullscreen } = useBoolean(),
     control = leafletControl({ position }),
-    map = leafletMap(id, mapOptions)
-
-  control.onAdd = function onControlAdd(addedMap) {
-    const container = DomUtil.create(
+    map = leafletMap(id, mapOptions),
+    container = DomUtil.create(
       'div',
       joinClasses([
         'leaflet-bar',
         'leaflet-control',
         'leaflet-control-fullscreen',
       ]),
-    )
-
-    const { assign: linkAssign, onClick: onLinkClick } = useLink(
+    ),
+    { assign: linkAssign, onClick: onLinkClick } = useLink(
       DomUtil.create(
         'a',
         joinClasses(['leaflet-bar-part', 'leaflet-control-fullscreen-button']),
         container,
       ),
     )
+
+  linkAssign({ href: '#' })
+
+  function updateTitle() {
+    linkAssign({ title: title[getFullscreen()] })
+  }
+
+  control.onAdd = function onControlAdd(addedMap) {
+    updateTitle()
 
     onLinkClick(function handleLinkClick(e) {
       DomEvent.stopPropagation(e)
@@ -79,15 +85,6 @@ export function fullscreenMap({
         addedMapContainer.requestFullscreen()
     })
 
-    linkAssign({ href: '#' })
-
-    function updateTitle() {
-      linkAssign({ title: title[getFullscreen()] })
-    }
-
-    updateTitle()
-    addedMap.on(fullscreenChangeEvent, updateTitle)
-
     return container
   }
 
@@ -100,9 +97,8 @@ export function fullscreenMap({
     )
 
     toggleFullscreen()
-
+    updateTitle()
     map.invalidateSize()
-    map.fire(fullscreenChangeEvent)
   }
 
   map.whenReady(function readyHandler() {
