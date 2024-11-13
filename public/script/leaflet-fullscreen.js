@@ -33,7 +33,7 @@ function useLink(element) {
 }
 
 export function fullscreenMap({
-  fullscreenControlOptions: {
+  fullscreenOptions: {
     classNames: {
       container: containerClassNames,
       link: linkClassNames,
