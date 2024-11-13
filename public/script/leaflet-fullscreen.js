@@ -34,7 +34,11 @@ function useLink(element) {
 
 export function fullscreenMap({
   fullscreenControlOptions: {
-    classNames: { container: containerClassNames, link: linkClassNames },
+    classNames: {
+      container: containerClassNames,
+      link: linkClassNames,
+      mapFullscreen: mapFullscreenClassName,
+    },
     position,
     title,
   } = {
@@ -45,6 +49,7 @@ export function fullscreenMap({
         'leaflet-control-fullscreen',
       ],
       link: ['leaflet-bar-part', 'leaflet-control-fullscreen-button'],
+      mapFullscreen: 'leaflet-fullscreen-on',
     },
     position: 'topleft',
     title: {
@@ -75,7 +80,7 @@ export function fullscreenMap({
         function handleFullscreenChange() {
           ;(getFullscreen() ? DomUtil.removeClass : DomUtil.addClass)(
             map.getContainer(),
-            'leaflet-fullscreen-on',
+            mapFullscreenClassName,
           )
 
           toggleFullscreen()
