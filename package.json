@@ -95,7 +95,7 @@
     "jest-environment-puppeteer": "^10.1.4",
     "jest-puppeteer": "^10.1.4",
     "prettier": "3.3.3",
-    "puppeteer": "^23.7.1",
+    "puppeteer": "^23.8.0",
     "rollup": "^4.25.0",
     "rollup-plugin-modify": "^3.0.0",
     "rollup-plugin-styles": "^4.0.0",
