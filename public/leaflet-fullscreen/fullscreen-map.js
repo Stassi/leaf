@@ -7,8 +7,8 @@ import {
 import { controlAddedListener } from './control-added-listener.js'
 import { joinClassNames } from './join-class-names.js'
 import { mapLifecycleListener } from './map-lifecycle-listener.js'
-import { useBoolean } from './use-boolean.js'
-import { useLink } from './use-link.js'
+import { useBoolean } from './state/use-boolean.js'
+import { useLink } from './state/use-link.js'
 
 export function fullscreenMap({
   fullscreenOptions: {
