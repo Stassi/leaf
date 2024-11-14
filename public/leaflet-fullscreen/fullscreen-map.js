@@ -1,13 +1,12 @@
 import {
   control as leafletControl,
-  DomEvent,
   DomUtil,
   map as leafletMap,
 } from '../leaflet/leaflet-src.esm.js'
 
+import { controlAddedListener } from './control-added-listener.js'
 import { joinClassNames } from './join-class-names.js'
 import { mapLifecycleListener } from './map-lifecycle-listener.js'
-import { setControlTitle } from './set-control-title.js'
 import { useBoolean } from './use-boolean.js'
 import { useLink } from './use-link.js'
 
@@ -61,25 +60,13 @@ export function fullscreenMap({
 
   linkAssign({ href: '#' })
 
-  control.onAdd = function handleControlAdded(addedMap) {
-    setControlTitle({
-      fullscreen: getFullscreenState(),
-      linkAssign,
-      title,
-    })
-
-    onLinkClick(async function handleLinkClick(e) {
-      DomEvent.stopPropagation(e)
-      DomEvent.preventDefault(e)
-
-      await (getFullscreenState()
-        ? document?.exitFullscreen()
-        : addedMap.getContainer()?.requestFullscreen())
-    })
-
-    return container
-  }
-
+  control.onAdd = controlAddedListener({
+    container,
+    getFullscreenState,
+    linkAssign,
+    onLinkClick,
+    title,
+  })
   control.addTo(map)
 
   map.whenReady(handleMapLifecycleChange(true))
