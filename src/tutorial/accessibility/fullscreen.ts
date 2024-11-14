@@ -1,6 +1,7 @@
-import 'leaflet/dist/leaflet.css'
-import '../style/theme.css'
 import '../style/medium.css'
+import '../style/theme.css'
+import 'leaflet-fullscreen/dist/leaflet.fullscreen.css'
+import 'leaflet/dist/leaflet.css'
 
 import { type Map } from '@stassi/leaf'
 
