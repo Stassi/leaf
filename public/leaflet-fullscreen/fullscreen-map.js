@@ -42,12 +42,10 @@ export function fullscreenMap({
   const { get: getFullscreenState, toggle: toggleFullscreenState } =
       useBoolean(false),
     container = DomUtil.create('div', joinClassNames(containerClassNames)),
-    { assign: linkAssign, onClick: onLinkClick } = useLink(
-      Object.assign(
-        DomUtil.create('a', joinClassNames(linkClassNames), container),
-        { href: '#' },
-      ),
-    ),
+    { assign: linkAssign, onClick: onLinkClick } = useLink({
+      element: DomUtil.create('a', joinClassNames(linkClassNames), container),
+      initialProps: { href: '#' },
+    }),
     control = leafletControl({ position }),
     map = leafletMap(id, mapOptions),
     handleMapLifecycleChange = (documentFirstReady) =>
