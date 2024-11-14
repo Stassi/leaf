@@ -6,9 +6,9 @@ import 'leaflet/dist/leaflet.css'
 import { type Map } from '@stassi/leaf'
 
 const altText = 'Kyiv',
-  map: Map = await (
-    await import('../../leaf/map/map.js')
-  ).map({
+  map: Map = (
+    await import('../../leaf/map/fullscreen/fullscreen.js')
+  ).fullscreenMap({
     center: [50.4501, 30.5234],
     id: 'map',
     zoom: 4,
