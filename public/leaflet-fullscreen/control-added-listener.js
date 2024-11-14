@@ -5,15 +5,13 @@ import { setControlTitle } from './set-control-title.js'
 export function controlAddedListener({
   container,
   getFullscreenState,
-  linkAssign,
   onLinkClick,
-  title,
+  ...titleOptions
 }) {
   return function handleControlAdded(map) {
     setControlTitle({
       fullscreen: getFullscreenState(),
-      linkAssign,
-      title,
+      ...titleOptions,
     })
 
     onLinkClick(async function handleLinkClick(e) {
