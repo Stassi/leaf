@@ -6,7 +6,7 @@ import {
 
 import { controlAddedListener } from './control/control-added-listener.js'
 import { joinClassNames } from './join-class-names.js'
-import { mapLifecycleListener } from './map-lifecycle-listener.js'
+import { mapLifecycleListener } from './map/map-lifecycle-listener.js'
 import { useBoolean } from './state/use-boolean.js'
 import { useLink } from './state/use-link.js'
 
