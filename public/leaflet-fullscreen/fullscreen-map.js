@@ -6,6 +6,7 @@ import {
 } from '../leaflet/leaflet-src.esm.js'
 
 import { joinClassNames } from './join-class-names.js'
+import { setControlTitle } from './set-control-title.js'
 import { useBoolean } from './use-boolean.js'
 import { useLink } from './use-link.js'
 
@@ -47,10 +48,6 @@ export function fullscreenMap({
     control = leafletControl({ position }),
     map = leafletMap(id, mapOptions)
 
-  function setControlTitle(fullscreen) {
-    linkAssign({ title: title[fullscreen] })
-  }
-
   function mapLifecycleListener(documentFirstReady) {
     return function handleFullscreenMapLifecycleEvent() {
       DomEvent[documentFirstReady ? 'on' : 'off'](
@@ -64,7 +61,11 @@ export function fullscreenMap({
 
           map.invalidateSize()
           toggleFullscreenState()
-          setControlTitle(getFullscreenState())
+          setControlTitle({
+            fullscreen: getFullscreenState(),
+            linkAssign,
+            title,
+          })
         },
       )
     }
@@ -73,7 +74,11 @@ export function fullscreenMap({
   linkAssign({ href: '#' })
 
   control.onAdd = function onControlAdd(addedMap) {
-    setControlTitle(getFullscreenState())
+    setControlTitle({
+      fullscreen: getFullscreenState(),
+      linkAssign,
+      title,
+    })
 
     onLinkClick(async function handleLinkClick(e) {
       DomEvent.stopPropagation(e)
