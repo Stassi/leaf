@@ -6,6 +6,7 @@ import {
 } from '../leaflet/leaflet-src.esm.js'
 
 import { joinClassNames } from './join-class-names.js'
+import { mapLifecycleListener } from './map-lifecycle-listener.js'
 import { setControlTitle } from './set-control-title.js'
 import { useBoolean } from './use-boolean.js'
 import { useLink } from './use-link.js'
@@ -46,30 +47,17 @@ export function fullscreenMap({
       DomUtil.create('a', joinClassNames(linkClassNames), container),
     ),
     control = leafletControl({ position }),
-    map = leafletMap(id, mapOptions)
-
-  function mapLifecycleListener(documentFirstReady) {
-    return function handleFullscreenMapLifecycleEvent() {
-      DomEvent[documentFirstReady ? 'on' : 'off'](
-        document,
-        'fullscreenchange',
-        function handleFullscreenMapChange() {
-          ;(getFullscreenState() ? DomUtil.removeClass : DomUtil.addClass)(
-            map.getContainer(),
-            mapFullscreenClassName,
-          )
-
-          map.invalidateSize()
-          toggleFullscreenState()
-          setControlTitle({
-            fullscreen: getFullscreenState(),
-            linkAssign,
-            title,
-          })
-        },
-      )
-    }
-  }
+    map = leafletMap(id, mapOptions),
+    handleMapLifecycleChange = (documentFirstReady) =>
+      mapLifecycleListener({
+        documentFirstReady,
+        getFullscreenState,
+        linkAssign,
+        map,
+        mapFullscreenClassName,
+        title,
+        toggleFullscreenState,
+      })
 
   linkAssign({ href: '#' })
 
@@ -94,8 +82,8 @@ export function fullscreenMap({
 
   control.addTo(map)
 
-  map.whenReady(mapLifecycleListener(true))
-  map.on('unload', mapLifecycleListener(false))
+  map.whenReady(handleMapLifecycleChange(true))
+  map.on('unload', handleMapLifecycleChange(false))
 
   return map
 }
