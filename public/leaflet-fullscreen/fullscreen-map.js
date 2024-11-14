@@ -61,7 +61,7 @@ export function fullscreenMap({
 
   linkAssign({ href: '#' })
 
-  control.onAdd = function onControlAdd(addedMap) {
+  control.onAdd = function handleControlAdded(addedMap) {
     setControlTitle({
       fullscreen: getFullscreenState(),
       linkAssign,
