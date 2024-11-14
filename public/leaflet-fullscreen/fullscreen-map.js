@@ -43,7 +43,10 @@ export function fullscreenMap({
       useBoolean(false),
     container = DomUtil.create('div', joinClassNames(containerClassNames)),
     { assign: linkAssign, onClick: onLinkClick } = useLink(
-      DomUtil.create('a', joinClassNames(linkClassNames), container),
+      Object.assign(
+        DomUtil.create('a', joinClassNames(linkClassNames), container),
+        { href: '#' },
+      ),
     ),
     control = leafletControl({ position }),
     map = leafletMap(id, mapOptions),
@@ -57,8 +60,6 @@ export function fullscreenMap({
         title,
         toggleFullscreenState,
       })
-
-  linkAssign({ href: '#' })
 
   control.onAdd = controlAddedListener({
     container,
