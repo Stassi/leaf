@@ -1,6 +1,6 @@
 import { DomEvent, DomUtil } from '../leaflet/leaflet-src.esm.js'
 
-import { setControlTitle } from './set-control-title.js'
+import { setControlTitle } from './control/set-control-title.js'
 
 export function mapLifecycleListener({
   documentFirstReady,

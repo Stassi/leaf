@@ -1,4 +1,4 @@
-import { DomEvent } from '../leaflet/leaflet-src.esm.js'
+import { DomEvent } from '../../leaflet/leaflet-src.esm.js'
 
 import { setControlTitle } from './set-control-title.js'
 
