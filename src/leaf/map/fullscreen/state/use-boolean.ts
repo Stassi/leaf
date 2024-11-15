@@ -1,6 +1,8 @@
+export type UseBooleanGet = () => boolean
+export type UseBooleanToggle = () => void
 export type UseBoolean = {
-  get: () => boolean
-  toggle: () => void
+  get: UseBooleanGet
+  toggle: UseBooleanToggle
 }
 
 export function useBoolean(initialValue: boolean): UseBoolean {
