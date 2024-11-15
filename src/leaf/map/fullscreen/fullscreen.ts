@@ -105,17 +105,21 @@ export function fullscreenMap({
       documentFirstReady: boolean,
     ): (() => void) =>
       mapLifecycleListener({
-        anchor: {
-          assign: anchorAssign,
-          titleStates: anchorTitleStates,
-        },
-        document: { firstReady: documentFirstReady },
-        map: {
-          fullscreen: {
-            classNames: fullscreenMapClassNames,
-            state: { get: getFullscreenState, toggle: toggleFullscreenState },
+        document: {
+          firstReady: documentFirstReady,
+          map: {
+            control: {
+              anchor: {
+                assign: anchorAssign,
+                titleStates: anchorTitleStates,
+              },
+            },
+            fullscreen: {
+              classNames: fullscreenMapClassNames,
+              state: { get: getFullscreenState, toggle: toggleFullscreenState },
+            },
+            map,
           },
-          map,
         },
       })
 

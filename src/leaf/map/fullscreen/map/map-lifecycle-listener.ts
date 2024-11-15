@@ -7,34 +7,40 @@ import {
 import { type UseAnchor } from '../state/use-anchor'
 
 export type MapLifecycleListenerOptions = {
-  anchor: {
-    assign: UseAnchor['assign']
-    titleStates: SetControlAnchorTitleOptions['anchorTitleStates']
-  }
   document: {
     firstReady: boolean
-  }
-  map: {
-    fullscreen: {
-      classNames: string
-      state: {
-        get: () => boolean
-        toggle: () => void
+    map: {
+      control: {
+        anchor: {
+          assign: UseAnchor['assign']
+          titleStates: SetControlAnchorTitleOptions['anchorTitleStates']
+        }
       }
+      fullscreen: {
+        classNames: string
+        state: {
+          get: () => boolean
+          toggle: () => void
+        }
+      }
+      map: Map
     }
-    map: Map
   }
 }
 
 export function mapLifecycleListener({
-  anchor: { assign: anchorAssign, titleStates: anchorTitleStates },
-  document: { firstReady: documentFirstReady },
-  map: {
-    fullscreen: {
-      classNames: fullscreenMapClassNames,
-      state: { get: getFullscreenState, toggle: toggleFullscreenState },
+  document: {
+    firstReady: documentFirstReady,
+    map: {
+      control: {
+        anchor: { assign: anchorAssign, titleStates: anchorTitleStates },
+      },
+      fullscreen: {
+        classNames: fullscreenMapClassNames,
+        state: { get: getFullscreenState, toggle: toggleFullscreenState },
+      },
+      map,
     },
-    map,
   },
 }: MapLifecycleListenerOptions) {
   return function handleFullscreenMapLifecycleEvent() {
