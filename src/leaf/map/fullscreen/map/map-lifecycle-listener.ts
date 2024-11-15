@@ -10,7 +10,7 @@ export type MapLifecycleListenerOptions = {
   anchorAssign: UseAnchor['assign']
   anchorTitleStates: SetControlAnchorTitleOptions['anchorTitleStates']
   documentFirstReady: boolean
-  fullscreenMapClassName: string
+  fullscreenMapClassNames: string
   getFullscreenState: () => boolean
   map: Map
   toggleFullscreenState: () => void
@@ -20,7 +20,7 @@ export function mapLifecycleListener({
   anchorAssign,
   anchorTitleStates,
   documentFirstReady,
-  fullscreenMapClassName,
+  fullscreenMapClassNames,
   getFullscreenState,
   map,
   toggleFullscreenState,
@@ -33,7 +33,7 @@ export function mapLifecycleListener({
       function handleFullscreenMapChange() {
         ;(getFullscreenState() ? DomUtil.removeClass : DomUtil.addClass)(
           map.getContainer(),
-          fullscreenMapClassName,
+          fullscreenMapClassNames,
         )
 
         map.invalidateSize()

@@ -108,7 +108,7 @@ export function fullscreenMap({
         anchorAssign,
         anchorTitleStates,
         documentFirstReady,
-        fullscreenMapClassName: fullscreenMapClassNames,
+        fullscreenMapClassNames,
         getFullscreenState,
         map,
         toggleFullscreenState,
