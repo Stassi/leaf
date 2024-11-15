@@ -132,15 +132,15 @@ export function fullscreenMap({
       })
 
   control.onAdd = controlAddedListener({
-    control: {
-      anchor: {
-        assign: anchorAssign,
-        onClick: anchorOnClick,
-        titleStates: anchorTitleStates,
-      },
-      container: { element: containerElement },
-    },
     map: {
+      control: {
+        anchor: {
+          assign: anchorAssign,
+          onClick: anchorOnClick,
+          titleStates: anchorTitleStates,
+        },
+        container: { element: containerElement },
+      },
       fullscreen: {
         state: { get: getFullscreenState },
       },
