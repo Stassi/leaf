@@ -1,28 +1,27 @@
 import { DomEvent, DomUtil, type Map } from 'leaflet'
 
+import { type AnchorAssign } from '../state/use-anchor'
+import { type UseBoolean } from '../state/use-boolean'
 import {
   setControlAnchorTitle,
-  type SetControlAnchorTitleOptions,
+  type ControlAnchorTitleStates,
 } from '../control/set-control-anchor-title'
-import { type UseAnchor } from '../state/use-anchor'
 
+export type LeafletMapLifecycleEvent = 'ready' | 'unload'
 export type MapLifecycleListenerOptions = {
   document: {
     map: {
       control: {
         anchor: {
-          assign: UseAnchor['assign']
-          titleStates: SetControlAnchorTitleOptions['anchor']['titleStates']
+          assign: AnchorAssign
+          titleStates: ControlAnchorTitleStates
         }
       }
       fullscreen: {
         classNames: string
-        state: {
-          get: () => boolean
-          toggle: () => void
-        }
+        state: UseBoolean
       }
-      lifecycleEvent: 'ready' | 'unload'
+      lifecycleEvent: LeafletMapLifecycleEvent
       map: Map
     }
   }
@@ -58,7 +57,7 @@ export function mapLifecycleListener({
         toggleFullscreenState()
         setControlAnchorTitle({
           anchor: { assign: anchorAssign, titleStates: anchorTitleStates },
-          fullscreen: getFullscreenState(),
+          fullscreen: { state: { get: getFullscreenState } },
         })
       },
     )
