@@ -1,23 +1,20 @@
 import { DomEvent, type Map } from 'leaflet'
 
 import { type UseAnchor } from '../state/use-anchor'
+import { type UseBooleanGet } from '../state/use-boolean'
 
 import {
+  type AnchorAssignTitleOptions,
   setControlAnchorTitle,
-  type SetControlAnchorTitleOptions,
 } from './set-control-anchor-title'
 
 export type ControlAddedListenerOptions = {
   map: {
     control: {
-      anchor: {
-        assign: UseAnchor['assign']
-        onClick: UseAnchor['onClick']
-        titleStates: SetControlAnchorTitleOptions['anchor']['titleStates']
-      }
+      anchor: AnchorAssignTitleOptions & UseAnchor
       container: { element: HTMLElement }
     }
-    fullscreen: { state: { get: () => boolean } }
+    fullscreen: { state: { get: UseBooleanGet } }
   }
 }
 
@@ -44,7 +41,9 @@ export function controlAddedListener({
         assign: anchorAssign,
         titleStates: anchorTitleStates,
       },
-      fullscreen: getFullscreenState(),
+      fullscreen: {
+        state: { get: getFullscreenState },
+      },
     })
 
     anchorOnClick(async function handleAnchorClick(e: Event): Promise<void> {
