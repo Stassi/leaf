@@ -13,8 +13,8 @@ import { controlAddedListener } from './control/control-added-listener'
 import { type ControlAnchorTitleStates } from './control/anchor/update-title'
 import { joinClassNames } from './dom-element/join-class-names'
 import {
-  type LeafletMapLifecycleEvent,
-  mapLifecycleListener,
+  type FullscreenMapLifecycleEvent,
+  fullscreenMapLifecycleListener,
 } from './map/map-lifecycle-listener'
 import {
   type ControlAnchor,
@@ -110,11 +110,11 @@ export function fullscreenMap({
     control: Control = leafletControl({ position }),
     map: Map = leafletMap(id, mapOptions),
     handleMapLifecycleChange: (
-      mapLifecycleEvents: LeafletMapLifecycleEvent,
+      mapLifecycleEvents: FullscreenMapLifecycleEvent,
     ) => () => void = (
-      mapLifecycleEvent: LeafletMapLifecycleEvent,
+      mapLifecycleEvent: FullscreenMapLifecycleEvent,
     ): (() => void) =>
-      mapLifecycleListener({
+      fullscreenMapLifecycleListener({
         document: {
           map: {
             control: {

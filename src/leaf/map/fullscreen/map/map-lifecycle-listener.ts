@@ -1,14 +1,14 @@
-import { DomEvent, DomUtil, type Map } from 'leaflet'
+import { type Map, DomEvent, DomUtil } from 'leaflet'
 
-import { type ControlAnchorAssign } from '../control/anchor/anchor'
 import { type UseBoolean } from '../state/use-boolean'
+import { type ControlAnchorAssign } from '../control/anchor/anchor'
 import {
   type ControlAnchorTitleStates,
   updateControlAnchorTitle,
 } from '../control/anchor/update-title'
 
-export type LeafletMapLifecycleEvent = 'ready' | 'unload'
-export type MapLifecycleListenerOptions = {
+export type FullscreenMapLifecycleEvent = 'ready' | 'unload'
+export type FullscreenMapLifecycleListenerOptions = {
   document: {
     map: {
       control: {
@@ -21,13 +21,15 @@ export type MapLifecycleListenerOptions = {
         classNames: string
         state: UseBoolean
       }
-      lifecycleEvent: LeafletMapLifecycleEvent
+      lifecycleEvent: FullscreenMapLifecycleEvent
       map: Map
     }
   }
 }
 
-export function mapLifecycleListener({
+export type FullscreenMapLifecycleListener = () => void
+
+export function fullscreenMapLifecycleListener({
   document: {
     map: {
       control: {
@@ -41,13 +43,13 @@ export function mapLifecycleListener({
       map,
     },
   },
-}: MapLifecycleListenerOptions) {
-  return function handleFullscreenMapLifecycleEvent() {
+}: FullscreenMapLifecycleListenerOptions): FullscreenMapLifecycleListener {
+  return function handleFullscreenMapLifecycleEvent(): void {
     DomEvent[mapLifecycleEvent === 'ready' ? 'on' : 'off'](
       // @ts-expect-error -- `Document` type is assignable to first DomEvent.on argument
       document,
       'fullscreenchange',
-      function handleFullscreenMapChange() {
+      function handleFullscreenMapChange(): void {
         ;(getFullscreenState() ? DomUtil.removeClass : DomUtil.addClass)(
           map.getContainer(),
           fullscreenMapClassNames,
