@@ -1,24 +1,24 @@
-import { type UseBooleanGet } from '../state/use-boolean'
+import { type UseBooleanGet } from '../../state/use-boolean'
 
-import { type ControlAnchorAssign } from './anchor/anchor'
+import { type ControlAnchorAssign } from './anchor'
 
 export type ControlAnchorTitleStates = Record<'false' | 'true', string>
-export type AnchorAssignTitleOptions = {
+export type UpdateControlAnchorTitleAnchorOptions = {
   assign: ControlAnchorAssign
   titleStates: ControlAnchorTitleStates
 }
 
-export type SetControlAnchorTitleOptions = {
-  anchor: AnchorAssignTitleOptions
+export type UpdateControlAnchorTitleOptions = {
+  anchor: UpdateControlAnchorTitleAnchorOptions
   fullscreen: { state: { get: UseBooleanGet } }
 }
 
-export function setControlAnchorTitle({
+export function updateControlAnchorTitle({
   anchor: { assign: anchorAssign, titleStates: anchorTitleStates },
   fullscreen: {
     state: { get: getFullscreenState },
   },
-}: SetControlAnchorTitleOptions): HTMLElement {
+}: UpdateControlAnchorTitleOptions): HTMLElement {
   return anchorAssign({
     title:
       anchorTitleStates[
