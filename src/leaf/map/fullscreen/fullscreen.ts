@@ -1,22 +1,26 @@
 import {
-  DomUtil,
-  control as untypedLeafletControl,
-  map as leafletMap,
   type Control,
   type ControlOptions,
   type ControlPosition,
   type Map,
   type MapOptions,
+  control as untypedLeafletControl,
+  DomUtil,
+  map as leafletMap,
 } from 'leaflet'
 
 import { controlAddedListener } from './control/control-added-listener'
+import { type ControlAnchorTitleStates } from './control/set-control-anchor-title'
 import { joinClassNames } from './dom-element/join-class-names'
 import {
+  type LeafletMapLifecycleEvent,
   mapLifecycleListener,
-  type MapLifecycleListenerOptions,
 } from './map/map-lifecycle-listener'
-import { type SetControlAnchorTitleOptions } from './control/set-control-anchor-title'
-import { type UseAnchor, useAnchor } from './state/use-anchor'
+import {
+  type AnchorAttributes,
+  type UseAnchor,
+  useAnchor,
+} from './state/use-anchor'
 import { useBoolean } from './state/use-boolean'
 
 const leafletControl = <(options: ControlOptions) => Control>(
@@ -32,9 +36,9 @@ export type FullscreenMapOptions = MapOptions & {
       }
       control: {
         anchor: {
-          attributes: Record<string, string>
+          attributes: AnchorAttributes
           tag: string
-          titleStates: SetControlAnchorTitleOptions['anchor']['titleStates']
+          titleStates: ControlAnchorTitleStates
         }
         container: {
           tag: string
@@ -43,9 +47,6 @@ export type FullscreenMapOptions = MapOptions & {
       }
     }
   }>
-
-type LeafletMapLifecycleEvent =
-  MapLifecycleListenerOptions['document']['map']['lifecycleEvent']
 
 export function fullscreenMap({
   fullscreenOptions: {
