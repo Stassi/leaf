@@ -13,7 +13,7 @@ import { controlAddedListener } from './control/control-added-listener'
 import { joinClassNames } from './dom-element/join-class-names'
 import { mapLifecycleListener } from './map/map-lifecycle-listener'
 import { useBoolean } from './state/use-boolean'
-import { type UseLink, useLink } from './state/use-link'
+import { type UseAnchor, useAnchor } from './state/use-anchor'
 
 const leafletControl = <(options: ControlOptions) => Control>(
   (<unknown>untypedLeafletControl)
@@ -23,7 +23,7 @@ export type FullscreenMapOptions = MapOptions & {
   id: string
 } & Partial<{
     fullscreenOptions: {
-      classNames: Record<'container' | 'link', string[]> & {
+      classNames: Record<'anchor' | 'container', string[]> & {
         mapFullscreen: string
       }
       control: {
@@ -43,8 +43,8 @@ export type FullscreenMapOptions = MapOptions & {
 export function fullscreenMap({
   fullscreenOptions: {
     classNames: {
+      anchor: anchorClassNames,
       container: containerClassNames,
-      link: linkClassNames,
       mapFullscreen: mapFullscreenClassName,
     },
     control: {
@@ -55,12 +55,12 @@ export function fullscreenMap({
     },
   } = {
     classNames: {
+      anchor: ['leaflet-bar-part', 'leaflet-control-fullscreen-button'],
       container: [
         'leaflet-bar',
         'leaflet-control',
         'leaflet-control-fullscreen',
       ],
-      link: ['leaflet-bar-part', 'leaflet-control-fullscreen-button'],
       mapFullscreen: 'leaflet-fullscreen-on',
     },
     control: {
@@ -87,11 +87,11 @@ export function fullscreenMap({
       containerTag,
       joinClassNames(containerClassNames),
     ),
-    { assign: linkAssign, onClick: onLinkClick }: UseLink = useLink({
+    { assign: anchorAssign, onClick: anchorOnClick }: UseAnchor = useAnchor({
       attributes: anchorAttributes,
       element: DomUtil.create(
         anchorTag,
-        joinClassNames(linkClassNames),
+        joinClassNames(anchorClassNames),
         container,
       ),
     }),
@@ -101,9 +101,9 @@ export function fullscreenMap({
       documentFirstReady: boolean,
     ): (() => void) =>
       mapLifecycleListener({
+        anchorAssign,
         documentFirstReady,
         getFullscreenState,
-        linkAssign,
         map,
         mapFullscreenClassName,
         title,
@@ -111,10 +111,10 @@ export function fullscreenMap({
       })
 
   control.onAdd = controlAddedListener({
+    anchorAssign,
+    anchorOnClick,
     container,
     getFullscreenState,
-    linkAssign,
-    onLinkClick,
     title,
   })
   control.addTo(map)

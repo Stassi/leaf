@@ -1,15 +1,15 @@
-import { type UseLink } from '../state/use-link'
+import { type UseAnchor } from '../state/use-anchor'
 
 export type SetControlTitleOptions = {
+  anchorAssign: UseAnchor['assign']
   fullscreen: boolean
-  linkAssign: UseLink['assign']
   title: Record<'false' | 'true', string>
 }
 
 export function setControlTitle({
+  anchorAssign,
   fullscreen,
-  linkAssign,
   title,
 }: SetControlTitleOptions): HTMLElement {
-  return linkAssign({ title: title[<'false' | 'true'>fullscreen.toString()] })
+  return anchorAssign({ title: title[<'false' | 'true'>fullscreen.toString()] })
 }

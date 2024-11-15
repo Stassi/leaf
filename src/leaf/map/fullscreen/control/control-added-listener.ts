@@ -1,23 +1,23 @@
 import { DomEvent, type Map } from 'leaflet'
 
-import { type UseLink } from '../state/use-link'
+import { type UseAnchor } from '../state/use-anchor'
 
 import { setControlTitle } from './set-control-title'
 
 export type ControlAddedListenerOptions = {
   container: HTMLElement
   getFullscreenState: () => boolean
-  linkAssign: UseLink['assign']
-  onLinkClick: UseLink['onClick']
+  anchorAssign: UseAnchor['assign']
+  anchorOnClick: UseAnchor['onClick']
   title: Record<'true' | 'false', string>
 }
 
 export type ControlAddedListener = (map: Map) => HTMLElement
 
 export function controlAddedListener({
+  anchorOnClick,
   container,
   getFullscreenState,
-  onLinkClick,
   ...titleOptions
 }: ControlAddedListenerOptions): ControlAddedListener {
   return function handleControlAdded(map: Map): HTMLElement {
@@ -26,7 +26,7 @@ export function controlAddedListener({
       ...titleOptions,
     })
 
-    onLinkClick(async function handleLinkClick(e: Event): Promise<void> {
+    anchorOnClick(async function handleAnchorClick(e: Event): Promise<void> {
       DomEvent.stopPropagation(e)
       DomEvent.preventDefault(e)
 
