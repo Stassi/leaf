@@ -8,7 +8,6 @@ import { type UseAnchor } from '../state/use-anchor'
 
 export type MapLifecycleListenerOptions = {
   document: {
-    firstReady: boolean
     map: {
       control: {
         anchor: {
@@ -23,6 +22,7 @@ export type MapLifecycleListenerOptions = {
           toggle: () => void
         }
       }
+      lifecycleEvent: 'ready' | 'unload'
       map: Map
     }
   }
@@ -30,7 +30,6 @@ export type MapLifecycleListenerOptions = {
 
 export function mapLifecycleListener({
   document: {
-    firstReady: documentFirstReady,
     map: {
       control: {
         anchor: { assign: anchorAssign, titleStates: anchorTitleStates },
@@ -39,12 +38,13 @@ export function mapLifecycleListener({
         classNames: fullscreenMapClassNames,
         state: { get: getFullscreenState, toggle: toggleFullscreenState },
       },
+      lifecycleEvent: mapLifecycleEvent,
       map,
     },
   },
 }: MapLifecycleListenerOptions) {
   return function handleFullscreenMapLifecycleEvent() {
-    DomEvent[documentFirstReady ? 'on' : 'off'](
+    DomEvent[mapLifecycleEvent === 'ready' ? 'on' : 'off'](
       // @ts-expect-error -- `Document` type is assignable to first DomEvent.on argument
       document,
       'fullscreenchange',

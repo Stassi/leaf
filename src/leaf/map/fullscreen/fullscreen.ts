@@ -11,7 +11,10 @@ import {
 
 import { controlAddedListener } from './control/control-added-listener'
 import { joinClassNames } from './dom-element/join-class-names'
-import { mapLifecycleListener } from './map/map-lifecycle-listener'
+import {
+  mapLifecycleListener,
+  type MapLifecycleListenerOptions,
+} from './map/map-lifecycle-listener'
 import { type SetControlAnchorTitleOptions } from './control/set-control-anchor-title'
 import { type UseAnchor, useAnchor } from './state/use-anchor'
 import { useBoolean } from './state/use-boolean'
@@ -40,6 +43,9 @@ export type FullscreenMapOptions = MapOptions & {
       }
     }
   }>
+
+type LeafletMapLifecycleEvent =
+  MapLifecycleListenerOptions['document']['map']['lifecycleEvent']
 
 export function fullscreenMap({
   fullscreenOptions: {
@@ -101,12 +107,13 @@ export function fullscreenMap({
     }),
     control: Control = leafletControl({ position }),
     map: Map = leafletMap(id, mapOptions),
-    handleMapLifecycleChange: (documentFirstReady: boolean) => () => void = (
-      documentFirstReady: boolean,
+    handleMapLifecycleChange: (
+      mapLifecycleEvents: LeafletMapLifecycleEvent,
+    ) => () => void = (
+      mapLifecycleEvent: LeafletMapLifecycleEvent,
     ): (() => void) =>
       mapLifecycleListener({
         document: {
-          firstReady: documentFirstReady,
           map: {
             control: {
               anchor: {
@@ -118,6 +125,7 @@ export function fullscreenMap({
               classNames: fullscreenMapClassNames,
               state: { get: getFullscreenState, toggle: toggleFullscreenState },
             },
+            lifecycleEvent: mapLifecycleEvent,
             map,
           },
         },
@@ -140,8 +148,8 @@ export function fullscreenMap({
   })
   control.addTo(map)
 
-  map.whenReady(handleMapLifecycleChange(true))
-  map.on('unload', handleMapLifecycleChange(false))
+  map.whenReady(handleMapLifecycleChange('ready'))
+  map.on('unload', handleMapLifecycleChange('unload'))
 
   return map
 }
