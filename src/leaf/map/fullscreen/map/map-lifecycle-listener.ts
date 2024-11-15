@@ -27,13 +27,15 @@ export type MapLifecycleListenerOptions = {
 }
 
 export function mapLifecycleListener({
-  anchorAssign,
-  anchorTitleStates,
-  documentFirstReady,
-  fullscreenMapClassNames,
-  getFullscreenState,
-  map,
-  toggleFullscreenState,
+  anchor: { assign: anchorAssign, titleStates: anchorTitleStates },
+  document: { firstReady: documentFirstReady },
+  map: {
+    fullscreen: {
+      classNames: fullscreenMapClassNames,
+      state: { get: getFullscreenState, toggle: toggleFullscreenState },
+    },
+    map,
+  },
 }: MapLifecycleListenerOptions) {
   return function handleFullscreenMapLifecycleEvent() {
     DomEvent[documentFirstReady ? 'on' : 'off'](
