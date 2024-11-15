@@ -1,13 +1,16 @@
 import { DomEvent } from 'leaflet'
 
+export type AnchorAttributes = Record<string, string>
 export type UseAnchorOptions = {
-  attributes: Record<string, string>
+  attributes: AnchorAttributes
   element: HTMLElement
 }
 
+export type AnchorAssign = (props: AnchorAttributes) => HTMLElement
+export type AnchorOnClick = (handler: (event: Event) => Promise<void>) => void
 export type UseAnchor = {
-  assign: (props: Record<string, string>) => HTMLElement
-  onClick: (handler: (event: Event) => Promise<void>) => void
+  assign: AnchorAssign
+  onClick: AnchorOnClick
 }
 
 const domEventOn = <
@@ -22,7 +25,7 @@ export function useAnchor({
   attributes,
   element,
 }: UseAnchorOptions): UseAnchor {
-  function assign(anchorAttributes: Record<string, string>): HTMLElement {
+  function assign(anchorAttributes: AnchorAttributes): HTMLElement {
     return Object.assign(element, anchorAttributes)
   }
 
