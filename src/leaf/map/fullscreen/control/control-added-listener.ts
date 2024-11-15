@@ -8,25 +8,39 @@ import {
 } from './set-control-anchor-title'
 
 export type ControlAddedListenerOptions = {
-  anchorAssign: UseAnchor['assign']
-  anchorOnClick: UseAnchor['onClick']
-  anchorTitleStates: SetControlAnchorTitleOptions['anchorTitleStates']
-  container: HTMLElement
-  getFullscreenState: () => boolean
+  control: {
+    anchor: {
+      assign: UseAnchor['assign']
+      onClick: UseAnchor['onClick']
+      titleStates: SetControlAnchorTitleOptions['anchorTitleStates']
+    }
+    container: { element: HTMLElement }
+  }
+  map: { fullscreen: { state: { get: () => boolean } } }
 }
 
 export type ControlAddedListener = (map: Map) => HTMLElement
 
 export function controlAddedListener({
-  anchorOnClick,
-  container,
-  getFullscreenState,
-  ...titleOptions
+  control: {
+    anchor: {
+      assign: anchorAssign,
+      onClick: anchorOnClick,
+      titleStates: anchorTitleStates,
+    },
+    container: { element: containerElement },
+  },
+  map: {
+    fullscreen: {
+      state: { get: getFullscreenState },
+    },
+  },
 }: ControlAddedListenerOptions): ControlAddedListener {
   return function handleControlAdded(map: Map): HTMLElement {
     setControlAnchorTitle({
+      anchorAssign,
+      anchorTitleStates,
       fullscreen: getFullscreenState(),
-      ...titleOptions,
     })
 
     anchorOnClick(async function handleAnchorClick(e: Event): Promise<void> {
@@ -38,6 +52,6 @@ export function controlAddedListener({
         : map.getContainer().requestFullscreen())
     })
 
-    return container
+    return containerElement
   }
 }

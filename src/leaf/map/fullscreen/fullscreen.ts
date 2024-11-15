@@ -87,7 +87,7 @@ export function fullscreenMap({
 }: FullscreenMapOptions): Map {
   const { get: getFullscreenState, toggle: toggleFullscreenState } =
       useBoolean(false),
-    container: HTMLElement = DomUtil.create(
+    containerElement: HTMLElement = DomUtil.create(
       containerTag,
       joinClassNames(containerClassNames),
     ),
@@ -96,7 +96,7 @@ export function fullscreenMap({
       element: DomUtil.create(
         anchorTag,
         joinClassNames(anchorClassNames),
-        container,
+        containerElement,
       ),
     }),
     control: Control = leafletControl({ position }),
@@ -120,11 +120,19 @@ export function fullscreenMap({
       })
 
   control.onAdd = controlAddedListener({
-    anchorAssign,
-    anchorOnClick,
-    anchorTitleStates,
-    container,
-    getFullscreenState,
+    control: {
+      anchor: {
+        assign: anchorAssign,
+        onClick: anchorOnClick,
+        titleStates: anchorTitleStates,
+      },
+      container: { element: containerElement },
+    },
+    map: {
+      fullscreen: {
+        state: { get: getFullscreenState },
+      },
+    },
   })
   control.addTo(map)
 
