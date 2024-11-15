@@ -1,6 +1,6 @@
 import { DomEvent, DomUtil, type Map } from 'leaflet'
 
-import { type AnchorAssign } from '../state/use-anchor'
+import { type ControlAnchorAssign } from '../control/anchor/anchor'
 import { type UseBoolean } from '../state/use-boolean'
 import {
   setControlAnchorTitle,
@@ -13,7 +13,7 @@ export type MapLifecycleListenerOptions = {
     map: {
       control: {
         anchor: {
-          assign: AnchorAssign
+          assign: ControlAnchorAssign
           titleStates: ControlAnchorTitleStates
         }
       }

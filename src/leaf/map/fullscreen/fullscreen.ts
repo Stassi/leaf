@@ -17,10 +17,10 @@ import {
   mapLifecycleListener,
 } from './map/map-lifecycle-listener'
 import {
-  type AnchorAttributes,
-  type UseAnchor,
-  useAnchor,
-} from './state/use-anchor'
+  type ControlAnchor,
+  type ControlAnchorAttributes,
+  controlAnchor,
+} from './control/anchor/anchor'
 import { useBoolean } from './state/use-boolean'
 
 const leafletControl = <(options: ControlOptions) => Control>(
@@ -36,7 +36,7 @@ export type FullscreenMapOptions = MapOptions & {
       }
       control: {
         anchor: {
-          attributes: AnchorAttributes
+          attributes: ControlAnchorAttributes
           tag: string
           titleStates: ControlAnchorTitleStates
         }
@@ -98,14 +98,15 @@ export function fullscreenMap({
       containerTag,
       joinClassNames(containerClassNames),
     ),
-    { assign: anchorAssign, onClick: anchorOnClick }: UseAnchor = useAnchor({
-      attributes: anchorAttributes,
-      element: DomUtil.create(
-        anchorTag,
-        joinClassNames(anchorClassNames),
-        containerElement,
-      ),
-    }),
+    { assign: anchorAssign, onClick: anchorOnClick }: ControlAnchor =
+      controlAnchor({
+        attributes: anchorAttributes,
+        element: DomUtil.create(
+          anchorTag,
+          joinClassNames(anchorClassNames),
+          containerElement,
+        ),
+      }),
     control: Control = leafletControl({ position }),
     map: Map = leafletMap(id, mapOptions),
     handleMapLifecycleChange: (

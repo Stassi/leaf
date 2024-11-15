@@ -1,9 +1,10 @@
-import { type AnchorAssign } from '../state/use-anchor'
 import { type UseBooleanGet } from '../state/use-boolean'
+
+import { type ControlAnchorAssign } from './anchor/anchor'
 
 export type ControlAnchorTitleStates = Record<'false' | 'true', string>
 export type AnchorAssignTitleOptions = {
-  assign: AnchorAssign
+  assign: ControlAnchorAssign
   titleStates: ControlAnchorTitleStates
 }
 

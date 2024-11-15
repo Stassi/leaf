@@ -1,8 +1,8 @@
 import { DomEvent, type Map } from 'leaflet'
 
-import { type UseAnchor } from '../state/use-anchor'
 import { type UseBooleanGet } from '../state/use-boolean'
 
+import { type ControlAnchor } from './anchor/anchor'
 import {
   type AnchorAssignTitleOptions,
   setControlAnchorTitle,
@@ -11,7 +11,7 @@ import {
 export type ControlAddedListenerOptions = {
   map: {
     control: {
-      anchor: AnchorAssignTitleOptions & UseAnchor
+      anchor: AnchorAssignTitleOptions & ControlAnchor
       container: { element: HTMLElement }
     }
     fullscreen: { state: { get: UseBooleanGet } }
