@@ -4,14 +4,14 @@ import { type UseBooleanGet } from '../state/use-boolean'
 
 import { type ControlAnchor } from './anchor/anchor'
 import {
-  type AnchorAssignTitleOptions,
-  setControlAnchorTitle,
-} from './set-control-anchor-title'
+  type UpdateControlAnchorTitleAnchorOptions,
+  updateControlAnchorTitle,
+} from './anchor/update-title'
 
 export type ControlAddedListenerOptions = {
   map: {
     control: {
-      anchor: AnchorAssignTitleOptions & ControlAnchor
+      anchor: UpdateControlAnchorTitleAnchorOptions & ControlAnchor
       container: { element: HTMLElement }
     }
     fullscreen: { state: { get: UseBooleanGet } }
@@ -36,7 +36,7 @@ export function controlAddedListener({
   },
 }: ControlAddedListenerOptions): ControlAddedListener {
   return function handleControlAdded(map: Map): HTMLElement {
-    setControlAnchorTitle({
+    updateControlAnchorTitle({
       anchor: {
         assign: anchorAssign,
         titleStates: anchorTitleStates,

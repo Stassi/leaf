@@ -3,9 +3,9 @@ import { DomEvent, DomUtil, type Map } from 'leaflet'
 import { type ControlAnchorAssign } from '../control/anchor/anchor'
 import { type UseBoolean } from '../state/use-boolean'
 import {
-  setControlAnchorTitle,
   type ControlAnchorTitleStates,
-} from '../control/set-control-anchor-title'
+  updateControlAnchorTitle,
+} from '../control/anchor/update-title'
 
 export type LeafletMapLifecycleEvent = 'ready' | 'unload'
 export type MapLifecycleListenerOptions = {
@@ -55,7 +55,7 @@ export function mapLifecycleListener({
 
         map.invalidateSize()
         toggleFullscreenState()
-        setControlAnchorTitle({
+        updateControlAnchorTitle({
           anchor: { assign: anchorAssign, titleStates: anchorTitleStates },
           fullscreen: { state: { get: getFullscreenState } },
         })
