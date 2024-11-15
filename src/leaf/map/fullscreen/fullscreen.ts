@@ -10,7 +10,7 @@ import {
 } from 'leaflet'
 
 import { controlAddedListener } from './control/control-added-listener'
-import { joinClassNames } from './dom-node-class/join-class-names'
+import { joinClassNames } from './dom-element/join-class-names'
 import { mapLifecycleListener } from './map/map-lifecycle-listener'
 import { useBoolean } from './state/use-boolean'
 import { type UseLink, useLink } from './state/use-link'
