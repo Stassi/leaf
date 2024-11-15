@@ -6,9 +6,9 @@ import { type UseAnchor } from '../state/use-anchor'
 export type MapLifecycleListenerOptions = {
   anchorAssign: UseAnchor['assign']
   documentFirstReady: boolean
+  fullscreenMapClassName: string
   getFullscreenState: () => boolean
   map: Map
-  mapFullscreenClassName: string
   title: Record<string, string>
   toggleFullscreenState: () => void
 }
@@ -16,9 +16,9 @@ export type MapLifecycleListenerOptions = {
 export function mapLifecycleListener({
   anchorAssign,
   documentFirstReady,
+  fullscreenMapClassName,
   getFullscreenState,
   map,
-  mapFullscreenClassName,
   title,
   toggleFullscreenState,
 }: MapLifecycleListenerOptions) {
@@ -30,7 +30,7 @@ export function mapLifecycleListener({
       function handleFullscreenMapChange() {
         ;(getFullscreenState() ? DomUtil.removeClass : DomUtil.addClass)(
           map.getContainer(),
-          mapFullscreenClassName,
+          fullscreenMapClassName,
         )
 
         map.invalidateSize()

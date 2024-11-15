@@ -24,7 +24,7 @@ export type FullscreenMapOptions = MapOptions & {
 } & Partial<{
     fullscreenOptions: {
       classNames: Record<'anchor' | 'container', string[]> & {
-        mapFullscreen: string
+        fullscreenMap: string
       }
       control: {
         anchor: {
@@ -45,7 +45,7 @@ export function fullscreenMap({
     classNames: {
       anchor: anchorClassNames,
       container: containerClassNames,
-      mapFullscreen: mapFullscreenClassName,
+      fullscreenMap: fullscreenMapClassNames,
     },
     control: {
       anchor: { attributes: anchorAttributes, tag: anchorTag },
@@ -61,7 +61,7 @@ export function fullscreenMap({
         'leaflet-control',
         'leaflet-control-fullscreen',
       ],
-      mapFullscreen: 'leaflet-fullscreen-on',
+      fullscreenMap: 'leaflet-fullscreen-on',
     },
     control: {
       anchor: {
@@ -103,9 +103,9 @@ export function fullscreenMap({
       mapLifecycleListener({
         anchorAssign,
         documentFirstReady,
+        fullscreenMapClassName: fullscreenMapClassNames,
         getFullscreenState,
         map,
-        mapFullscreenClassName,
         title,
         toggleFullscreenState,
       })
