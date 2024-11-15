@@ -2,14 +2,17 @@ import { DomEvent, type Map } from 'leaflet'
 
 import { type UseAnchor } from '../state/use-anchor'
 
-import { setControlTitle } from './set-control-title'
+import {
+  setControlAnchorTitle,
+  type SetControlAnchorTitleOptions,
+} from './set-control-anchor-title'
 
 export type ControlAddedListenerOptions = {
-  container: HTMLElement
-  getFullscreenState: () => boolean
   anchorAssign: UseAnchor['assign']
   anchorOnClick: UseAnchor['onClick']
-  title: Record<'true' | 'false', string>
+  anchorTitleStates: SetControlAnchorTitleOptions['anchorTitleStates']
+  container: HTMLElement
+  getFullscreenState: () => boolean
 }
 
 export type ControlAddedListener = (map: Map) => HTMLElement
@@ -21,7 +24,7 @@ export function controlAddedListener({
   ...titleOptions
 }: ControlAddedListenerOptions): ControlAddedListener {
   return function handleControlAdded(map: Map): HTMLElement {
-    setControlTitle({
+    setControlAnchorTitle({
       fullscreen: getFullscreenState(),
       ...titleOptions,
     })

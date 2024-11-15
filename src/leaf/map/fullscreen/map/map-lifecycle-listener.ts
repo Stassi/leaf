@@ -1,25 +1,28 @@
 import { DomEvent, DomUtil, type Map } from 'leaflet'
 
-import { setControlTitle } from '../control/set-control-title'
+import {
+  setControlAnchorTitle,
+  type SetControlAnchorTitleOptions,
+} from '../control/set-control-anchor-title'
 import { type UseAnchor } from '../state/use-anchor'
 
 export type MapLifecycleListenerOptions = {
   anchorAssign: UseAnchor['assign']
+  anchorTitleStates: SetControlAnchorTitleOptions['anchorTitleStates']
   documentFirstReady: boolean
   fullscreenMapClassName: string
   getFullscreenState: () => boolean
   map: Map
-  title: Record<string, string>
   toggleFullscreenState: () => void
 }
 
 export function mapLifecycleListener({
   anchorAssign,
+  anchorTitleStates,
   documentFirstReady,
   fullscreenMapClassName,
   getFullscreenState,
   map,
-  title,
   toggleFullscreenState,
 }: MapLifecycleListenerOptions) {
   return function handleFullscreenMapLifecycleEvent() {
@@ -35,10 +38,10 @@ export function mapLifecycleListener({
 
         map.invalidateSize()
         toggleFullscreenState()
-        setControlTitle({
+        setControlAnchorTitle({
           anchorAssign,
+          anchorTitleStates,
           fullscreen: getFullscreenState(),
-          title,
         })
       },
     )

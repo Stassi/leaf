@@ -12,8 +12,9 @@ import {
 import { controlAddedListener } from './control/control-added-listener'
 import { joinClassNames } from './dom-element/join-class-names'
 import { mapLifecycleListener } from './map/map-lifecycle-listener'
-import { useBoolean } from './state/use-boolean'
+import { type SetControlAnchorTitleOptions } from './control/set-control-anchor-title'
 import { type UseAnchor, useAnchor } from './state/use-anchor'
+import { useBoolean } from './state/use-boolean'
 
 const leafletControl = <(options: ControlOptions) => Control>(
   (<unknown>untypedLeafletControl)
@@ -30,12 +31,12 @@ export type FullscreenMapOptions = MapOptions & {
         anchor: {
           attributes: Record<string, string>
           tag: string
+          titleStates: SetControlAnchorTitleOptions['anchorTitleStates']
         }
         container: {
           tag: string
         }
         position: ControlPosition
-        title: Record<'false' | 'true', string>
       }
     }
   }>
@@ -48,10 +49,13 @@ export function fullscreenMap({
       fullscreenMap: fullscreenMapClassNames,
     },
     control: {
-      anchor: { attributes: anchorAttributes, tag: anchorTag },
+      anchor: {
+        attributes: anchorAttributes,
+        tag: anchorTag,
+        titleStates: anchorTitleStates,
+      },
       container: { tag: containerTag },
       position,
-      title,
     },
   } = {
     classNames: {
@@ -67,15 +71,15 @@ export function fullscreenMap({
       anchor: {
         attributes: { href: '#' },
         tag: 'a',
+        titleStates: {
+          false: 'View Fullscreen',
+          true: 'Exit Fullscreen',
+        },
       },
       container: {
         tag: 'div',
       },
       position: 'topleft',
-      title: {
-        false: 'View Fullscreen',
-        true: 'Exit Fullscreen',
-      },
     },
   },
   id,
@@ -102,20 +106,20 @@ export function fullscreenMap({
     ): (() => void) =>
       mapLifecycleListener({
         anchorAssign,
+        anchorTitleStates,
         documentFirstReady,
         fullscreenMapClassName: fullscreenMapClassNames,
         getFullscreenState,
         map,
-        title,
         toggleFullscreenState,
       })
 
   control.onAdd = controlAddedListener({
     anchorAssign,
     anchorOnClick,
+    anchorTitleStates,
     container,
     getFullscreenState,
-    title,
   })
   control.addTo(map)
 
