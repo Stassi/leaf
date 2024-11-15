@@ -7,13 +7,23 @@ import {
 import { type UseAnchor } from '../state/use-anchor'
 
 export type MapLifecycleListenerOptions = {
-  anchorAssign: UseAnchor['assign']
-  anchorTitleStates: SetControlAnchorTitleOptions['anchorTitleStates']
-  documentFirstReady: boolean
-  fullscreenMapClassNames: string
-  getFullscreenState: () => boolean
-  map: Map
-  toggleFullscreenState: () => void
+  anchor: {
+    assign: UseAnchor['assign']
+    titleStates: SetControlAnchorTitleOptions['anchorTitleStates']
+  }
+  document: {
+    firstReady: boolean
+  }
+  map: {
+    fullscreen: {
+      classNames: string
+      state: {
+        get: () => boolean
+        toggle: () => void
+      }
+    }
+    map: Map
+  }
 }
 
 export function mapLifecycleListener({
