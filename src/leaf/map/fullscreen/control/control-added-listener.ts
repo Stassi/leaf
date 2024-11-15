@@ -5,14 +5,14 @@ import { type UseLink } from '../state/use-link'
 import { setControlTitle } from './set-control-title'
 
 export type ControlAddedListenerOptions = {
-  container: HTMLDivElement
+  container: HTMLElement
   getFullscreenState: () => boolean
   linkAssign: UseLink['assign']
   onLinkClick: UseLink['onClick']
   title: Record<'true' | 'false', string>
 }
 
-export type ControlAddedListener = (map: Map) => HTMLDivElement
+export type ControlAddedListener = (map: Map) => HTMLElement
 
 export function controlAddedListener({
   container,
@@ -20,7 +20,7 @@ export function controlAddedListener({
   onLinkClick,
   ...titleOptions
 }: ControlAddedListenerOptions): ControlAddedListener {
-  return function handleControlAdded(map: Map): HTMLDivElement {
+  return function handleControlAdded(map: Map): HTMLElement {
     setControlTitle({
       fullscreen: getFullscreenState(),
       ...titleOptions,

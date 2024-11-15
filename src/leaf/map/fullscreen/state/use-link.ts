@@ -1,13 +1,13 @@
 import { DomEvent } from 'leaflet'
 
 export type UseLinkOptions = {
-  element: HTMLAnchorElement
-  initialProps: Record<string, string>
+  attributes: Record<string, string>
+  element: HTMLElement
 }
 
 export type UseLink = {
+  assign: (props: Record<string, string>) => HTMLElement
   onClick: (handler: (event: Event) => Promise<void>) => void
-  assign: (props: Record<string, string>) => HTMLAnchorElement
 }
 
 const domEventOn = <
@@ -18,12 +18,12 @@ const domEventOn = <
   ) => typeof DomEvent
 >DomEvent.on
 
-export function useLink({ element, initialProps }: UseLinkOptions): UseLink {
-  function assign(props: Record<string, string>): HTMLAnchorElement {
-    return Object.assign(element, props)
+export function useLink({ attributes, element }: UseLinkOptions): UseLink {
+  function assign(anchorAttributes: Record<string, string>): HTMLElement {
+    return Object.assign(element, anchorAttributes)
   }
 
-  assign(initialProps)
+  assign(attributes)
 
   return {
     assign,

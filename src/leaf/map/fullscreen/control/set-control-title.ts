@@ -10,6 +10,6 @@ export function setControlTitle({
   fullscreen,
   linkAssign,
   title,
-}: SetControlTitleOptions): HTMLAnchorElement {
+}: SetControlTitleOptions): HTMLElement {
   return linkAssign({ title: title[<'false' | 'true'>fullscreen.toString()] })
 }

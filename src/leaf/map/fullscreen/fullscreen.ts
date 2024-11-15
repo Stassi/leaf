@@ -27,6 +27,13 @@ export type FullscreenMapOptions = MapOptions & {
         mapFullscreen: string
       }
       control: {
+        anchor: {
+          attributes: Record<string, string>
+          tag: string
+        }
+        container: {
+          tag: string
+        }
         position: ControlPosition
         title: Record<'false' | 'true', string>
       }
@@ -40,7 +47,12 @@ export function fullscreenMap({
       link: linkClassNames,
       mapFullscreen: mapFullscreenClassName,
     },
-    control: { position, title },
+    control: {
+      anchor: { attributes: anchorAttributes, tag: anchorTag },
+      container: { tag: containerTag },
+      position,
+      title,
+    },
   } = {
     classNames: {
       container: [
@@ -52,6 +64,13 @@ export function fullscreenMap({
       mapFullscreen: 'leaflet-fullscreen-on',
     },
     control: {
+      anchor: {
+        attributes: { href: '#' },
+        tag: 'a',
+      },
+      container: {
+        tag: 'div',
+      },
       position: 'topleft',
       title: {
         false: 'View Fullscreen',
@@ -64,13 +83,17 @@ export function fullscreenMap({
 }: FullscreenMapOptions): Map {
   const { get: getFullscreenState, toggle: toggleFullscreenState } =
       useBoolean(false),
-    container: HTMLDivElement = DomUtil.create(
-      'div',
+    container: HTMLElement = DomUtil.create(
+      containerTag,
       joinClassNames(containerClassNames),
     ),
     { assign: linkAssign, onClick: onLinkClick }: UseLink = useLink({
-      element: DomUtil.create('a', joinClassNames(linkClassNames), container),
-      initialProps: { href: '#' },
+      attributes: anchorAttributes,
+      element: DomUtil.create(
+        anchorTag,
+        joinClassNames(linkClassNames),
+        container,
+      ),
     }),
     control: Control = leafletControl({ position }),
     map: Map = leafletMap(id, mapOptions),
