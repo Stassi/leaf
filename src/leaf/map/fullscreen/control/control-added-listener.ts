@@ -13,7 +13,7 @@ export type ControlAddedListenerOptions = {
       anchor: {
         assign: UseAnchor['assign']
         onClick: UseAnchor['onClick']
-        titleStates: SetControlAnchorTitleOptions['anchorTitleStates']
+        titleStates: SetControlAnchorTitleOptions['anchor']['titleStates']
       }
       container: { element: HTMLElement }
     }
@@ -40,8 +40,10 @@ export function controlAddedListener({
 }: ControlAddedListenerOptions): ControlAddedListener {
   return function handleControlAdded(map: Map): HTMLElement {
     setControlAnchorTitle({
-      anchorAssign,
-      anchorTitleStates,
+      anchor: {
+        assign: anchorAssign,
+        titleStates: anchorTitleStates,
+      },
       fullscreen: getFullscreenState(),
     })
 

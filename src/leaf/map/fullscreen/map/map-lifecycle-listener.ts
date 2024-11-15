@@ -12,7 +12,7 @@ export type MapLifecycleListenerOptions = {
       control: {
         anchor: {
           assign: UseAnchor['assign']
-          titleStates: SetControlAnchorTitleOptions['anchorTitleStates']
+          titleStates: SetControlAnchorTitleOptions['anchor']['titleStates']
         }
       }
       fullscreen: {
@@ -57,8 +57,7 @@ export function mapLifecycleListener({
         map.invalidateSize()
         toggleFullscreenState()
         setControlAnchorTitle({
-          anchorAssign,
-          anchorTitleStates,
+          anchor: { assign: anchorAssign, titleStates: anchorTitleStates },
           fullscreen: getFullscreenState(),
         })
       },

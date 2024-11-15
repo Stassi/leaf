@@ -34,7 +34,7 @@ export type FullscreenMapOptions = MapOptions & {
         anchor: {
           attributes: Record<string, string>
           tag: string
-          titleStates: SetControlAnchorTitleOptions['anchorTitleStates']
+          titleStates: SetControlAnchorTitleOptions['anchor']['titleStates']
         }
         container: {
           tag: string

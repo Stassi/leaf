@@ -1,20 +1,21 @@
 import { type UseAnchor } from '../state/use-anchor'
 
 export type SetControlAnchorTitleOptions = {
-  anchorAssign: UseAnchor['assign']
-  anchorTitleStates: Record<'false' | 'true', string>
+  anchor: {
+    assign: UseAnchor['assign']
+    titleStates: Record<'false' | 'true', string>
+  }
   fullscreen: boolean
 }
 
 export function setControlAnchorTitle({
-  anchorAssign,
-  anchorTitleStates,
+  anchor: { assign: anchorAssign, titleStates: anchorTitleStates },
   fullscreen,
 }: SetControlAnchorTitleOptions): HTMLElement {
   return anchorAssign({
     title:
       anchorTitleStates[
-        <keyof SetControlAnchorTitleOptions['anchorTitleStates']>(
+        <keyof SetControlAnchorTitleOptions['anchor']['titleStates']>(
           fullscreen.toString()
         )
       ],
