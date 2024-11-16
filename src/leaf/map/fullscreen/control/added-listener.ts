@@ -46,9 +46,11 @@ export function controlAddedListener({
       },
     })
 
-    anchorOnClick(async function handleAnchorClick(e: Event): Promise<void> {
-      DomEvent.stopPropagation(e)
-      DomEvent.preventDefault(e)
+    anchorOnClick(async function handleAnchorClick(
+      event: Event,
+    ): Promise<void> {
+      DomEvent.stopPropagation(event)
+      DomEvent.preventDefault(event)
 
       await (getFullscreenState()
         ? document.exitFullscreen()
