@@ -9,19 +9,19 @@ import {
   map as leafletMap,
 } from 'leaflet'
 
+import { useBoolean } from './state/use-boolean'
 import { controlAddedListener } from './control/added-listener'
+import {
+  type ControlAnchor,
+  type ControlAnchorAttributes,
+  controlAnchor,
+} from './control/anchor/anchor'
 import { type ControlAnchorTitleStates } from './control/anchor/update-title'
 import { joinClassNames } from './dom-element/join-class-names'
 import {
   type FullscreenMapLifecycleEvent,
   fullscreenMapLifecycleListener,
 } from './map/map-lifecycle-listener'
-import {
-  type ControlAnchor,
-  type ControlAnchorAttributes,
-  controlAnchor,
-} from './control/anchor/anchor'
-import { useBoolean } from './state/use-boolean'
 
 const leafletControl = <(options: ControlOptions) => Control>(
   (<unknown>untypedLeafletControl)
