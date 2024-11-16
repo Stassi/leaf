@@ -20,7 +20,7 @@ import { joinClassNames } from './dom-element/join-class-names'
 import {
   type FullscreenMapLifecycleEvent,
   fullscreenMapLifecycleListener,
-} from './map/map-lifecycle-listener'
+} from './map/lifecycle-listener'
 
 import { useBoolean } from '@stassi/leaf'
 
