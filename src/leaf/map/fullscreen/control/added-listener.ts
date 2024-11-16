@@ -1,12 +1,12 @@
 import { DomEvent, type Map } from 'leaflet'
 
-import { type UseBooleanGet } from '../state/use-boolean'
-
 import { type ControlAnchor } from './anchor/anchor'
 import {
   type UpdateControlAnchorTitleAnchorOptions,
   updateControlAnchorTitle,
 } from './anchor/update-title'
+
+import { type UseBooleanGet } from '@stassi/leaf'
 
 export type ControlAddedListenerOptions = {
   map: {

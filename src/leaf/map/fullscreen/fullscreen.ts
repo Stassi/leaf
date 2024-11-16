@@ -9,7 +9,6 @@ import {
   map as leafletMap,
 } from 'leaflet'
 
-import { useBoolean } from './state/use-boolean'
 import { controlAddedListener } from './control/added-listener'
 import {
   type ControlAnchor,
@@ -22,6 +21,8 @@ import {
   type FullscreenMapLifecycleEvent,
   fullscreenMapLifecycleListener,
 } from './map/map-lifecycle-listener'
+
+import { useBoolean } from '@stassi/leaf'
 
 const leafletControl = <(options: ControlOptions) => Control>(
   (<unknown>untypedLeafletControl)

@@ -1,6 +1,6 @@
-import { type UseBooleanGet } from '../../state/use-boolean'
-
 import { type ControlAnchorAssign } from './anchor'
+
+import { type UseBooleanGet } from '@stassi/leaf'
 
 export type ControlAnchorTitleStates = Record<'false' | 'true', string>
 export type UpdateControlAnchorTitleAnchorOptions = {

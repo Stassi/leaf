@@ -1,11 +1,12 @@
 import { type Map, DomEvent, DomUtil } from 'leaflet'
 
-import { type UseBoolean } from '../state/use-boolean'
 import { type ControlAnchorAssign } from '../control/anchor/anchor'
 import {
   type ControlAnchorTitleStates,
   updateControlAnchorTitle,
 } from '../control/anchor/update-title'
+
+import { type UseBoolean } from '@stassi/leaf'
 
 export type FullscreenMapLifecycleEvent = 'ready' | 'unload'
 export type FullscreenMapLifecycleListenerOptions = {
