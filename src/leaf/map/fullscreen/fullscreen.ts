@@ -9,7 +9,7 @@ import {
   map as leafletMap,
 } from 'leaflet'
 
-import { controlAddedListener } from './control/control-added-listener'
+import { controlAddedListener } from './control/added-listener'
 import { type ControlAnchorTitleStates } from './control/anchor/update-title'
 import { joinClassNames } from './dom-element/join-class-names'
 import {
