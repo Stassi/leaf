@@ -3,6 +3,8 @@ export {
   type Circle,
   type CircleMarkerOptions,
   type Content,
+  type Control,
+  type ControlPosition,
   type ErrorEvent,
   type ErrorEventHandlerFn,
   type FitBoundsOptions,
