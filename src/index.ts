@@ -1,4 +1,5 @@
 export * from './leaf/circle.js'
+export * from './leaf/control.js'
 export * from './leaf/coordinate-reference-system/epsg-3857.js'
 export * from './leaf/icon.js'
 export * from './leaf/map/map.js'
