@@ -26,7 +26,7 @@ export function control({
     ...props,
   })
 
-  created.onAdd = onAdd ? onAdd : undefined
+  if (onAdd) created.onAdd = onAdd
 
   return map ? created.addTo(map) : created
 }
