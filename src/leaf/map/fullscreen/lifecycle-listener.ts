@@ -1,4 +1,4 @@
-import { type Map, DomEvent, DomUtil } from 'leaflet'
+import { DomEvent, DomUtil } from 'leaflet'
 
 import { type ControlAnchorAssign } from './control/anchor/anchor'
 import {
@@ -6,7 +6,7 @@ import {
   updateControlAnchorTitle,
 } from './control/anchor/update-title'
 
-import { type UseSwitch } from '@stassi/leaf'
+import { type Map, type UseSwitch } from '@stassi/leaf'
 
 export type FullscreenMapLifecycleEvent = 'ready' | 'unload'
 export type FullscreenMapLifecycleListenerOptions = {
