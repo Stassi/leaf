@@ -6,6 +6,8 @@ import {
   map as leafletMap,
 } from 'leaflet'
 
+import { joinClassNames } from '../../../dom/join-class-names'
+
 import { controlAddedListener } from './control/added-listener'
 import {
   type ControlAnchor,
@@ -13,7 +15,6 @@ import {
   controlAnchor,
 } from './control/anchor/anchor'
 import { type ControlAnchorTitleStates } from './control/anchor/update-title'
-import { joinClassNames } from './dom-element/join-class-names'
 import {
   type FullscreenMapLifecycleEvent,
   fullscreenMapLifecycleListener,
