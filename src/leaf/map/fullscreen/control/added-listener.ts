@@ -6,7 +6,7 @@ import {
   updateControlAnchorTitle,
 } from './anchor/update-title'
 
-import { type UseBooleanGet } from '@stassi/leaf'
+import { type ControlOnAdd, type UseBooleanGet } from '@stassi/leaf'
 
 export type ControlAddedListenerOptions = {
   map: {
@@ -17,8 +17,6 @@ export type ControlAddedListenerOptions = {
     fullscreen: { state: { get: UseBooleanGet } }
   }
 }
-
-export type ControlAddedListener = (map: Map) => HTMLElement
 
 export function controlAddedListener({
   map: {
@@ -34,7 +32,7 @@ export function controlAddedListener({
       state: { get: getFullscreenState },
     },
   },
-}: ControlAddedListenerOptions): ControlAddedListener {
+}: ControlAddedListenerOptions): ControlOnAdd {
   return function handleControlAdded(map: Map): HTMLElement {
     updateControlAnchorTitle({
       anchor: {
