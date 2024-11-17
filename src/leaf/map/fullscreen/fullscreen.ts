@@ -19,7 +19,7 @@ import {
   fullscreenMapLifecycleListener,
 } from './map/lifecycle-listener'
 
-import { control, useBoolean } from '@stassi/leaf'
+import { control, useSwitch } from '@stassi/leaf'
 
 export type FullscreenMapOptions = MapOptions & {
   id: string
@@ -87,7 +87,7 @@ export function fullscreenMap({
   ...mapOptions
 }: FullscreenMapOptions): Map {
   const { get: getFullscreenState, toggle: toggleFullscreenState } =
-      useBoolean(false),
+      useSwitch(false),
     containerElement: HTMLElement = DomUtil.create(
       containerTag,
       joinClassNames(containerClassNames),

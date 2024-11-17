@@ -1,6 +1,6 @@
 import { type ControlAnchorAssign } from './anchor'
 
-import { type UseBooleanGet } from '@stassi/leaf'
+import { type SwitchGet } from '@stassi/leaf'
 
 export type ControlAnchorTitleStates = Record<'false' | 'true', string>
 export type UpdateControlAnchorTitleAnchorOptions = {
@@ -10,7 +10,7 @@ export type UpdateControlAnchorTitleAnchorOptions = {
 
 export type UpdateControlAnchorTitleOptions = {
   anchor: UpdateControlAnchorTitleAnchorOptions
-  fullscreen: { state: { get: UseBooleanGet } }
+  fullscreen: { state: { get: SwitchGet } }
 }
 
 export function updateControlAnchorTitle({

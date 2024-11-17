@@ -6,7 +6,7 @@ import {
   updateControlAnchorTitle,
 } from '../control/anchor/update-title'
 
-import { type UseBoolean } from '@stassi/leaf'
+import { type UseSwitch } from '@stassi/leaf'
 
 export type FullscreenMapLifecycleEvent = 'ready' | 'unload'
 export type FullscreenMapLifecycleListenerOptions = {
@@ -20,7 +20,7 @@ export type FullscreenMapLifecycleListenerOptions = {
       }
       fullscreen: {
         classNames: string
-        state: UseBoolean
+        state: UseSwitch
       }
       lifecycleEvent: FullscreenMapLifecycleEvent
       map: Map
