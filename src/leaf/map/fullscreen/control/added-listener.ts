@@ -11,7 +11,7 @@ import { type UseBooleanGet } from '@stassi/leaf'
 export type ControlAddedListenerOptions = {
   map: {
     control: {
-      anchor: UpdateControlAnchorTitleAnchorOptions & ControlAnchor
+      anchor: ControlAnchor & UpdateControlAnchorTitleAnchorOptions
       container: { element: HTMLElement }
     }
     fullscreen: { state: { get: UseBooleanGet } }
