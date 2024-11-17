@@ -18,7 +18,7 @@ import { type ControlAnchorTitleStates } from './control/anchor/update-title'
 import {
   type FullscreenMapLifecycleEvent,
   fullscreenMapLifecycleListener,
-} from './map/lifecycle-listener'
+} from './lifecycle-listener'
 
 import { control, useSwitch } from '@stassi/leaf'
 

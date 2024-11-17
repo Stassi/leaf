@@ -1,10 +1,10 @@
 import { type Map, DomEvent, DomUtil } from 'leaflet'
 
-import { type ControlAnchorAssign } from '../control/anchor/anchor'
+import { type ControlAnchorAssign } from './control/anchor/anchor'
 import {
   type ControlAnchorTitleStates,
   updateControlAnchorTitle,
-} from '../control/anchor/update-title'
+} from './control/anchor/update-title'
 
 import { type UseSwitch } from '@stassi/leaf'
 
