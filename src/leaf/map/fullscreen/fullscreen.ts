@@ -1,10 +1,7 @@
 import {
-  type Control,
-  type ControlOptions,
   type ControlPosition,
   type Map,
   type MapOptions,
-  control as untypedLeafletControl,
   DomUtil,
   map as leafletMap,
 } from 'leaflet'
@@ -22,11 +19,7 @@ import {
   fullscreenMapLifecycleListener,
 } from './map/lifecycle-listener'
 
-import { useBoolean } from '@stassi/leaf'
-
-const leafletControl = <(options: ControlOptions) => Control>(
-  (<unknown>untypedLeafletControl)
-)
+import { control, useBoolean } from '@stassi/leaf'
 
 export type FullscreenMapOptions = MapOptions & {
   id: string
@@ -63,7 +56,7 @@ export function fullscreenMap({
         titleStates: anchorTitleStates,
       },
       container: { tag: containerTag },
-      position,
+      position: controlPosition,
     },
   } = {
     classNames: {
@@ -108,7 +101,6 @@ export function fullscreenMap({
           containerElement,
         ),
       }),
-    control: Control = leafletControl({ position }),
     map: Map = leafletMap(id, mapOptions),
     handleMapLifecycleChange: (
       mapLifecycleEvents: FullscreenMapLifecycleEvent,
@@ -134,22 +126,25 @@ export function fullscreenMap({
         },
       })
 
-  control.onAdd = controlAddedListener({
-    map: {
-      control: {
-        anchor: {
-          assign: anchorAssign,
-          onClick: anchorOnClick,
-          titleStates: anchorTitleStates,
+  control({
+    map,
+    onAdd: controlAddedListener({
+      map: {
+        control: {
+          anchor: {
+            assign: anchorAssign,
+            onClick: anchorOnClick,
+            titleStates: anchorTitleStates,
+          },
+          container: { element: containerElement },
         },
-        container: { element: containerElement },
+        fullscreen: {
+          state: { get: getFullscreenState },
+        },
       },
-      fullscreen: {
-        state: { get: getFullscreenState },
-      },
-    },
+    }),
+    position: controlPosition,
   })
-  control.addTo(map)
 
   map.whenReady(handleMapLifecycleChange('ready'))
   map.on('unload', handleMapLifecycleChange('unload'))
