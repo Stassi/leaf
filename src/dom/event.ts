@@ -54,9 +54,7 @@ function domEventSwitch<Switchable extends SwitchableStates>(
     } else if ('handlers' in options) {
       const { handlers } = options
       return DomEvent[switchable](element, <EventHandlersSync>handlers, context)
-    } else if (switchable === 'off') {
-      return DomEvent.off(element)
-    }
+    } else if (switchable === 'off') return DomEvent.off(element)
 
     throw new TypeError(`Invalid DomEvent.${switchable} options.`)
   }
