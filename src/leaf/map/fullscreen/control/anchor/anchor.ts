@@ -1,4 +1,4 @@
-import { type EventHandler, domEventOn } from '../../../../../dom/event'
+import { type EventHandler, domEventOn } from '@stassi/leaf'
 
 export type ControlAnchorAttributes = Record<string, string>
 export type ControlAnchorOptions = {
