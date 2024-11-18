@@ -9,9 +9,11 @@ export type ControlAnchorOptions = {
 export type ControlAnchorAssign = (
   props: ControlAnchorAttributes,
 ) => HTMLElement
+
+type EventHandlerAsync = EventHandler<true>
 export type ControlAnchor = {
   assign: ControlAnchorAssign
-  onClick: (handler: EventHandler<true>) => void
+  onClick: (handler: EventHandlerAsync) => void
 }
 
 export function controlAnchor({
@@ -26,7 +28,7 @@ export function controlAnchor({
 
   return {
     assign,
-    onClick(handler: EventHandler<true>): void {
+    onClick(handler: EventHandlerAsync): void {
       domEventOn({ element, event: 'click', handler })
     },
   }
