@@ -1,4 +1,4 @@
-import { DomEvent } from 'leaflet'
+import { type EventHandler, domEventOn } from '../../../../../dom/event'
 
 export type ControlAnchorAttributes = Record<string, string>
 export type ControlAnchorOptions = {
@@ -6,25 +6,13 @@ export type ControlAnchorOptions = {
   element: HTMLElement
 }
 
-type ControlAnchorOnClickHandler = (event: Event) => Promise<void>
-export type ControlAnchorOnClick = (
-  handler: ControlAnchorOnClickHandler,
-) => void
 export type ControlAnchorAssign = (
   props: ControlAnchorAttributes,
 ) => HTMLElement
 export type ControlAnchor = {
   assign: ControlAnchorAssign
-  onClick: ControlAnchorOnClick
+  onClick: (handler: EventHandler<true>) => void
 }
-
-const domEventOn = <
-  (
-    el: HTMLElement,
-    types: string,
-    fn: ControlAnchorOnClickHandler,
-  ) => typeof DomEvent
->DomEvent.on
 
 export function controlAnchor({
   attributes,
@@ -38,8 +26,8 @@ export function controlAnchor({
 
   return {
     assign,
-    onClick(handler: ControlAnchorOnClickHandler): void {
-      domEventOn(element, 'click', handler)
+    onClick(handler: EventHandler<true>): void {
+      domEventOn({ element, event: 'click', handler })
     },
   }
 }
