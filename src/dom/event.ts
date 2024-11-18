@@ -43,7 +43,7 @@ function domEventSwitch<Switchable extends SwitchableStates>(
   ): LeafletDomEvent {
     const { element, context } = options
 
-    if ('handler' in options && 'event' in options) {
+    if ('event' in options && 'handler' in options) {
       const { handler, event } = options
       return DomEvent[switchable](
         element,
