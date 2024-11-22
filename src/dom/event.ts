@@ -9,7 +9,7 @@ type EventHandlersSync = Record<string, EventHandlerSync>
 type EventHandlersAsync = Record<string, EventHandlerAsync>
 
 type DomEventSwitchOptionsBase = {
-  element: HTMLElement
+  element: Document | HTMLElement
 } & Partial<{
   context: unknown
 }>
@@ -41,7 +41,9 @@ function domEventSwitch<Switchable extends SwitchableStates>(
   return function eventSwitch(
     options: DomEventSwitchOptions<Switchable>,
   ): LeafletDomEvent {
-    const { element, context } = options
+    const { element, context } = <
+      DomEventSwitchOptions<Switchable> & { element: HTMLElement }
+    >options
 
     if ('event' in options && 'handler' in options) {
       const { handler, event } = options
