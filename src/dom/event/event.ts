@@ -14,14 +14,17 @@ type DomEventSwitchOptionsBase = {
   context: unknown
 }>
 
-export type DomEventSwitchOptionsUsesHandler =
-  | (DomEventSwitchOptionsBase & {
-      event: string
-      handler: EventHandlerAsync
-    })
-  | (DomEventSwitchOptionsBase & {
-      handlers: EventHandlersAsync
-    })
+type DomEventSwitchOptionsHandlerSingle = {
+  event: string
+  handler: EventHandlerAsync
+}
+
+type DomEventSwitchOptionsHandlerMultiple = {
+  handlers: EventHandlersAsync
+}
+
+export type DomEventSwitchOptionsUsesHandler = DomEventSwitchOptionsBase &
+  (DomEventSwitchOptionsHandlerSingle | DomEventSwitchOptionsHandlerMultiple)
 
 type SwitchableStates = 'on' | 'off'
 export type DomEventSwitchOptions<Switchable extends SwitchableStates> =
@@ -46,7 +49,7 @@ function domEventSwitch<Switchable extends SwitchableStates>(
     >options
 
     if ('event' in options && 'handler' in options) {
-      const { handler, event } = options
+      const { handler, event }: DomEventSwitchOptionsHandlerSingle = options
       return DomEvent[switchable](
         element,
         event,
@@ -54,7 +57,7 @@ function domEventSwitch<Switchable extends SwitchableStates>(
         context,
       )
     } else if ('handlers' in options) {
-      const { handlers } = options
+      const { handlers }: DomEventSwitchOptionsHandlerMultiple = options
       return DomEvent[switchable](element, <EventHandlersSync>handlers, context)
     } else if (switchable === 'off') return DomEvent.off(element)
 
