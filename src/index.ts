@@ -1,4 +1,4 @@
-export * from './dom/event'
+export * from './dom/event/event'
 export * from './leaf/circle.js'
 export * from './leaf/control.js'
 export * from './leaf/coordinate-reference-system/epsg-3857.js'
