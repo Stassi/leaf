@@ -9,8 +9,10 @@ export type UpdateControlAnchorTitleAnchorOptions = {
 }
 
 export type UpdateControlAnchorTitleOptions = {
-  anchor: UpdateControlAnchorTitleAnchorOptions
-  fullscreen: { state: { get: SwitchGet } }
+  map: {
+    control: { anchor: UpdateControlAnchorTitleAnchorOptions }
+    fullscreen: { state: { get: SwitchGet } }
+  }
 }
 
 export function updateControlAnchorTitle({
