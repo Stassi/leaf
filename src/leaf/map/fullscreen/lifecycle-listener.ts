@@ -1,4 +1,4 @@
-import { DomEvent, DomUtil } from 'leaflet'
+import { DomUtil } from 'leaflet'
 
 import { type ControlAnchorAssign } from './control/anchor/anchor'
 import {
@@ -6,7 +6,7 @@ import {
   updateControlAnchorTitle,
 } from './control/anchor/update-title'
 
-import { type Map, type UseSwitch } from '@stassi/leaf'
+import { type Map, type UseSwitch, domEventOff, domEventOn } from '@stassi/leaf'
 
 export type FullscreenMapLifecycleEvent = 'ready' | 'unload'
 export type FullscreenMapLifecycleListenerOptions = {
@@ -42,11 +42,10 @@ export function fullscreenMapLifecycleListener({
   },
 }: FullscreenMapLifecycleListenerOptions): FullscreenMapLifecycleListener {
   return function handleFullscreenMapLifecycleEvent(): void {
-    DomEvent[mapLifecycleEvent === 'ready' ? 'on' : 'off'](
-      // @ts-expect-error -- `Document` type is assignable to first DomEvent.on argument
-      document,
-      'fullscreenchange',
-      function handleFullscreenMapChange(): void {
+    ;(mapLifecycleEvent === 'ready' ? domEventOn : domEventOff)({
+      element: document,
+      event: 'fullscreenchange',
+      handler: function handleFullscreenMapChange(): void {
         ;(getFullscreenState() ? DomUtil.removeClass : DomUtil.addClass)(
           map.getContainer(),
           fullscreenMapClassNames,
@@ -63,6 +62,6 @@ export function fullscreenMapLifecycleListener({
           },
         })
       },
-    )
+    })
   }
 }
