@@ -2,11 +2,11 @@ import {
   type ControlPosition,
   type Map,
   type MapOptions,
-  DomUtil,
   map as leafletMap,
 } from 'leaflet'
 
 import { joinClassNames } from '../../../dom/join-class-names'
+import { domElement } from '../../../dom/element'
 
 import { controlAddedListener } from './control/added-listener'
 import {
@@ -89,18 +89,18 @@ export function fullscreenMap({
 }: FullscreenMapOptions): Map {
   const { get: getFullscreenState, toggle: toggleFullscreenState } =
       useSwitch(false),
-    containerElement: HTMLElement = DomUtil.create(
-      containerTag,
-      joinClassNames(containerClassNames),
-    ),
+    containerElement: HTMLElement = domElement({
+      className: joinClassNames(containerClassNames),
+      tag: containerTag,
+    }),
     { assign: anchorAssign, onClick: anchorOnClick }: ControlAnchor =
       controlAnchor({
         attributes: anchorAttributes,
-        element: DomUtil.create(
-          anchorTag,
-          joinClassNames(anchorClassNames),
-          containerElement,
-        ),
+        element: domElement({
+          className: joinClassNames(anchorClassNames),
+          container: containerElement,
+          tag: anchorTag,
+        }),
       }),
     map: Map = leafletMap(id, mapOptions),
     handleMapLifecycleChange: (
