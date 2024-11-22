@@ -10,39 +10,35 @@ import { type Map, type UseSwitch } from '@stassi/leaf'
 
 export type FullscreenMapLifecycleEvent = 'ready' | 'unload'
 export type FullscreenMapLifecycleListenerOptions = {
-  document: {
-    map: {
-      control: {
-        anchor: {
-          assign: ControlAnchorAssign
-          titleStates: ControlAnchorTitleStates
-        }
+  map: {
+    control: {
+      anchor: {
+        assign: ControlAnchorAssign
+        titleStates: ControlAnchorTitleStates
       }
-      fullscreen: {
-        classNames: string
-        state: UseSwitch
-      }
-      lifecycleEvent: FullscreenMapLifecycleEvent
-      map: Map
     }
+    fullscreen: {
+      classNames: string
+      state: UseSwitch
+    }
+    lifecycleEvent: FullscreenMapLifecycleEvent
+    map: Map
   }
 }
 
 export type FullscreenMapLifecycleListener = () => void
 
 export function fullscreenMapLifecycleListener({
-  document: {
-    map: {
-      control: {
-        anchor: { assign: anchorAssign, titleStates: anchorTitleStates },
-      },
-      fullscreen: {
-        classNames: fullscreenMapClassNames,
-        state: { get: getFullscreenState, toggle: toggleFullscreenState },
-      },
-      lifecycleEvent: mapLifecycleEvent,
-      map,
+  map: {
+    control: {
+      anchor: { assign: anchorAssign, titleStates: anchorTitleStates },
     },
+    fullscreen: {
+      classNames: fullscreenMapClassNames,
+      state: { get: getFullscreenState, toggle: toggleFullscreenState },
+    },
+    lifecycleEvent: mapLifecycleEvent,
+    map,
   },
 }: FullscreenMapLifecycleListenerOptions): FullscreenMapLifecycleListener {
   return function handleFullscreenMapLifecycleEvent(): void {

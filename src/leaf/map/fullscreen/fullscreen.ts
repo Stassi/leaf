@@ -109,21 +109,19 @@ export function fullscreenMap({
       mapLifecycleEvent: FullscreenMapLifecycleEvent,
     ): (() => void) =>
       fullscreenMapLifecycleListener({
-        document: {
-          map: {
-            control: {
-              anchor: {
-                assign: anchorAssign,
-                titleStates: anchorTitleStates,
-              },
+        map: {
+          control: {
+            anchor: {
+              assign: anchorAssign,
+              titleStates: anchorTitleStates,
             },
-            fullscreen: {
-              classNames: fullscreenMapClassNames,
-              state: { get: getFullscreenState, toggle: toggleFullscreenState },
-            },
-            lifecycleEvent: mapLifecycleEvent,
-            map,
           },
+          fullscreen: {
+            classNames: fullscreenMapClassNames,
+            state: { get: getFullscreenState, toggle: toggleFullscreenState },
+          },
+          lifecycleEvent: mapLifecycleEvent,
+          map,
         },
       })
 
