@@ -35,12 +35,16 @@ export function controlAddedListener({
 }: ControlAddedListenerOptions): ControlOnAdd {
   return function handleControlAdded(map: Map): HTMLElement {
     updateControlAnchorTitle({
-      anchor: {
-        assign: anchorAssign,
-        titleStates: anchorTitleStates,
-      },
-      fullscreen: {
-        state: { get: getFullscreenState },
+      map: {
+        control: {
+          anchor: {
+            assign: anchorAssign,
+            titleStates: anchorTitleStates,
+          },
+        },
+        fullscreen: {
+          state: { get: getFullscreenState },
+        },
       },
     })
 

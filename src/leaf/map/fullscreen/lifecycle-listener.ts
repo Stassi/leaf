@@ -59,8 +59,12 @@ export function fullscreenMapLifecycleListener({
         map.invalidateSize()
         toggleFullscreenState()
         updateControlAnchorTitle({
-          anchor: { assign: anchorAssign, titleStates: anchorTitleStates },
-          fullscreen: { state: { get: getFullscreenState } },
+          map: {
+            control: {
+              anchor: { assign: anchorAssign, titleStates: anchorTitleStates },
+            },
+            fullscreen: { state: { get: getFullscreenState } },
+          },
         })
       },
     )

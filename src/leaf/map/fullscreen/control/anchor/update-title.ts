@@ -16,9 +16,13 @@ export type UpdateControlAnchorTitleOptions = {
 }
 
 export function updateControlAnchorTitle({
-  anchor: { assign: anchorAssign, titleStates: anchorTitleStates },
-  fullscreen: {
-    state: { get: getFullscreenState },
+  map: {
+    control: {
+      anchor: { assign: anchorAssign, titleStates: anchorTitleStates },
+    },
+    fullscreen: {
+      state: { get: getFullscreenState },
+    },
   },
 }: UpdateControlAnchorTitleOptions): HTMLElement {
   return anchorAssign({
