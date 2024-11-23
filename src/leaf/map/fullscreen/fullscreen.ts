@@ -74,8 +74,8 @@ export function fullscreenMap({
         attributes: { href: '#' },
         tag: 'a',
         titleStates: {
-          false: 'View Fullscreen',
-          true: 'Exit Fullscreen',
+          false: 'View fullscreen',
+          true: 'Exit fullscreen',
         },
       },
       container: {
