@@ -22,56 +22,45 @@ import {
 
 import { control, useSwitch } from '@stassi/leaf'
 
+type FullscreenMapDomElement = {
+  classNames: string[]
+  tag: string
+}
+
 export type FullscreenMapOptions = MapOptions & {
   id: string
 } & Partial<{
     fullscreenOptions: {
-      classNames: Record<'anchor' | 'container', string[]> & {
-        fullscreenMap: string
-      }
       control: {
-        anchor: {
+        anchor: FullscreenMapDomElement & {
           attributes: ControlAnchorAttributes
-          tag: string
           titleStates: ControlAnchorTitleStates
         }
-        container: {
-          tag: string
-        }
+        container: FullscreenMapDomElement
         position: ControlPosition
       }
+      fullscreen: Omit<FullscreenMapDomElement, 'tag'>
     }
   }>
 
 export function fullscreenMap({
   fullscreenOptions: {
-    classNames: {
-      anchor: anchorClassNames,
-      container: containerClassNames,
-      fullscreenMap: fullscreenMapClassNames,
-    },
     control: {
       anchor: {
         attributes: anchorAttributes,
+        classNames: anchorClassNames,
         tag: anchorTag,
         titleStates: anchorTitleStates,
       },
-      container: { tag: containerTag },
+      container: { classNames: containerClassNames, tag: containerTag },
       position: controlPosition,
     },
+    fullscreen: { classNames: fullscreenMapClassNames },
   } = {
-    classNames: {
-      anchor: ['leaflet-bar-part', 'leaflet-control-fullscreen-button'],
-      container: [
-        'leaflet-bar',
-        'leaflet-control',
-        'leaflet-control-fullscreen',
-      ],
-      fullscreenMap: 'leaflet-fullscreen-on',
-    },
     control: {
       anchor: {
         attributes: { href: '#' },
+        classNames: ['leaflet-bar-part', 'leaflet-control-fullscreen-button'],
         tag: 'a',
         titleStates: {
           false: 'View fullscreen',
@@ -79,9 +68,17 @@ export function fullscreenMap({
         },
       },
       container: {
+        classNames: [
+          'leaflet-bar',
+          'leaflet-control',
+          'leaflet-control-fullscreen',
+        ],
         tag: 'div',
       },
       position: 'topleft',
+    },
+    fullscreen: {
+      classNames: ['leaflet-fullscreen-on'],
     },
   },
   id,
@@ -117,7 +114,7 @@ export function fullscreenMap({
             },
           },
           fullscreen: {
-            classNames: fullscreenMapClassNames,
+            className: joinClassNames(fullscreenMapClassNames),
             state: { get: getFullscreenState, toggle: toggleFullscreenState },
           },
           lifecycleEvent: mapLifecycleEvent,
