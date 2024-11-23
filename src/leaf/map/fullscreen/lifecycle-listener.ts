@@ -18,7 +18,7 @@ export type FullscreenMapLifecycleListenerOptions = {
       }
     }
     fullscreen: {
-      classNames: string
+      className: string
       state: UseSwitch
     }
     lifecycleEvent: FullscreenMapLifecycleEvent
@@ -34,7 +34,7 @@ export function fullscreenMapLifecycleListener({
       anchor: { assign: anchorAssign, titleStates: anchorTitleStates },
     },
     fullscreen: {
-      classNames: fullscreenMapClassNames,
+      className: fullscreenMapClassName,
       state: { get: getFullscreenState, toggle: toggleFullscreenState },
     },
     lifecycleEvent: mapLifecycleEvent,
@@ -48,7 +48,7 @@ export function fullscreenMapLifecycleListener({
       handler: function handleFullscreenMapChange(): void {
         ;(getFullscreenState() ? DomUtil.removeClass : DomUtil.addClass)(
           map.getContainer(),
-          fullscreenMapClassNames,
+          fullscreenMapClassName,
         )
 
         map.invalidateSize()
