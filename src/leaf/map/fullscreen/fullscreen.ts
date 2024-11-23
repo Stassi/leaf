@@ -5,8 +5,8 @@ import {
   map as leafletMap,
 } from 'leaflet'
 
-import { joinClassNames } from '../../../dom/join-class-names'
 import { domElement } from '../../../dom/element'
+import { joinClassNames } from '../../../dom/join-class-names'
 
 import { controlAddedListener } from './control/added-listener'
 import {
