@@ -31,7 +31,7 @@ function expectFullscreen({
         'a.leaflet-control-fullscreen-button',
         (element: Element): string | null => element.getAttribute('title'),
       ),
-    ).toBe(active ? 'Exit Fullscreen' : 'View Fullscreen')
+    ).toBe(active ? 'Exit fullscreen' : 'View fullscreen')
   }
 }
 
