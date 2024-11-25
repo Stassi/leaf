@@ -11,9 +11,10 @@ export type ControlAnchorAssign = (
 ) => HTMLElement
 
 type EventHandlerAsync = EventHandler<true>
+export type ControlAnchorOnClick = (handler: EventHandlerAsync) => void
 export type ControlAnchor = {
   assign: ControlAnchorAssign
-  onClick: (handler: EventHandlerAsync) => void
+  onClick: ControlAnchorOnClick
 }
 
 export function controlAnchor({

@@ -1,10 +1,6 @@
 import { DomUtil } from 'leaflet'
 
-import { type ControlAnchorAssign } from './control/anchor/anchor'
-import {
-  type ControlAnchorTitleStates,
-  updateControlAnchorTitle,
-} from './control/anchor/update-title'
+import { type RefreshableControlAnchorTitle } from './control/anchor/refreshable-title'
 
 import {
   type Map,
@@ -19,8 +15,7 @@ export type FullscreenMapLifecycleListenerOptions = {
   map: {
     control: {
       anchor: {
-        assign: ControlAnchorAssign
-        titleStates: ControlAnchorTitleStates
+        refreshTitle: RefreshableControlAnchorTitle
       }
     }
     fullscreen: {
@@ -38,7 +33,7 @@ export type FullscreenMapLifecycleListener = () => void
 export function fullscreenMapLifecycleListener({
   map: {
     control: {
-      anchor: { assign: anchorAssign, titleStates: anchorTitleStates },
+      anchor: { refreshTitle: refreshControlAnchorTitle },
     },
     fullscreen: {
       className: fullscreenMapClassName,
@@ -61,14 +56,7 @@ export function fullscreenMapLifecycleListener({
 
         map.invalidateSize()
         toggleFullscreenMap()
-        updateControlAnchorTitle({
-          map: {
-            control: {
-              anchor: { assign: anchorAssign, titleStates: anchorTitleStates },
-            },
-            fullscreen: { enabled: fullscreenMapEnabled },
-          },
-        })
+        refreshControlAnchorTitle()
       },
     })
   }

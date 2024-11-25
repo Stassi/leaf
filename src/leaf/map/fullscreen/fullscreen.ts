@@ -14,7 +14,11 @@ import {
   type ControlAnchorAttributes,
   controlAnchor,
 } from './control/anchor/anchor'
-import { type ControlAnchorTitleStates } from './control/anchor/update-title'
+import {
+  type ControlAnchorTitleStates,
+  type RefreshableControlAnchorTitle,
+  refreshableControlAnchorTitle,
+} from './control/anchor/refreshable-title'
 import {
   type FullscreenMapLifecycleEvent,
   fullscreenMapLifecycleListener,
@@ -100,6 +104,20 @@ export function fullscreenMap({
         }),
       }),
     map: Map = leafletMap(id, mapOptions),
+    refreshControlAnchorTitle: RefreshableControlAnchorTitle =
+      refreshableControlAnchorTitle({
+        map: {
+          control: {
+            anchor: {
+              assign: anchorAssign,
+              titleStates: anchorTitleStates,
+            },
+          },
+          fullscreen: {
+            enabled: fullscreenMapEnabled,
+          },
+        },
+      }),
     handleMapLifecycleChange: (
       mapLifecycleEvent: FullscreenMapLifecycleEvent,
     ) => () => void = (
@@ -109,8 +127,7 @@ export function fullscreenMap({
         map: {
           control: {
             anchor: {
-              assign: anchorAssign,
-              titleStates: anchorTitleStates,
+              refreshTitle: refreshControlAnchorTitle,
             },
           },
           fullscreen: {
@@ -129,9 +146,8 @@ export function fullscreenMap({
       map: {
         control: {
           anchor: {
-            assign: anchorAssign,
             onClick: anchorOnClick,
-            titleStates: anchorTitleStates,
+            refreshTitle: refreshControlAnchorTitle,
           },
           container: { element: containerElement },
         },
