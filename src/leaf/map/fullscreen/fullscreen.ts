@@ -101,7 +101,7 @@ export function fullscreenMap({
       }),
     map: Map = leafletMap(id, mapOptions),
     handleMapLifecycleChange: (
-      mapLifecycleEvents: FullscreenMapLifecycleEvent,
+      mapLifecycleEvent: FullscreenMapLifecycleEvent,
     ) => () => void = (
       mapLifecycleEvent: FullscreenMapLifecycleEvent,
     ): (() => void) =>
