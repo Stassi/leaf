@@ -3,7 +3,11 @@ import { DomEvent, type Map } from 'leaflet'
 import { type ControlAnchorOnClick } from './anchor/anchor'
 import { type RefreshableControlAnchorTitle } from './anchor/refreshable-title'
 
-import { type ControlOnAdd, type ToggleableState } from '@stassi/leaf'
+import {
+  type ControlOnAdd,
+  type ToggleableState,
+  stopEventPropagation,
+} from '@stassi/leaf'
 
 export type ControlAddedListenerOptions = {
   map: {
@@ -36,7 +40,7 @@ export function controlAddedListener({
     anchorOnClick(async function handleAnchorClick(
       event: Event,
     ): Promise<void> {
-      DomEvent.stopPropagation(event)
+      stopEventPropagation(event)
       DomEvent.preventDefault(event)
 
       await (fullscreenMapEnabled()
