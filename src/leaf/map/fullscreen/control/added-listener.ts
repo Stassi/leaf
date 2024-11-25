@@ -1,4 +1,4 @@
-import { DomEvent, type Map } from 'leaflet'
+import { type Map } from 'leaflet'
 
 import { type ControlAnchorOnClick } from './anchor/anchor'
 import { type RefreshableControlAnchorTitle } from './anchor/refreshable-title'
@@ -6,6 +6,7 @@ import { type RefreshableControlAnchorTitle } from './anchor/refreshable-title'
 import {
   type ControlOnAdd,
   type ToggleableState,
+  preventEventDefault,
   stopEventPropagation,
 } from '@stassi/leaf'
 
@@ -41,7 +42,7 @@ export function controlAddedListener({
       event: Event,
     ): Promise<void> {
       stopEventPropagation(event)
-      DomEvent.preventDefault(event)
+      preventEventDefault(event)
 
       await (fullscreenMapEnabled()
         ? document.exitFullscreen()
