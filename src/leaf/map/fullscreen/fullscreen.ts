@@ -20,7 +20,7 @@ import {
   fullscreenMapLifecycleListener,
 } from './lifecycle-listener'
 
-import { control, useSwitch } from '@stassi/leaf'
+import { control, useToggle } from '@stassi/leaf'
 
 type FullscreenMapDomElement = {
   classNames: string[]
@@ -84,8 +84,8 @@ export function fullscreenMap({
   id,
   ...mapOptions
 }: FullscreenMapOptions): Map {
-  const { get: getFullscreenState, toggle: toggleFullscreenState } =
-      useSwitch(false),
+  const { state: getFullscreenState, toggle: toggleFullscreenState } =
+      useToggle(false),
     containerElement: HTMLElement = domElement({
       className: joinClassNames(containerClassNames),
       tag: containerTag,
@@ -115,7 +115,7 @@ export function fullscreenMap({
           },
           fullscreen: {
             className: joinClassNames(fullscreenMapClassNames),
-            state: { get: getFullscreenState, toggle: toggleFullscreenState },
+            state: { state: getFullscreenState, toggle: toggleFullscreenState },
           },
           lifecycleEvent: mapLifecycleEvent,
           map,

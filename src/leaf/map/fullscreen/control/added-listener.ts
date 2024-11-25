@@ -6,7 +6,7 @@ import {
   updateControlAnchorTitle,
 } from './anchor/update-title'
 
-import { type ControlOnAdd, type SwitchGet } from '@stassi/leaf'
+import { type ControlOnAdd, type ToggleableState } from '@stassi/leaf'
 
 export type ControlAddedListenerOptions = {
   map: {
@@ -14,7 +14,7 @@ export type ControlAddedListenerOptions = {
       anchor: ControlAnchor & UpdateControlAnchorTitleAnchorOptions
       container: { element: HTMLElement }
     }
-    fullscreen: { state: { get: SwitchGet } }
+    fullscreen: { state: { get: ToggleableState } }
   }
 }
 

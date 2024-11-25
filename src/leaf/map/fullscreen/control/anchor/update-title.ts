@@ -1,6 +1,6 @@
 import { type ControlAnchorAssign } from './anchor'
 
-import { type SwitchGet } from '@stassi/leaf'
+import { type ToggleableState } from '@stassi/leaf'
 
 export type ControlAnchorTitleStates = Record<'false' | 'true', string>
 export type UpdateControlAnchorTitleAnchorOptions = {
@@ -11,7 +11,7 @@ export type UpdateControlAnchorTitleAnchorOptions = {
 export type UpdateControlAnchorTitleOptions = {
   map: {
     control: { anchor: UpdateControlAnchorTitleAnchorOptions }
-    fullscreen: { state: { get: SwitchGet } }
+    fullscreen: { state: { get: ToggleableState } }
   }
 }
 

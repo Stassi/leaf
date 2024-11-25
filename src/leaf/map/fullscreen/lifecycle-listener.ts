@@ -6,7 +6,12 @@ import {
   updateControlAnchorTitle,
 } from './control/anchor/update-title'
 
-import { type Map, type UseSwitch, domEventOff, domEventOn } from '@stassi/leaf'
+import {
+  type Map,
+  type Toggleable,
+  domEventOff,
+  domEventOn,
+} from '@stassi/leaf'
 
 export type FullscreenMapLifecycleEvent = 'ready' | 'unload'
 export type FullscreenMapLifecycleListenerOptions = {
@@ -19,7 +24,7 @@ export type FullscreenMapLifecycleListenerOptions = {
     }
     fullscreen: {
       className: string
-      state: UseSwitch
+      state: Toggleable
     }
     lifecycleEvent: FullscreenMapLifecycleEvent
     map: Map
@@ -35,7 +40,7 @@ export function fullscreenMapLifecycleListener({
     },
     fullscreen: {
       className: fullscreenMapClassName,
-      state: { get: getFullscreenState, toggle: toggleFullscreenState },
+      state: { state: getFullscreenState, toggle: toggleFullscreenState },
     },
     lifecycleEvent: mapLifecycleEvent,
     map,
