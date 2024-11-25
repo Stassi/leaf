@@ -1,10 +1,9 @@
-import { type Map } from 'leaflet'
-
 import { type ControlAnchorOnClick } from './anchor/anchor'
 import { type RefreshableControlAnchorTitle } from './anchor/refreshable-title'
 
 import {
   type ControlOnAdd,
+  type Map,
   type ToggleableState,
   preventEventDefault,
   stopEventPropagation,
