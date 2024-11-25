@@ -2,7 +2,8 @@ import { type ControlAnchorAssign } from './anchor'
 
 import { type ToggleableState } from '@stassi/leaf'
 
-export type ControlAnchorTitleStates = Record<'false' | 'true', string>
+type StringifyBoolean<T extends boolean> = `${T}`
+export type ControlAnchorTitleStates = Record<StringifyBoolean<boolean>, string>
 export type UpdateControlAnchorTitleAnchorOptions = {
   assign: ControlAnchorAssign
   titleStates: ControlAnchorTitleStates
