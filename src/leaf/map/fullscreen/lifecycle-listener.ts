@@ -8,7 +8,8 @@ import {
 
 import {
   type Map,
-  type Toggleable,
+  type ToggleableState,
+  type ToggleableToggle,
   domEventOff,
   domEventOn,
 } from '@stassi/leaf'
@@ -24,7 +25,8 @@ export type FullscreenMapLifecycleListenerOptions = {
     }
     fullscreen: {
       className: string
-      state: Toggleable
+      enabled: ToggleableState
+      toggle: ToggleableToggle
     }
     lifecycleEvent: FullscreenMapLifecycleEvent
     map: Map
@@ -40,7 +42,8 @@ export function fullscreenMapLifecycleListener({
     },
     fullscreen: {
       className: fullscreenMapClassName,
-      state: { state: getFullscreenState, toggle: toggleFullscreenState },
+      enabled: fullscreenMapEnabled,
+      toggle: toggleFullscreenMap,
     },
     lifecycleEvent: mapLifecycleEvent,
     map,
@@ -51,19 +54,19 @@ export function fullscreenMapLifecycleListener({
       element: document,
       event: 'fullscreenchange',
       handler: function handleFullscreenMapChange(): void {
-        ;(getFullscreenState() ? DomUtil.removeClass : DomUtil.addClass)(
+        ;(fullscreenMapEnabled() ? DomUtil.removeClass : DomUtil.addClass)(
           map.getContainer(),
           fullscreenMapClassName,
         )
 
         map.invalidateSize()
-        toggleFullscreenState()
+        toggleFullscreenMap()
         updateControlAnchorTitle({
           map: {
             control: {
               anchor: { assign: anchorAssign, titleStates: anchorTitleStates },
             },
-            fullscreen: { state: { get: getFullscreenState } },
+            fullscreen: { enabled: fullscreenMapEnabled },
           },
         })
       },

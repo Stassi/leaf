@@ -84,7 +84,7 @@ export function fullscreenMap({
   id,
   ...mapOptions
 }: FullscreenMapOptions): Map {
-  const { state: getFullscreenState, toggle: toggleFullscreenState } =
+  const { state: fullscreenMapEnabled, toggle: toggleFullscreen } =
       useToggle(false),
     containerElement: HTMLElement = domElement({
       className: joinClassNames(containerClassNames),
@@ -115,7 +115,8 @@ export function fullscreenMap({
           },
           fullscreen: {
             className: joinClassNames(fullscreenMapClassNames),
-            state: { state: getFullscreenState, toggle: toggleFullscreenState },
+            enabled: fullscreenMapEnabled,
+            toggle: toggleFullscreen,
           },
           lifecycleEvent: mapLifecycleEvent,
           map,
@@ -135,7 +136,7 @@ export function fullscreenMap({
           container: { element: containerElement },
         },
         fullscreen: {
-          state: { get: getFullscreenState },
+          enabled: fullscreenMapEnabled,
         },
       },
     }),

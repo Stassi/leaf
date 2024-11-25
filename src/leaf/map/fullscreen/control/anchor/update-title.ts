@@ -11,7 +11,9 @@ export type UpdateControlAnchorTitleAnchorOptions = {
 export type UpdateControlAnchorTitleOptions = {
   map: {
     control: { anchor: UpdateControlAnchorTitleAnchorOptions }
-    fullscreen: { state: { get: ToggleableState } }
+    fullscreen: {
+      enabled: ToggleableState
+    }
   }
 }
 
@@ -20,15 +22,13 @@ export function updateControlAnchorTitle({
     control: {
       anchor: { assign: anchorAssign, titleStates: anchorTitleStates },
     },
-    fullscreen: {
-      state: { get: getFullscreenState },
-    },
+    fullscreen: { enabled: fullscreenMapEnabled },
   },
 }: UpdateControlAnchorTitleOptions): HTMLElement {
   return anchorAssign({
     title:
       anchorTitleStates[
-        <keyof ControlAnchorTitleStates>getFullscreenState().toString()
+        <keyof ControlAnchorTitleStates>fullscreenMapEnabled().toString()
       ],
   })
 }

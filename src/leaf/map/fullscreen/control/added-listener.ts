@@ -14,7 +14,7 @@ export type ControlAddedListenerOptions = {
       anchor: ControlAnchor & UpdateControlAnchorTitleAnchorOptions
       container: { element: HTMLElement }
     }
-    fullscreen: { state: { get: ToggleableState } }
+    fullscreen: { enabled: ToggleableState }
   }
 }
 
@@ -28,9 +28,7 @@ export function controlAddedListener({
       },
       container: { element: containerElement },
     },
-    fullscreen: {
-      state: { get: getFullscreenState },
-    },
+    fullscreen: { enabled: fullscreenMapEnabled },
   },
 }: ControlAddedListenerOptions): ControlOnAdd {
   return function handleControlAdded(map: Map): HTMLElement {
@@ -43,7 +41,7 @@ export function controlAddedListener({
           },
         },
         fullscreen: {
-          state: { get: getFullscreenState },
+          enabled: fullscreenMapEnabled,
         },
       },
     })
@@ -54,7 +52,7 @@ export function controlAddedListener({
       DomEvent.stopPropagation(event)
       DomEvent.preventDefault(event)
 
-      await (getFullscreenState()
+      await (fullscreenMapEnabled()
         ? document.exitFullscreen()
         : map.getContainer().requestFullscreen())
     })
